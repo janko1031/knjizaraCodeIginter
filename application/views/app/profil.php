@@ -12,10 +12,11 @@
         </div>
         <div>
             <h4>Email:</h4><p><?php echo "$user->email"?></p>
+            
         </div>
         <div>
             <h4>Broj knjiga:</h4><p><?php echo "$broj"?></p>
-            
+
         </div>
        
    
