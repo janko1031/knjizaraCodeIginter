@@ -47,24 +47,24 @@ class User extends  User_Secure_Controller
 
       ));
 }   
-function profil()
-{
+      function profil()
+      {
 
     $this->load->view('template', array(
        "folder" => "app",
 
        "page" => "profil",
        'user' => $this->user,
-       "username" => $this->ion_auth->user()->row()->username,
-       "title" => "Profil korisnika: ".$this->ion_auth->user()->row()->username,
+       "username" => $this->user->row()->username,
+       "title" => "Profil korisnika: ".$this->user->row()->username,
        "broj" => $this->broj,                
 
        ));
-}   
-function prikaziKatalog()
-{
-   $this->load->model('knjiga_model');
-   $this->load->view('template', array(
+      }   
+     function prikaziKatalog()
+    {
+       $this->load->model('knjiga_model');
+       $this->load->view('template', array(
        "folder" => "app",
 
        "page" => "katalog",
@@ -76,7 +76,12 @@ function prikaziKatalog()
 
 
        ));
-}   
-
-}
+      }   
+      function ubaciUKorpu()
+    {
+       $this->load->model('user_model');
+       $this->user_model->dodajUKorpu($this->user->id);
+       redirect('app/katalog', 'refresh');
+      }   
+    }
 ?>

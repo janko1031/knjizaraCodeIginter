@@ -18,7 +18,7 @@
                 <hr>
                <div class="pull-left"><b>Izdavac: </b> <?php echo $knjiga->izdavac?>  </div>
               <div class="pull-right"><?php echo $knjiga->godina_izdanja?></div> 
-      
+              
              
                 
                <div class="pull-left"><b>Br. strana: </b><?php echo $knjiga->brStrana?></div> 
@@ -35,7 +35,12 @@
              <hr>
     <div class="col-md-2"> </div>  
     <div class="col-md-3"> 
-    <a class="btn btn-success" href="#"><i class="glyphicon glyphicon-shopping-cart"></i> Dodaj u korpu</a></div>  
+       <?php echo form_open("user/ubaciUKorpu",'class="bs-example form-horizontal"');?>
+       <input type="hidden" name="id_knjige" value="<?php echo $knjiga->id_knjige?>">
+     <a href="<?php echo site_url('auth/show_register'); ?>" type="submit"><button class="btn btn-success">
+     <i class="glyphicon glyphicon-shopping-cart"></i> Dodaj u korpu</button></a>
+      <?php echo form_close();?>
+    </div>  
       
    
       
