@@ -61,6 +61,26 @@ class User_model extends CI_Model
 
 
     }
+    function izbaciIzKorpe($user_id)
+    {
+        $this->load->library('form_validation');
+        $knjiga = $this->input->post('id_knjige');
+        $data = array(
+          'user_id' => $user_id ,
+         'knjiga_id' => $knjiga ,
+         
+         );
+        $this->db->where($data);
+        $this->db->limit(1);
+        $this->db->delete('korpa'); 
+        
+           
+         
+         redirect('user/prikaziKorpu', 'refresh');
+        
+
+
+    }
 
 
 

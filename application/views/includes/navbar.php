@@ -17,7 +17,7 @@
        
               <ul class="dropdown-menu">
           
-           <li><a href="<?php echo site_url('user/korpa'); ?>">Proizvoda u korpi: <i class="glyphicon glyphicon-shopping-cart "></i>  <span class="badge"><?php echo $broj ?></span></a></li>
+           <li><a href="<?php echo site_url('user/prikaziKorpu'); ?>">Proizvoda u korpi: <i class="glyphicon glyphicon-shopping-cart "></i>  <span class="badge"><?php echo $broj ?></span></a></li>
          
           <li><a href="<?php echo site_url('user/profil'); ?>">Prikazi profil</a></li>
           <li class="divider"></li>

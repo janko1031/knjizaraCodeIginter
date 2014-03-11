@@ -37,7 +37,7 @@
     <div class="col-md-3"> 
        <?php echo form_open("user/ubaciUKorpu",'class="bs-example form-horizontal"');?>
        <input type="hidden" name="id_knjige" value="<?php echo $knjiga->id_knjige?>">
-     <a href="<?php echo site_url('auth/show_register'); ?>" type="submit"><button class="btn btn-success">
+     <a href="#" type="submit"><button class="btn btn-success">
      <i class="glyphicon glyphicon-shopping-cart"></i> Dodaj u korpu</button></a>
       <?php echo form_close();?>
     </div>  

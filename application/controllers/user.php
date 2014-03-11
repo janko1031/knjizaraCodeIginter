@@ -31,7 +31,7 @@ class User extends  User_Secure_Controller
         ));
    }
    
-   function korpa()
+   function prikaziKorpu()
    {
     $this->load->model('user_model');
     $this->load->view('template', array(
@@ -78,10 +78,16 @@ class User extends  User_Secure_Controller
        ));
       }   
       function ubaciUKorpu()
-    {
+      {
        $this->load->model('user_model');
        $this->user_model->dodajUKorpu($this->user->id);
-       redirect('app/katalog', 'refresh');
+       redirect('app/prikaziKorpu', 'refresh');
+      }   
+       function izbaciIzKorpe()
+       {
+       $this->load->model('user_model');
+       $this->user_model->izbaciIzKorpe($this->user->id);
+       redirect('app/prikaziKorpu', 'refresh');
       }   
     }
 ?>

@@ -45,6 +45,14 @@
              <td><span class="label label-success"> <?php echo $knjiga->cena; echo " din." ?></span>  </td>
              <?php  } ?>
 
+
+             <!--Forma za brisnje knjige iz korpe -->
+             <td>
+             <?php echo form_open("user/izbaciIzKorpe",'class="bs-example form-horizontal"');?>
+             <input type="hidden" name="id_knjige" value="<?php echo $knjiga->id_knjige?>">
+     <a href="#" type="submit"><button class="btn btn-danger btn-sm">
+     <i class="glyphicon glyphicon-ban-circle"></i> Izbaci iz  korpe</button></a>
+      <?php echo form_close();?> </td>
            </tr>
            <?php
          }?>
