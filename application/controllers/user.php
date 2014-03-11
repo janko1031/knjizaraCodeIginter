@@ -30,7 +30,7 @@
                
             ));
     }
-
+   
       function korpa()
         {
             $this->load->model('user_model');
@@ -42,8 +42,8 @@
                 "username" => $this->ion_auth->user()->row()->username,
                 "title" => "Korpa",
                 "knjige" => $this->user_model->vrati_knjigeKorisnika($this->user->id),
-                 "broj" => $this->broj,
-                 "cena"=>$this->user_model->vrati_UkCenu($this->user->id),
+                "broj" => $this->broj,
+                "cena"=>$this->user_model->vrati_UkCenu($this->user->id),
                
             ));
         }   

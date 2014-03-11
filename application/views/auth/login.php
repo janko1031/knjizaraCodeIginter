@@ -15,6 +15,12 @@
         </label>
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>
       </form>
+      <div class="col-md-5">   
+      </div>  
+      <div class="col-md-2">     
+<a href="<?php echo site_url('auth/show_register'); ?>" >
+<button class="btn btn-lg btn-primary btn-block" type="button" name="Login">Registruj se</button></a>
+        </div>
 
     </div>
         

@@ -17,13 +17,8 @@
                     </div>
                 </div>
 
-            </div> <!--zatavara row nalazi se u fajlu navbar-->
-   </div> <!--zatavara container nalazi se u fajlu navbar-->
+          
 
 
 
 
-
- <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
-
-</html>

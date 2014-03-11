@@ -68,6 +68,7 @@
                 "groups" => $this->ion_auth_model->groups()->result(),
             ));
         }
+            
         function prikazi_sveKorisnike()
 
         {
