@@ -11,7 +11,7 @@
           <a href="<?php echo site_url('admin/prikazi_sveKorisnike'); ?>" class="list-group-item">Spisak korisnika </a>
         <?php endif; ?>
          
-          <a href="#" class="list-group-item">Spisak knjiga</a>
+          <a href="<?php echo site_url('user/prikaziKatalog'); ?>" class="list-group-item">Katalog knjiga</a>
         
 
         </div>

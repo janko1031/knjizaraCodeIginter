@@ -4,8 +4,8 @@
 
   <div class="col-lg-12">
     <div class="page-header">
-      <h1 >Korpa korisnika  <?php echo $user->username;   ?> </h1>
-    </div>
+      <h1 > <i class="glyphicon glyphicon-shopping-cart "></i> Korpa korisnika   <?php echo $user->username;   ?>  </h1>
+ 
 
     <div class="bs-example table-responsive">
       <table class="table table-striped table-bordered table-hover" id="tabela">
@@ -25,10 +25,7 @@
 
           $rbr=0;
           foreach ($knjige as $knjiga) {
-           $rbr+=1;     ?>
-
-
-
+                    $rbr+=1;     ?>
            <tr>
              <td>  <?php echo $rbr ?></td>
              <td> <?php echo $knjiga->naziv ?> </td>

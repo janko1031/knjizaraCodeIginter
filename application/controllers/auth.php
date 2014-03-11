@@ -79,10 +79,10 @@ class Auth extends CI_Controller {
             $this->form_validation->set_rules('firstname', 'First name...', 'required|min_length[2]');
             $this->form_validation->set_rules('lastname', 'Last name...', 'required');
             $this->form_validation->set_rules('username', 'Username...', 'required|min_length[5]|max_length[100]');
-            $this->form_validation->set_rules('password', 'Password...', 'required|min_length[6]|max_length[12]|matches[passconf]');
-            $this->form_validation->set_rules('passconf', 'Repeat password...', 'required');
-           //  $this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
-           //  $this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
+            //$this->form_validation->set_rules('password', 'Password...', 'required|min_length[6]|max_length[12]|matches[passconf]');
+            //$this->form_validation->set_rules('passconf', 'Repeat password...', 'required');
+            $this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+            $this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
             $this->form_validation->set_rules('email', 'Email...', 'required|valid_email');
 
             if ($this->form_validation->run())
