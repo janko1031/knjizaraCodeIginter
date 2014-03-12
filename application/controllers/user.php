@@ -55,8 +55,8 @@ class User extends  User_Secure_Controller
 
        "page" => "profil",
        'user' => $this->user,
-       "username" => $this->user->row()->username,
-       "title" => "Profil korisnika: ".$this->user->row()->username,
+       "username" => $this->user->username,
+       "title" => "Profil korisnika: ".$this->user->username,
        "broj" => $this->broj,                
 
        ));
@@ -70,7 +70,7 @@ class User extends  User_Secure_Controller
        "page" => "katalog",
        "knjige"=>$this->knjiga_model->vratiKnjige(),
 
-       "username" => $this->ion_auth->user()->row()->username,
+       "username" => $this->user->username,
        "title" => "Katalog knjiga",
        "broj" => $this->broj,
 
