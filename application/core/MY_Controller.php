@@ -29,7 +29,7 @@
 
             if (!$this->ion_auth->logged_in())
             {
-                redirect('login');
+                redirect('auth/login');
             } 
             $this->user = $this->ion_auth->user()->row(); 
             $this->broj=$this->user_model->vrati_brojKnjiga($this->user->id);

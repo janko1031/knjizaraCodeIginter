@@ -13,6 +13,8 @@
          <?php echo form_checkbox('remember', '1', FALSE, 'id="remember"');?>
    Remember me
         </label>
+        <p>
+  
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>
       </form>
       <div class="col-md-5">   

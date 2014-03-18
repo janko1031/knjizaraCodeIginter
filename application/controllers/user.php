@@ -7,7 +7,7 @@ class User extends  User_Secure_Controller
 
     public function __construct()
     {
-        parent::__construct('admin');
+        parent::__construct();
 
         $this->load->library('ion_auth');
         $this->load->library('form_validation');
