@@ -8,11 +8,12 @@
 
 <?php echo form_open_multipart('admin/uploaduj_sliku');?>
 
-<input type="file" name="userfile" size="20" />
+
+ <input type="file" name="userfile"  />
+
 
 <br /><br />
-
-<input type="submit" value="upload" />
+   <button class="btn btn-info" type="submit">Uploaduj sliku</button>
 
 </form>
 
