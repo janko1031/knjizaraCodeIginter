@@ -21,9 +21,24 @@ class Auth extends CI_Controller {
 		$this->lang->load('auth');
 		$this->load->helper('language');
 	}
-	
-
 	function index()
+	{
+		if ($this->ion_auth->logged_in())
+		{
+			//redirect them to the login page
+			redirect('auth/index_auth_user', 'refresh');
+		}
+		else {
+		 $this->load->view('template_guest', array(
+		 		"folder" => "auth",
+                "page" => "index",              
+                "title" => "Knjizara",
+				            
+                
+            ));
+		 }
+	}
+	function index_auth_user()
 	{
 		$this->load->model('user_model');
 		$user=$this->ion_auth->user()->row(); 
@@ -132,7 +147,7 @@ class Auth extends CI_Controller {
 				//if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect('/', 'refresh');
+				redirect('auth/index_auth_user', 'refresh');
 			}
 			else
 			{
@@ -172,7 +187,7 @@ class Auth extends CI_Controller {
 
 		//redirect them to the login page
 		$this->session->set_flashdata('message', $this->ion_auth->messages());
-		redirect('auth/login', 'refresh');
+		redirect('auth/index', 'refresh');
 	}
 
 	//change password

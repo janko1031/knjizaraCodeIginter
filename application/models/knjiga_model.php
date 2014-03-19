@@ -11,7 +11,8 @@ class Knjiga_model extends CI_Model
 
         
           function vratiKnjige()
-        {return $this->db->get('knjige')->result();// vraca sve knjige
+        {
+        return $this->db->get('knjige')->result();// vraca sve knjige
 
         }
        
@@ -19,7 +20,7 @@ class Knjiga_model extends CI_Model
 
           function vratiKolicinu($id)
         {
-        	    $this->db->select('kolicina','dostupnost'); 
+        	$this->db->select('kolicina'); 
    				$this->db->from('knjige');   
    				$this->db->where('id_knjige', $id);
     			$row= $this->db->get()->result();

@@ -13,15 +13,15 @@ class Korpa_model extends CI_Model
         function isEmpty($user_id)
     	{ 
 
-    	$result= $this->db->get_where('korpa', array('user_id' => $user_id))->result(0);
+    	   $result= $this->db->get_where('korpa', array('user_id' => $user_id))->result();
     	
-    	if(empty($result)){
-    		return true;
-    	}
-    	else return false;
+    	   if(empty($result)){
+    	   	return true;
+    	   }
+    	   else return false;
     	}
         function isprazniKorpu($user_id)
-    	{
+    	 {
         $this->load->library('form_validation');
         $id_knjige = $this->input->post('id_knjige');
         $data = array(
@@ -29,14 +29,14 @@ class Korpa_model extends CI_Model
         // 'knjiga_id' => $knjiga ,
          
          );
-        $this->db->where($data);
-        $this->db->delete('korpa'); 
+          $this->db->where($data);
+          $this->db->delete('korpa'); 
 
-        $this->load->model('knjiga_model');
-        $this->knjiga_model->povecajKolicinu($id_knjige);  
+          $this->load->model('knjiga_model');
+          $this->knjiga_model->povecajKolicinu($id_knjige);  
            
          
-         redirect('user/prikaziKorpu', 'refresh');      
+          redirect('user/prikaziKorpu', 'refresh');      
 
     	}
 

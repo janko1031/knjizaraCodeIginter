@@ -58,13 +58,13 @@ class User_model extends CI_Model
 
         $this->load->model('knjiga_model');
         $this->knjiga_model->smanjiKolicinu($id_knjige);  
-        
-;     
+            
          
          redirect('user/prikaziKatalog', 'refresh');        
 
 
     }
+    
     function izbaciIzKorpe($user_id)
     {
         $this->load->library('form_validation');

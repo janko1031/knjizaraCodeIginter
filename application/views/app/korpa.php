@@ -59,7 +59,7 @@
                  <?php echo form_open("user/izbaciIzKorpe",'class="bs-example form-horizontal"');?>
                  <input type="hidden" name="id_knjige" value="<?php echo $knjiga->id_knjige?>">
                  <a href="#" type="submit"><button class="btn btn-warning btn-sm">
-                   <i class="glyphicon glyphicon-ban-circle"></i> Izbaci iz  korpe</button></a>
+                    Izbaci iz  korpe <i class="glyphicon glyphicon-ban-circle"></i></button></a>
                    <?php echo form_close();?> </td>
                  </tr>
                  <?php
@@ -79,7 +79,7 @@
                  <?php echo form_open("user/isprazniKorpu",'class="bs-example form-horizontal"');?>
 
                  <a href="#" type="submit"><button class="btn btn-danger ">
-                   <i class="glyphicon glyphicon-trash"></i> Izbaci <b>SVE knjige</b></button></a>
+                    Izbaci <b>SVE knjige <i class="glyphicon glyphicon-trash"></i></b></button></a>
                    <?php echo form_close();?> 
                  </td>
 
