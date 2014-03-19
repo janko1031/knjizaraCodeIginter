@@ -6,11 +6,11 @@
     <div class="page-header">
 
       <?php if ($prazna) {?>
-              <h1 > <i class="glyphicon glyphicon-shopping-cart "></i> Korpa korisnika   <?php echo $user->username;  echo " je prazna" ?>  </h1>
+              <h1 >  Korpa korisnika   <?php echo $user->username;  echo " je prazna" ?>  <i class="glyphicon glyphicon-shopping-cart "></i></h1>
 
               <?php }?>
       <?php if (!$prazna) {?>
-      <h1 > <i class="glyphicon glyphicon-shopping-cart "></i> Korpa korisnika   <?php echo $user->username;   ?>  </h1>
+      <h1 >  Korpa korisnika   <?php echo $user->username;   ?> <i class="glyphicon glyphicon-shopping-cart "></i> </h1>
 
 
       <div class="bs-example table-responsive">
