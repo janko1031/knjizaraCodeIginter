@@ -47,17 +47,21 @@ class User_model extends CI_Model
     function dodajUKorpu($user_id)
     {
         $this->load->library('form_validation');
-        $knjiga = $this->input->post('id_knjige');
+        $id_knjige = $this->input->post('id_knjige');
         $data = array(
           'user_id' => $user_id ,
-         'knjiga_id' => $knjiga ,
+         'knjiga_id' => $id_knjige ,
          
          );
 
-        $this->db->insert('korpa', $data);     
-         
-         redirect('user/prikaziKatalog', 'refresh');
+        $this->db->insert('korpa', $data);
+
+        $this->load->model('knjiga_model');
+        $this->knjiga_model->smanjiKolicinu($id_knjige);  
         
+;     
+         
+         redirect('user/prikaziKatalog', 'refresh');        
 
 
     }
@@ -73,11 +77,12 @@ class User_model extends CI_Model
         $this->db->where($data);
         $this->db->limit(1);
         $this->db->delete('korpa'); 
-        
+
+        $this->load->model('knjiga_model');
+        $this->knjiga_model->povecajKolicinu($id_knjige);  
            
          
-         redirect('user/prikaziKorpu', 'refresh');
-        
+         redirect('user/prikaziKorpu', 'refresh');        
 
 
     }

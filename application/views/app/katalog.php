@@ -22,13 +22,14 @@
              
                 
                <div class="pull-left"><b>Br. strana: </b><?php echo $knjiga->brStrana?></div> 
+               </br>
               <?php if ($knjiga->kolicina > 1)
               {
                 ?>
-            <div class="pull-right"> Dostupna kolicina: <span class="label label-info"><?php echo $knjiga->kolicina?></span></div>
+            <div class="pull-left"> Dostupna kolicina: <span class="label label-info"><?php echo $knjiga->kolicina?></span></div>
             <?php }?> 
            <?php  if ($knjiga->kolicina <1){?>
-            <div class="pull-right">Dostupna kolicina: <span class="label label-danger"><?php$knjiga->kolicina ?></span></div>
+            <div class="pull-right">Dostupna kolicina: <span class="label label-danger"><?php echo $knjiga->kolicina ?></span></div>
             <?php }?>  
             </br> 
             </br> 

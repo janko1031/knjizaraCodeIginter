@@ -19,7 +19,19 @@
 
         }
  
+        public function show_user(){
 
+          $this->load->view('template', array(
+        "folder" => "app",
+        "page" => "create_user",
+        "title" => "Kreiranje novog korisnika",
+        "user" => $this->user,
+        
+        "groups"=>$this->ion_auth->groups()->result(),
+        "broj" => $this->broj,
+
+        ));
+        }
         function new_user()
         {
             if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
@@ -82,9 +94,30 @@
                  "folder" => "app",
                 "page" => "korisnici",
                 "broj" => $this->broj,
+                 'user' => $this->user,
+    
                  "users" => $this->admin_model->get_all_users(),
-                "username" => $this->ion_auth->user()->row()->username,              
+                         
                 "title" => "Svi korisnici",
+                
+            ));
+        }
+         function prikazi_adminPanel()
+
+        {
+            $this->load->model('admin_model');
+            if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+            {
+            redirect('auth', 'refresh');
+            }
+           
+            $this->load->view('template', array(
+                 "folder" => "admin",
+                "page" => "admin_panel",
+                "broj" => $this->broj,
+                 "users" => $this->admin_model->get_all_users(),
+                 'user' => $this->user,
+                 "title" => "Admin panel",
                 
             ));
         }

@@ -13,7 +13,7 @@
       
       <ul class="nav navbar-nav navbar-right">
        <li class="dropdown">
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> <?php echo $username?> <span class="caret"></span></a>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> <?php echo $user->username?> <span class="caret"></span></a>
        
               <ul class="dropdown-menu">
           

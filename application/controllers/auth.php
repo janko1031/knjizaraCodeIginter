@@ -30,7 +30,7 @@ class Auth extends CI_Controller {
 		if (!$this->ion_auth->logged_in())
 		{
 			//redirect them to the login page
-			redirect('auth/loginpage', 'refresh');
+			redirect('auth/login', 'refresh');
 		}
 		/*elseif (!$this->ion_auth->is_admin()) //remove this elseif if you want to enable this for non-admins
 		{
@@ -52,7 +52,7 @@ class Auth extends CI_Controller {
 		 $this->load->view('template', array(
 		 		"folder" => "auth",
                 "page" => "index",
-                "username" => $this->ion_auth->user()->row()->username,
+                "user" => $this->ion_auth->user()->row(),
                 "title" => "Knjizara",
 				"broj"=>$this->user_model->vrati_brojKnjiga($user->id),               
                 

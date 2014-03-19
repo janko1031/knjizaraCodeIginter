@@ -16,30 +16,19 @@ class User extends  User_Secure_Controller
     }
 
 
-    
-    public function show_user(){
-
-       $this->load->view('template', array(
-        "folder" => "app",
-        "page" => "create_user",
-        "title" => "Kreiranje novog korisnika",
-        "user" => $this->user,
-        "username" => $this->user->username,
-        "groups"=>$this->ion_auth->groups()->result(),
-        "broj" => $this->broj,
-
-        ));
-   }
+  
    
    function prikaziKorpu()
    {
     $this->load->model('user_model');
+
+    $this->load->model('korpa_model');
     $this->load->view('template', array(
       "folder" => "app",
 
       "page" => "korpa",
       'user' => $this->user,
-      "username" => $this->ion_auth->user()->row()->username,
+      "prazna" => $this->korpa_model->isEmpty($this->user->id),
       "title" => "Korpa",
       "knjige" => $this->user_model->vrati_knjigeKorisnika($this->user->id),
       "broj" => $this->broj,
@@ -51,11 +40,11 @@ class User extends  User_Secure_Controller
       {
 
     $this->load->view('template', array(
-       "folder" => "app",
 
+       "folder" => "app",
        "page" => "profil",
        'user' => $this->user,
-       "username" => $this->user->username,
+    
        "title" => "Profil korisnika: ".$this->user->username,
        "broj" => $this->broj,                
 
@@ -66,8 +55,8 @@ class User extends  User_Secure_Controller
        $this->load->model('knjiga_model');
        $this->load->view('template', array(
        "folder" => "app",
-
-       "page" => "katalog",
+        'user' => $this->user,
+           "page" => "katalog",
        "knjige"=>$this->knjiga_model->vratiKnjige(),
 
        "username" => $this->user->username,
@@ -79,14 +68,20 @@ class User extends  User_Secure_Controller
       }   
       function ubaciUKorpu()
       {
-       $this->load->model('user_model');
-       $this->user_model->dodajUKorpu($this->user->id);
+       $this->load->model('korpa_model');
+       $this->korpa_model->dodajUKorpu($this->user->id);
        redirect('app/prikaziKorpu', 'refresh');
       }   
        function izbaciIzKorpe()
        {
-       $this->load->model('user_model');
-       $this->user_model->izbaciIzKorpe($this->user->id);
+       $this->load->model('korpa_model');
+       $this->korpa_model->izbaciIzKorpe($this->user->id);
+       redirect('app/prikaziKorpu', 'refresh');
+      }   
+      function isprazniKorpu()
+       {
+       $this->load->model('korpa_model');
+       $this->korpa_model->isprazniKorpu($this->user->id);
        redirect('app/prikaziKorpu', 'refresh');
       }   
     }
