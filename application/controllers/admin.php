@@ -177,6 +177,29 @@ function uploaduj_sliku()
 
 
   }
+function prikazi_unosKnjige()
+
+{
+  $this->load->view('template', array(
+   "folder" => "admin",
+   "page" => "unos_knjige",
+   "broj" => $this->broj,
+   "user" => $this->user,
+   "title" => "Unos nove knjige",
+
+   ));
+}
+function unesi_knjigu()
+
+{
+  
+    $this->load->model('knjiga_model');
+    $this->knjiga_model->dodajknjigu();
+    $this->knjiga_model->dodajSliku();
+    redirect('user/prikaziKatalog', 'refresh');
+
+}
+
 
 
 }

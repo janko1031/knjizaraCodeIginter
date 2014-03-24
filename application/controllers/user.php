@@ -50,22 +50,20 @@ class User extends  User_Secure_Controller
 
        ));
       }   
+
      function prikaziKatalog()
-    {
-       $this->load->model('knjiga_model');
-       $this->load->view('template', array(
-       "folder" => "app",
-        'user' => $this->user,
-           "page" => "katalog",
-       "knjige"=>$this->knjiga_model->vratiKnjige(),
+      {
+        $this->load->model('knjiga_model');
+        $this->load->view('template', array(
+          "folder" => "app",
+          "user" => $this->user,
+          "page" => "katalog",
+          "knjige" => $this->knjiga_model->vrati_podatke_za_katalog(),
+          "title" => "Katalog knjiga",
+          "broj" => $this->broj,
+        ));
+      } 
 
-       "username" => $this->user->username,
-       "title" => "Katalog knjiga",
-       "broj" => $this->broj,
-
-
-       ));
-      }   
       function ubaciUKorpu()
       {
        $this->load->model('korpa_model');
@@ -84,5 +82,7 @@ class User extends  User_Secure_Controller
        $this->korpa_model->isprazniKorpu($this->user->id);
        redirect('app/prikaziKorpu', 'refresh');
       }   
+
+
     }
 ?>

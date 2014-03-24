@@ -2,6 +2,17 @@
 class Knjiga_model extends CI_Model
     {
 
+       /*var $naziv ;
+       var $autor ;
+       var $zanr ;
+       var $godina ;
+       var $izdavac;
+       var $opis ;
+       var $br_strana;
+       var $cena ;
+       var $kolicina ;
+*/
+
 
         public function __construct()
         {
@@ -57,6 +68,83 @@ class Knjiga_model extends CI_Model
         $this->db->where('id_knjige', $id_knjige);
         $this->db->update('knjige', $data ); 
        }
+       function dodajknjigu()
+        {
+
+        $knjiga = new Knjiga_model;
+        $knjiga->naziv = $this->input->post('naziv');
+        $knjiga->autor = $this->input->post('autor');
+        $knjiga->zanr = $this->input->post('zanr');
+        $knjiga->godina_izdanja = $this->input->post('godina_izdanja');
+        $knjiga->izdavac = $this->input->post('izdavac');
+        $knjiga->opis = $this->input->post('opis');
+        $knjiga->br_strana = $this->input->post('br_strana');
+        $knjiga->cena = $this->input->post('cena');
+        $knjiga->kolicina = $this->input->post('kolicina');
+        
+
+        $this->db->insert('knjige', $knjiga); 
+        }
+
+
+          function dodajSliku()
+        {
+
+        $naziv = $this->input->post('naziv');
+        $query = $this->db->get_where('knjige', array('naziv' => $naziv), 1)->result();
+        foreach ($query as $row) {
+           $id_knjige =$row->id_knjige;
+        }
+ 
+        $config['upload_path'] = './assets/img/knjige/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '1024';
+        $config['max_width']  = '1368';
+        $config['max_height']  = '768';
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload())
+        {
+            $data = array('data' => $this->upload->display_errors()); 
+
+            $this->load->view('admin/uspesan_upload_slike', $data);
+        }
+        else
+        {         
+              
+                                                              //$this->upload->display_errors() je niz pravimo jos jedan niz $data
+                                                             //koji ima jedan clan, a taj clan je niz.
+                                                            
+      
+         $data = array('data' => $this->upload->data());// prva opcija dva foreacha
+            foreach ($data as $array){             
+               
+                 $img_name = $array['file_name'];                
+             
+            }
+              /*$data1= $this->upload->data();  // opcija DVA
+              
+                 $img = $data1['file_name'];    */            
+             
+                    $this->db->set('img_name', $img_name);
+                    $this->db->set('knjiga_id', $id_knjige);
+                    $this->db->insert('slike');
+           
+           $this->load->view('admin/uspesan_upload_slike',$data);
+        }
+      }
+
+      function vrati_podatke_za_katalog(){
+        $this->db->select('*');
+        $this->db->from('slike');
+        $this->db->join('knjige', 'slike.knjiga_id = knjige.id_knjige', 'right');
+
+        $query = $this->db->get();
+
+        return $query;
+      }
+
    }
 
 ?>
