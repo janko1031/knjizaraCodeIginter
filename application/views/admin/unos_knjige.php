@@ -61,7 +61,7 @@
                     <label class="col-lg-2 control-label" >Broj strana:</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" name="broj_strana" placeholder="Broj strana...">
+                        <input type="text" class="form-control" name="br_strana" placeholder="Broj strana...">
                     </div>
                 </div>
 
@@ -82,9 +82,11 @@
                 </div>
 
                <div class="form-group">
-                     <div class="col-lg-10 col-lg-offset-2">
-                            <input type="file" name="userfile"  />
-                          
+                     <label class="col-lg-2 control-label" >Izaberite sliku:</label>
+
+                     <div class="col-lg-10" >
+                  <input type="file" name="userfile"   /> 
+                          <h1><i class=" glyphicon glyphicon-picture"></i> </h1> 
                     </div>
             </div>
                 </div>

@@ -142,9 +142,47 @@ class Knjiga_model extends CI_Model
 
         $query = $this->db->get();
 
-        return $query;
+        return $query->result();
+      }
+       function vrati_knjigu($id){
+        $this->db->select('*');
+        $this->db->from('knjige');
+        $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
+        $this->db->where('id_knjige', $id);
+        $query = $this->db->get();
+
+        return $query->result();
       }
 
-   }
+       function vrati_slicneKnjige($id,$zanr,$autor){
+       
+      
+        $this->db->select('*');
+        $this->db->from('knjige');
+        $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
+        $this->db->where('id_knjige', $id);
+        $this->db->like('zanr', $zanr);
+        $this->db->or_like('autor', $autor);
+        //$this->db->not_like('naziv', $naziv);
 
+        $this->db->limit(6); 
+        $query = $this->db->get();
+
+        return $query->result();
+      }
+
+   
+    function vrati_recenzije($id){
+
+        $this->db->select('recenzije.*,users.*');
+        $this->db->from('recenzije');
+        $this->db->join('knjige', 'recenzije.knjiga_id = knjige.id_knjige', 'left');
+        $this->db->join('users', 'recenzije.user_id = users.id', 'left');
+        $this->db->where('id_knjige', $id);
+        $query = $this->db->get();
+
+        return $query->result();
+      }
+       
+}
 ?>

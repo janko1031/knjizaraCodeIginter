@@ -83,6 +83,46 @@ class User extends  User_Secure_Controller
        redirect('app/prikaziKorpu', 'refresh');
       }   
 
+       function prikazi_knjigu()
+      {
+         $this->load->model('knjiga_model');
+            $this->load->model('recenzija_model');
+         $knjige = $this->knjiga_model->vrati_knjigu(6);
+           
+          foreach ($knjige as $knjiga) {
+            $zanr=$knjiga->zanr;
+            $autor=$knjiga->autor;
+           // $naziv=$knjiga->naziv;
+          }
 
+         $this->load->view('template', array(
+
+           "folder" => "app",
+           "page" => "knjiga",
+           "user" => $this->user,
+           "knjige" => $knjige,
+           "slicne" => $this->knjiga_model->vrati_slicneKnjige(6,$zanr,$autor),
+           "recenzije" => $this->knjiga_model->vrati_recenzije(6),
+           "ocena" => $this->recenzija_model->proscena_ocena(6),
+           "ocenjena" => $this->recenzija_model->ocenjena_knjiga($this->user->id,6),
+
+           "title" => "Prikaz knjige",
+           "broj" => $this->broj,                
+
+       ));
+      }
+    function ostaviRecenziju()
+  {
+    $this->load->model('recenzija_model');
+    $this->recenzija_model->dodaj_recenziju($this->user->id,6);
+    redirect('user/prikazi_knjigu', 'refresh');
+  }  
+
+  function izbrisi_recenziju()
+  {
+    $this->load->model('recenzija_model');
+    $this->recenzija_model->izbrisi_recenziju($this->user->id,6);
+    redirect('user/prikazi_knjigu', 'refresh');
+  }   
     }
 ?>

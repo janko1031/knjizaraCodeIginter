@@ -2,9 +2,9 @@
 
  <div class="row">
 
-  <?php foreach ($knjige->result() as $knjiga) { ?> 
+  <?php foreach ($knjige as $knjiga) { ?> 
     <div class="col-md-3 portfolio-item">
-      <a href="#project-link">
+      <a href="<?php echo base_url('user/prikazi_knjigu'); ?>">
         <img class="img-responsive" width="188" height="420" src=<?php echo base_url('assets/img/knjige/'.$knjiga->img_name); ?>>
       </a>
       <h3>
