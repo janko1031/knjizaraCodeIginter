@@ -31,7 +31,7 @@
                 <li><b>Zanr: </b><?php echo $knjiga->zanr ?></li>
                 <li><b>Izdavac: </b><?php echo $knjiga->izdavac ?></li>
             </ul>
-            <h3>Prosecna ocena čitaoca:  </h3>
+            <h3>Prosečna ocena čitalaca:  </h3>
             <?php 
         echo   "";
         switch ($ocena) {
