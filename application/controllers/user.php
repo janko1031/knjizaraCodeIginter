@@ -111,18 +111,24 @@ class User extends  User_Secure_Controller
 
        ));
       }
-    function napisi_recenziju($id)
+    function napisi_recenziju()
+
   {
+    $recenzija = $this->input->post('id_knjige');
+
     $this->load->model('recenzija_model');
-    $this->recenzija_model->dodaj_recenziju($this->user->id,$id);
-    redirect('user/prikazi_knjigu', 'refresh');
+    $this->recenzija_model->dodaj_recenziju($this->user->id);
+    $url='user/prikazi_knjigu/'.$recenzija;
+    redirect( $url, 'refresh');
   }  
 
-  function izbrisi_recenziju($id)
+  function izbrisi_recenziju()
   {
+    $recenzija = $this->input->post('id_knjige');
+    $url='user/prikazi_knjigu/'.$recenzija;
     $this->load->model('recenzija_model');
-    $this->recenzija_model->izbrisi_recenziju($this->user->id,$id);
-    redirect('user/prikazi_knjigu', 'refresh');
+    $this->recenzija_model->izbrisi_recenziju($this->user->id);
+    redirect($url, 'refresh');
   }   
     }
 ?>

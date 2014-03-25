@@ -25,13 +25,13 @@ class Recenzija_model extends CI_Model
 		}
 		
 	}
-	public  function dodaj_recenziju($user,$knjiga){
+	public  function dodaj_recenziju($user){
 
 
 		$recenzija = new Recenzija_model;
 		$recenzija->opis = $this->input->post('opis');
 		$recenzija->ocena = $this->input->post('ocena');
-		$recenzija->knjiga_id = $knjiga;
+		$recenzija->knjiga_id = $this->input->post('id_knjige');
 		$recenzija->user_id =$user;
 
 		$this->db->insert('recenzije', $recenzija); 

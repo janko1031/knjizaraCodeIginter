@@ -186,10 +186,11 @@
 
         <div class="form-group">
             <label for="textArea" class="col-lg-2 control-label">Tekst recenzije</label>
+             <input type="hidden" name="id_knjige" value="<?php echo $knjiga->id_knjige?>">
             <div class="col-lg-10">
                 <textarea class="form-control" rows="3" name="opis" data-validation="length" data-validation-length="min6" ></textarea>
 
-                <input type="hidden" name="id_knjige" value="{{$knjiga->id}}">
+              
             </div>
         </div>
         <div class="form-group">
@@ -224,7 +225,7 @@
                        Mozete <strong>samo jednom</strong>  oceniti knjigu.
                     </div>
                     <input type="hidden" name="brisanje">
-                    <input type="hidden" name="id_knjige" value="{{$knjiga->id}}">
+                    <input type="hidden" name="id_knjige" value=<?php echo $knjiga->id_knjige?>">
                 <div class="text-right">
 
                     <button class="btn btn-danger" type="submit">
