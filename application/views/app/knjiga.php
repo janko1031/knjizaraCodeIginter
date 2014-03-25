@@ -106,7 +106,7 @@
         </div>
         <?php foreach ($slicne as $slicna) { ?> 
         <div class="col-sm-3 col-xs-6">
-            <a href="#">
+            <a href="<?php echo base_url('user/prikazi_knjigu/'.$slicna->id_knjige); ?>">
              <img class="img-responsive" src="<?php echo base_url('assets/img/knjige/'.$slicna->img_name); ?>">
          </a>
      </div>
@@ -182,7 +182,7 @@
  <?php if (!$ocenjena) {?>
     
 
-    <?php echo form_open("user/ostaviRecenziju",'class="bs-example form-horizontal"');?>
+    <?php echo form_open("user/napisi_recenziju",'class="bs-example form-horizontal"');?>
 
         <div class="form-group">
             <label for="textArea" class="col-lg-2 control-label">Tekst recenzije</label>

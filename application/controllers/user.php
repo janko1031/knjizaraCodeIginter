@@ -83,11 +83,11 @@ class User extends  User_Secure_Controller
        redirect('app/prikaziKorpu', 'refresh');
       }   
 
-       function prikazi_knjigu()
+       function prikazi_knjigu($id)
       {
          $this->load->model('knjiga_model');
             $this->load->model('recenzija_model');
-         $knjige = $this->knjiga_model->vrati_knjigu(6);
+         $knjige = $this->knjiga_model->vrati_knjigu($id);
            
           foreach ($knjige as $knjiga) {
             $zanr=$knjiga->zanr;
@@ -101,27 +101,27 @@ class User extends  User_Secure_Controller
            "page" => "knjiga",
            "user" => $this->user,
            "knjige" => $knjige,
-           "slicne" => $this->knjiga_model->vrati_slicneKnjige(6,$zanr,$autor),
-           "recenzije" => $this->knjiga_model->vrati_recenzije(6),
-           "ocena" => $this->recenzija_model->proscena_ocena(6),
-           "ocenjena" => $this->recenzija_model->ocenjena_knjiga($this->user->id,6),
+           "slicne" => $this->knjiga_model->vrati_slicneKnjige($id,$zanr,$autor),
+           "recenzije" => $this->knjiga_model->vrati_recenzije($id),
+           "ocena" => $this->recenzija_model->proscena_ocena($id),
+           "ocenjena" => $this->recenzija_model->ocenjena_knjiga($this->user->id,$id),
 
            "title" => "Prikaz knjige",
            "broj" => $this->broj,                
 
        ));
       }
-    function ostaviRecenziju()
+    function napisi_recenziju($id)
   {
     $this->load->model('recenzija_model');
-    $this->recenzija_model->dodaj_recenziju($this->user->id,6);
+    $this->recenzija_model->dodaj_recenziju($this->user->id,$id);
     redirect('user/prikazi_knjigu', 'refresh');
   }  
 
-  function izbrisi_recenziju()
+  function izbrisi_recenziju($id)
   {
     $this->load->model('recenzija_model');
-    $this->recenzija_model->izbrisi_recenziju($this->user->id,6);
+    $this->recenzija_model->izbrisi_recenziju($this->user->id,$id);
     redirect('user/prikazi_knjigu', 'refresh');
   }   
     }
