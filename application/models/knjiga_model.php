@@ -41,9 +41,9 @@ class Knjiga_model extends CI_Model
             return $kolicina;//vraca broj dostupnih knjiga na skladistu
 
         }
-         function povecajKolicinu($id)
+         function povecajKolicinu($id_knjige)
         {
-        $id_knjige = $this->input->post('id_knjige');
+        //$id_knjige = $this->input->post('id_knjige');
        
         $kolicina=$this->knjiga_model->vratiKolicinu($id_knjige);    //vraca broj dostupnih knjiga na skladistu
         
@@ -55,9 +55,9 @@ class Knjiga_model extends CI_Model
         $this->db->where('id_knjige', $id_knjige);//azurira polje kolicina u tabeli knjige
         $this->db->update('knjige', $data); 
        }
-        function smanjiKolicinu($id)
+        function smanjiKolicinu($id_knjige)
         {
-          $id_knjige = $this->input->post('id_knjige');
+         // $id_knjige = $this->input->post('id_knjige');
           $kolicina=$this->knjiga_model->vratiKolicinu($id_knjige);    
         
         $kolicina-=1;

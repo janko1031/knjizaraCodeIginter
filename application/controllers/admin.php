@@ -200,6 +200,23 @@ function unesi_knjigu()
 
 }
 
+function prikazi_naruceneKnjige(){
+  $this->load->model('user_model');
+
+    $this->load->model('korpa_model');
+    $this->load->view('template', array(
+      "folder" => "admin",
+
+      "page" => "narucene_knjige",
+      'user' => $this->user,
+      //"prazna" => $this->korpa_model->isEmpty($this->user->id),
+      "title" => "Narucene knjige",
+      "knjige" => $this->korpa_model->vratiNarucene(),
+      "broj" => $this->broj,
+      "cena"=>$this->user_model->vrati_UkCenu($this->user->id),
+
+      ));
+}
 
 
 }

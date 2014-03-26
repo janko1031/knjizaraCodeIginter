@@ -130,5 +130,13 @@ class User extends  User_Secure_Controller
     $this->recenzija_model->izbrisi_recenziju($this->user->id);
     redirect($url, 'refresh');
   }   
+
+  function naruciKnjigu(){
+    $this->load->model('korpa_model');
+    $this->korpa_model->promeniStatusKnjige($this->user->id);
+    redirect('user/prikaziKorpu', 'refresh');
+  }
+
+
     }
 ?>

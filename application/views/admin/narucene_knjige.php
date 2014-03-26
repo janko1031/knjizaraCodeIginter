@@ -1,16 +1,11 @@
 
-
 <div class="col-md-9">
 
   <div class="col-lg-12">
     <div class="page-header">
 
-      <?php if ($prazna) {?>
-              <h1 >  Korpa korisnika   <?php echo $user->username;  echo " je prazna" ?>  <i class="glyphicon glyphicon-shopping-cart "></i></h1>
-
-              <?php }?>
-      <?php if (!$prazna) {?>
-      <h1 >  Korpa korisnika   <?php echo $user->username;   ?> <i class="glyphicon glyphicon-shopping-cart "></i> </h1>
+    
+      <h1 >  Narucene knjige   <i class="glyphicon glyphicon-shopping-cart "></i> </h1>
 
 
       <div class="bs-example table-responsive">
@@ -18,10 +13,9 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Naziv</th>
+              <th>Kupac</th>
+              <th>Knjiga</th>
               <th>Autor</th>
-              <th>Godina izdanja</th>
-              <th>Izdavac</th>
               <th>Cena</th>
             </tr>
           </thead>
@@ -36,10 +30,10 @@
               $rbr+=1;     ?>
               <tr>
                <td>  <?php echo $rbr ?></td>
+               <td> <?php echo $knjiga->first_name ?> </td>
                <td> <?php echo $knjiga->naziv ?> </td>
                <td> <?php echo $knjiga->autor ?> </td>
-               <td> <?php echo $knjiga->godina_izdanja ?> </td>
-               <td> <?php echo $knjiga->izdavac ?> </td>
+               
                <?php if ($knjiga->cena >1250 && $knjiga->cena <2000 ) {?>
                <td><span class="label label-warning"> <?php echo $knjiga->cena; echo " din." ?></span>  </td>
                <?php  } ?>
@@ -97,7 +91,7 @@
                     </div>
                  </td>
 
-              <?php }?>
+             
             
              </tr>    
 

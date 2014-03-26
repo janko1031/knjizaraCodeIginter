@@ -12,8 +12,11 @@ class Korpa_model extends CI_Model
 
         function isEmpty($user_id)
     	{ 
-
-    	   $result= $this->db->get_where('korpa', array('user_id' => $user_id))->result();
+        $data = array(
+          'user_id' => $user_id ,
+          'status_kupovine' => 0,
+        ); 
+    	   $result= $this->db->get_where('korpa', $data)->result();
     	
     	   if(empty($result)){
     	   	return true;
@@ -23,17 +26,30 @@ class Korpa_model extends CI_Model
         function isprazniKorpu($user_id)
     	 {
         $this->load->library('form_validation');
-        $id_knjige = $this->input->post('id_knjige');
+       // $id_knjige = $this->input->post('id_knjige');
         $data = array(
           'user_id' => $user_id ,
-        // 'knjiga_id' => $knjiga ,
+         'status_kupovine' => 0 ,
          
          );
-          $this->db->where($data);
-          $this->db->delete('korpa'); 
-
           $this->load->model('knjiga_model');
-          $this->knjiga_model->povecajKolicinu($id_knjige);  
+
+  
+           $this->db->select('*');
+           $this->db->from('korpa');
+           $this->db->join('knjige', 'korpa.knjiga_id = knjige.id_knjige', 'left');
+           $this->db->where($data);
+
+          $query = $this->db->get();      
+
+          foreach ($query->result() as $row) {
+
+            $this->knjiga_model->povecajKolicinu($row->id_knjige);  
+          }
+
+          $this->db->where($data);
+          $this->db->delete('korpa');      
+       
            
          
           redirect('user/prikaziKorpu', 'refresh');      
@@ -79,6 +95,38 @@ class Korpa_model extends CI_Model
          
          redirect('user/prikaziKorpu', 'refresh');        
 
+
+    }
+
+    function promeniStatusKnjige($user_id){
+      $data = array(
+          'status_kupovine' => 1,
+      );
+      
+        $this->db->where('user_id', $user_id);
+        $this->db->update('korpa', $data);
+      
+    }
+
+    function vratiNarucene(){
+
+        $data = array(
+         
+         'status_kupovine' => 1 ,
+         
+         );
+         
+
+  
+           $this->db->select('*');
+           $this->db->from('korpa');
+           $this->db->join('knjige', 'korpa.knjiga_id = knjige.id_knjige', 'left');
+           $this->db->join('users', 'korpa.user_id = users.id', 'left');
+
+           $this->db->where($data);
+
+          $query = $this->db->get();      
+          return $query->result();
 
     }
       

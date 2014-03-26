@@ -12,31 +12,43 @@ class User_model extends CI_Model
 
     function vrati_knjigeKorisnika($user_id)
     {
+        $data = array(
+          'user_id' => $user_id ,
+          'status_kupovine' => 0,
+        );     
         $this->db->select('*');
         $this->db->from('korpa');
 
         $this->db->join('knjige', 'korpa.knjiga_id = knjige.id_knjige', 'left');
-        $this->db->where('user_id', $user_id); 
+        $this->db->where($data); 
         $query = $this->db->get();
         return $query->result();
     }
     function vrati_brojKnjiga($user_id)
     {
+        $data = array(
+          'user_id' => $user_id ,
+          'status_kupovine' => 0,
+        ); 
         $this->db->select('*');
         $this->db->from('korpa');
 
         $this->db->join('knjige', 'korpa.knjiga_id = knjige.id_knjige', 'left');
-        $this->db->where('user_id', $user_id); 
+        $this->db->where($data); 
         return $this->db->count_all_results();
     }
     function vrati_UkCenu($user_id)
     {
+         $data = array(
+          'user_id' => $user_id ,
+          'status_kupovine' => 0,
+        );    
         $cena=0;
         $this->db->select('cena');
         $this->db->from('korpa');
 
         $this->db->join('knjige', 'korpa.knjiga_id = knjige.id_knjige', 'left');
-        $this->db->where('user_id', $user_id); 
+        $this->db->where($data); 
         $query = $this->db->get();
         foreach ($query->result() as $result) {
             $cena+=$result->cena;
