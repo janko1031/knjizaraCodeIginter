@@ -12,6 +12,6 @@
         <link href="<?php echo base_url('assets/css/login.css'); ?>" rel="stylesheet">
          <link href="<?php echo base_url('assets/css/shop-item.css'); ?>" rel="stylesheet">
   <title><?php echo $title?> </title>
-  <script src="js/validation.js"></script>
-  
+  <
+
 </head>

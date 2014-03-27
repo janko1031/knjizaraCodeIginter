@@ -13,7 +13,7 @@
                     <label class="col-lg-2 control-label"> Naziv:</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" name="naziv" placeholder="Naziv knjige...">
+                        <input type="text" class="form-control" name="naziv" data-validation="length" data-validation-length="min3" placeholder="Naziv knjige...">
                     </div>
                 </div>
 
@@ -21,7 +21,7 @@
                     <label class="col-lg-2 control-label" >Autor:</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" name="autor" placeholder="Autor knjige...">
+                        <input type="text" class="form-control" name="autor" data-validation="length" data-validation-length="min4" placeholder="Autor knjige...">
                     </div>
                 </div>
 
@@ -29,7 +29,7 @@
                     <label class="col-lg-2 control-label">Zanr:</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" name="zanr" placeholder="Zanr...">
+                        <input type="text" class="form-control" name="zanr" data-validation="length" data-validation-length="min3" placeholder="Zanr...">
                     </div>                
                 </div>
 
@@ -37,7 +37,7 @@
                     <label class="col-lg-2 control-label" for="godina">Godina izdanje:</label>
 
                     <div class="col-lg-10">
-                        <input type="text"  class="form-control" name="godina_izdanja" placeholder="Godina...">
+                        <input type="text"  class="form-control" name="godina_izdanja" data-validation="custom" data-validation-regexp="^(19|20)\d{2}$" placeholder="Godina...">
                     </div>
                 </div>
 
@@ -45,7 +45,7 @@
                     <label class="col-lg-2 control-label" for="izdavac">Izdavac:</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" name="izdavac" placeholder="Izdavac...">
+                        <input type="text" class="form-control" name="izdavac" data-validation="length" data-validation-length="min3" placeholder="Izdavac...">
                     </div>
                 </div>
 
@@ -53,7 +53,7 @@
                     <label class="col-lg-2 control-label"  >Opis:</label>
 
                     <div class="col-lg-10">
-                       <textarea class="form-control" name="opis" id="textArea"placeholder="Kratak opis knjige..."></textarea>
+                       <textarea class="form-control" name="opis" id="textArea" data-validation="length" data-validation-length="min10" placeholder="Kratak opis knjige..."></textarea>
                     </div>
                 </div>
 
@@ -61,7 +61,7 @@
                     <label class="col-lg-2 control-label" >Broj strana:</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" name="br_strana" placeholder="Broj strana...">
+                        <input type="text" class="form-control" name="br_strana" placeholder="Broj strana..." data-validation="number" >
                     </div>
                 </div>
 
@@ -69,7 +69,7 @@
                     <label class="col-lg-2 control-label" >Cena:</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" name="cena" placeholder="Cena knjige...">
+                        <input type="text" class="form-control" name="cena" placeholder="Cena knjige..." data-validation="number" >
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@
                     <label class="col-lg-2 control-label" >Kolicina:</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" name="kolicina" placeholder="Kolicina knjige...">
+                        <input type="text" class="form-control" name="kolicina" placeholder="Kolicina knjige..." data-validation="number" >
                     </div>
                 </div>
 

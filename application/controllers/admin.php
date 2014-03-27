@@ -201,7 +201,7 @@ function unesi_knjigu()
 }
 
 function prikazi_naruceneKnjige(){
-  $this->load->model('user_model');
+  
 
     $this->load->model('korpa_model');
     $this->load->view('template', array(
@@ -213,7 +213,7 @@ function prikazi_naruceneKnjige(){
       "title" => "Narucene knjige",
       "knjige" => $this->korpa_model->vratiNarucene(),
       "broj" => $this->broj,
-      "cena"=>$this->user_model->vrati_UkCenu($this->user->id),
+      "cena"=>$this->korpa_model->vrati_UkCenu(),
 
       ));
 }

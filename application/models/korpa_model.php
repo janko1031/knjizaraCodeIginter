@@ -11,7 +11,7 @@ class Korpa_model extends CI_Model
         }
 
         function isEmpty($user_id)
-    	{ 
+    	 { 
         $data = array(
           'user_id' => $user_id ,
           'status_kupovine' => 0,
@@ -22,7 +22,9 @@ class Korpa_model extends CI_Model
     	   	return true;
     	   }
     	   else return false;
-    	}
+    	 }
+
+
         function isprazniKorpu($user_id)
     	 {
         $this->load->library('form_validation');
@@ -48,8 +50,7 @@ class Korpa_model extends CI_Model
           }
 
           $this->db->where($data);
-          $this->db->delete('korpa');      
-       
+          $this->db->delete('korpa');          
            
          
           redirect('user/prikaziKorpu', 'refresh');      
@@ -123,10 +124,30 @@ class Korpa_model extends CI_Model
            $this->db->join('knjige', 'korpa.knjiga_id = knjige.id_knjige', 'left');
            $this->db->join('users', 'korpa.user_id = users.id', 'left');
 
+
            $this->db->where($data);
 
           $query = $this->db->get();      
           return $query->result();
+
+    }
+    function vrati_UkCenu()
+    {
+         $data = array(
+         
+          'status_kupovine' => 1,
+        );    
+        $cena=0;
+        $this->db->select('cena');
+        $this->db->from('korpa');
+
+        $this->db->join('knjige', 'korpa.knjiga_id = knjige.id_knjige', 'left');
+        $this->db->where($data); 
+        $query = $this->db->get();
+        foreach ($query->result() as $result) {
+            $cena+=$result->cena;
+        }
+        return $cena;
 
     }
       

@@ -41,6 +41,7 @@ class Knjiga_model extends CI_Model
             return $kolicina;//vraca broj dostupnih knjiga na skladistu
 
         }
+        
          function povecajKolicinu($id_knjige)
         {
         //$id_knjige = $this->input->post('id_knjige');
@@ -55,6 +56,7 @@ class Knjiga_model extends CI_Model
         $this->db->where('id_knjige', $id_knjige);//azurira polje kolicina u tabeli knjige
         $this->db->update('knjige', $data); 
        }
+
         function smanjiKolicinu($id_knjige)
         {
          // $id_knjige = $this->input->post('id_knjige');
@@ -68,6 +70,7 @@ class Knjiga_model extends CI_Model
         $this->db->where('id_knjige', $id_knjige);
         $this->db->update('knjige', $data ); 
        }
+
        function dodajknjigu()
         {
 
@@ -147,9 +150,13 @@ class Knjiga_model extends CI_Model
       }
 
        public function broj_rezultata() {
+
         return $this->db->count_all("knjige");
-      }
+
+        }
+
        function vrati_knjigu($id){
+
         $this->db->select('*');
         $this->db->from('knjige');
         $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
@@ -171,7 +178,7 @@ class Knjiga_model extends CI_Model
          $this->db->or_like('autor', $autor);
 
         $this->db->or_like('zanr', $zanr);
-        //$this->db->or_not_like('naziv', $naziv);
+        
 
         $this->db->limit(6); 
         $query = $this->db->get();

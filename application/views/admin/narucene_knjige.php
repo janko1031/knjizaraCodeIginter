@@ -30,7 +30,7 @@
               $rbr+=1;     ?>
               <tr>
                <td>  <?php echo $rbr ?></td>
-               <td> <?php echo $knjiga->first_name ?> </td>
+               <td> <?php echo $knjiga->first_name ." ".$knjiga->last_name?> </td>
                <td> <?php echo $knjiga->naziv ?> </td>
                <td> <?php echo $knjiga->autor ?> </td>
                
@@ -52,10 +52,10 @@
                <td>
                      <div class="col-md-3">
                      </div>
-                 <?php echo form_open("user/izbaciIzKorpe",'class="bs-example form-horizontal"');?>
+                 <?php echo form_open("admin/",'class="bs-example form-horizontal"');?>
                  <input type="hidden" name="id_knjige" value="<?php echo $knjiga->id_knjige?>">
-                 <a href="#" type="submit"><button class="btn btn-warning btn-sm">
-                    Izbaci iz  korpe <i class="glyphicon glyphicon-ban-circle"></i></button></a>
+                 <a href="#" type="submit"><button class="btn btn-success btn-sm">
+                Odobri    <i class="glyphicon glyphicon-check"></i></button></a>
                    <?php echo form_close();?> </td>
                  </tr>
                  <?php
@@ -72,21 +72,13 @@
 
                 
                    <td>
-                   <div class="col-md-6">
-                     
-                    <?php echo form_open("user/isprazniKorpu",'class="bs-example form-horizontal"');?>
-
-                    <a href="#" type="submit"><button class="btn btn-danger ">
-                    Isprazni <i class="glyphicon glyphicon-trash"></i></b></button></a>
-                   <?php echo form_close();?> 
-
-                   </div>
+                  
                        <div class="col-md-6">
 
-                     <?php echo form_open("user/naruciKnjigu",'class="bs-example form-horizontal"');?>
+                     <?php echo form_open("user/",'class="bs-example form-horizontal"');?>
 
                    <a href="#" type="submit"><button class="btn btn-success ">
-                    Kupi <i class="glyphicon glyphicon-usd"></i></b></button></a>
+                  Odobri sve <i class="glyphicon glyphicon-check"></i></b></button></a>
                    <?php echo form_close();?> 
                     </div>
                  </td>
