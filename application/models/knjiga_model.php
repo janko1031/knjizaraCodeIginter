@@ -135,14 +135,19 @@ class Knjiga_model extends CI_Model
         }
       }
 
-      function vrati_podatke_za_katalog(){
+      function vrati_podatke_za_katalog($limit, $start){
         $this->db->select('*');
         $this->db->from('slike');
-        $this->db->join('knjige', 'slike.knjiga_id = knjige.id_knjige', 'right');
+        $this->db->limit($limit, $start);
+        $this->db->join('knjige', 'slike.knjiga_id = knjige.id_knjige', 'left');
 
         $query = $this->db->get();
 
         return $query->result();
+      }
+
+       public function broj_rezultata() {
+        return $this->db->count_all("knjige");
       }
        function vrati_knjigu($id){
         $this->db->select('*');
@@ -161,9 +166,12 @@ class Knjiga_model extends CI_Model
         $this->db->from('knjige');
         $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
         $this->db->where('id_knjige', $id);
+
         $this->db->like('zanr', $zanr);
-        $this->db->or_like('autor', $autor);
-        //$this->db->not_like('naziv', $naziv);
+         $this->db->or_like('autor', $autor);
+
+        $this->db->or_like('zanr', $zanr);
+        //$this->db->or_not_like('naziv', $naziv);
 
         $this->db->limit(6); 
         $query = $this->db->get();

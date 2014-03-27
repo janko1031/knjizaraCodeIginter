@@ -47,20 +47,33 @@ class User extends  User_Secure_Controller
     
        "title" => "Profil korisnika: ".$this->user->username,
        "broj" => $this->broj,                
-
        ));
       }   
 
      function prikaziKatalog()
       {
         $this->load->model('knjiga_model');
+        $this->load->library('pagination');
+
+        $config['base_url'] = base_url() ."user/prikaziKatalog/";
+        $config['total_rows'] = $this->knjiga_model->broj_rezultata(); 
+        $config['per_page'] = 8;
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        $this->pagination->initialize($config);
+
+
+       $links= $this->pagination->create_links();
+
+
         $this->load->view('template', array(
           "folder" => "app",
           "user" => $this->user,
           "page" => "katalog",
-          "knjige" => $this->knjiga_model->vrati_podatke_za_katalog(),
+          "knjige" => $this->knjiga_model->vrati_podatke_za_katalog($config["per_page"], $page),
           "title" => "Katalog knjiga",
           "broj" => $this->broj,
+          "links"=>$links,
         ));
       } 
 

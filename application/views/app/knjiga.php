@@ -105,7 +105,7 @@
             <h3 class="page-header">Slicne knjige</h3>
         </div>
         <?php foreach ($slicne as $slicna) { ?> 
-        <div class="col-sm-3 col-xs-6">
+        <div class="col-sm-2 col-xs-6">
             <a href="<?php echo base_url('user/prikazi_knjigu/'.$slicna->id_knjige); ?>">
              <img class="img-responsive" src="<?php echo base_url('assets/img/knjige/'.$slicna->img_name); ?>">
          </a>
