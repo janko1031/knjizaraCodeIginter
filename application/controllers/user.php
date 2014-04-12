@@ -79,9 +79,11 @@ class User extends  User_Secure_Controller
 
       function ubaciUKorpu()
       {
+        $is_ajax=$this->input->post('ajax');
+ 
        $this->load->model('korpa_model');
        $this->korpa_model->dodajUKorpu($this->user->id);
-       redirect('app/prikaziKorpu', 'refresh');
+      // redirect('app/prikaziKorpu', 'refresh');
       }   
        function izbaciIzKorpe()
        {
@@ -95,8 +97,7 @@ class User extends  User_Secure_Controller
        $this->korpa_model->isprazniKorpu($this->user->id);
        redirect('app/prikaziKorpu', 'refresh');
       }   
-
-       function prikazi_knjigu($id)
+ function prikazi_knjigu($id)
       {
          $this->load->model('knjiga_model');
             $this->load->model('recenzija_model');
@@ -123,7 +124,7 @@ class User extends  User_Secure_Controller
            "broj" => $this->broj,                
 
        ));
-      }
+   }
     function napisi_recenziju()
 
   {
@@ -149,7 +150,35 @@ class User extends  User_Secure_Controller
     $this->korpa_model->promeniStatusKnjige($this->user->id);
     redirect('user/prikaziKorpu', 'refresh');
   }
+ function prikaziCenu()
+      {
+        $this->load->model('knjiga_model');
+       
 
+
+        $this->load->view('template', array(
+          "folder" => "app",
+          "user" => $this->user,
+          "page" => "katalog",
+          "knjige" => $this->knjiga_model->pretraziPoCeni(),
+          "title" => "Katalog knjiga",
+          "broj" => $this->broj,
+          "links"=>"",
+        ));
+      }
+  function method()
+{
+   $record_id = $_POST[record_id];
+   //set the record ID
+   $this->load->library(database);
+   //load the database library to connect to your database
+   $this->load->model(records);
+   //inside your system/application/models folder, create a model based on the procedure
+   //outlined in the CI documentation
+   $results = $this->records->get_record($record_id);
+   //get the record from the database
+} 
 
     }
+
 ?>

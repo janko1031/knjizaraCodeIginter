@@ -20,6 +20,7 @@ class User_model extends CI_Model
         $this->db->from('korpa');
 
         $this->db->join('knjige', 'korpa.knjiga_id = knjige.id_knjige', 'left');
+        $this->db->join('slike', 'knjige.id_knjige = slike.knjiga_id', 'left');
         $this->db->where($data); 
         $query = $this->db->get();
         return $query->result();

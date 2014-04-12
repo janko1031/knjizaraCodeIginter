@@ -73,7 +73,7 @@ class Korpa_model extends CI_Model
         $this->knjiga_model->smanjiKolicinu($id_knjige);         
   
          
-         redirect('user/prikaziKatalog', 'refresh');        
+         //redirect('user/prikaziKatalog', 'refresh');        
 
 
     }

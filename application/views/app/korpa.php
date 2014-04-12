@@ -20,7 +20,7 @@
               <th>#</th>
               <th>Naziv</th>
               <th>Autor</th>
-              <th>Godina izdanja</th>
+              <th> </th>
               <th>Izdavac</th>
               <th>Cena</th>
             </tr>
@@ -34,11 +34,14 @@
             $rbr=0;
             foreach ($knjige as $knjiga) {
               $rbr+=1;     ?>
-              <tr>
+              <tr id="redKnjiga">
                <td>  <?php echo $rbr ?></td>
-               <td> <?php echo $knjiga->naziv ?> </td>
+               <td> <?php echo $knjiga->naziv ?>
+                </td>
                <td> <?php echo $knjiga->autor ?> </td>
-               <td> <?php echo $knjiga->godina_izdanja ?> </td>
+                <td> <a href="<?php echo base_url('user/prikazi_knjigu/'.$knjiga->id_knjige); ?>">
+          <img class="img-responsive" width="60" height="180" src=<?php echo base_url('assets/img/knjige/'.$knjiga->img_name); ?>>
+        </a></td>
                <td> <?php echo $knjiga->izdavac ?> </td>
                <?php if ($knjiga->cena >1250 && $knjiga->cena <2000 ) {?>
                <td><span class="label label-warning"> <?php echo $knjiga->cena; echo " din." ?></span>  </td>
@@ -56,13 +59,20 @@
 
                <!--Forma za brisnje knjige iz korpe -->
                <td>
-                     <div class="col-md-3">
+               <div class="alert alert-dismissable alert-danger" id="successMessage" style="display:none">
+                <button type="button" class="close" id="closeMessage" data-dismiss="alert">×</button>
+                <strong>YEAH Bitch!</strong> Uspešno izbačena knjiga iz korpe 
+              </div>
+                     <div class="col-md-3" >
                      </div>
                  <?php echo form_open("user/izbaciIzKorpe",'class="bs-example form-horizontal"');?>
-                 <input type="hidden" name="id_knjige" value="<?php echo $knjiga->id_knjige?>">
-                 <a href="#" type="submit"><button class="btn btn-warning btn-sm">
-                    Izbaci iz  korpe <i class="glyphicon glyphicon-ban-circle"></i></button></a>
+                 <input type="hidden" name="id_knjige" id="id_knjige" value="<?php echo $knjiga->id_knjige?>">
+                  <button class="btn btn-success " type="submit" id="submit">
+                    Izbaci iz  korpe <i class="glyphicon glyphicon-ban-circle"></i></button>
+        
+                
                    <?php echo form_close();?> </td>
+
                  </tr>
                  <?php
                }?>
@@ -110,3 +120,34 @@
      </div>
 
    </div>
+   <script type="text/javascript">
+   
+    $('#submit').click(function() {
+
+  //var title = $('#title').val();
+
+  var form_data = {
+    id_knjige:$('#id_knjige').val(),
+    ajax: '1'  ,
+
+  }
+  $.ajax({
+    url: "<?php echo site_url('user/izbaciIzKorpe'); ?>",
+    type: 'POST',
+    data: form_data,
+    success: function() {
+     
+
+     $('#submit').hide();
+      $('#successMessage').show();
+    }
+  });
+   $('#closeMessage').click(function() {
+
+     $('#successMessage').hide();
+    });
+
+  return false;
+});
+
+  </script>

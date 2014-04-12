@@ -16,4 +16,38 @@
         
 
         </div>
+
+
+       <!--  <div class="well" >
+      <?php echo form_open_multipart("user/prikaziCenu",'class="bs-example form-horizontal"');?>
+      <h4>Filter cene</h4>
+
+      <div class="row">
+
+        <div class="col-md-1">
+          <label  class="control-label">Od:</label>
+        </div>
+        <div class="col-md-5">
+
+         <input type="text" class="form-control" name="cenaOD" data-validation="number" >
+       </div>
+
+       <div class="col-md-5">
+
+        <input type="text" class="form-control" name="cenaDO" data-validation="number" >
+      </div>
+      
+    </div>
+    <hr>
+    <div class="row">
+
+
+     <div class="col-lg-4">
+       <button class="btn btn-success" type="submit">Prikazi </button>
+     </div>
+   </div>
+ </form>
+
+
+</div> -->
       </div>

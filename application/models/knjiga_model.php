@@ -198,6 +198,20 @@ class Knjiga_model extends CI_Model
 
         return $query->result();
       }
+   function pretraziPoCeni(){
        
+      $od = $this->input->post('cenaOD');
+      $do = $this->input->post('cenaDO');
+        $this->db->select('*');
+        $this->db->from('knjige');
+        $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
+        $this->db->where("cena BETWEEN $od AND $do");
+        
+
+        $query = $this->db->get();
+
+        return $query->result();
+      }
+
 }
 ?>
