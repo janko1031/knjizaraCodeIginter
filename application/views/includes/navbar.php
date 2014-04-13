@@ -11,13 +11,13 @@
  <a class="navbar-brand" href="<?php echo site_url('auth/index'); ?>">Knjizara</a>
        </div>
       
-      <ul class="nav navbar-nav navbar-right">
+      <ul  class="nav navbar-nav navbar-right">
        <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> <?php echo $user->username?> <span class="caret"></span></a>
        
               <ul class="dropdown-menu">
           
-           <li><a href="<?php echo site_url('user/prikaziKorpu'); ?>">Proizvoda u korpi: <i class="glyphicon glyphicon-shopping-cart "></i>  <span class="badge"><?php echo $broj ?></span></a></li>
+           <li><a href="<?php echo site_url('user/prikaziKorpu'); ?>">Proizvoda u korpi: <i class="glyphicon glyphicon-shopping-cart "></i>  <span id="brojKorpa" class="badge"><?php echo $broj ?></span></a></li>
          
           <li><a href="<?php echo site_url('user/profil'); ?>">Prikazi profil</a></li>
           <li class="divider"></li>

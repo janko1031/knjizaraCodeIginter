@@ -178,7 +178,5 @@ class User extends  User_Secure_Controller
    $results = $this->records->get_record($record_id);
    //get the record from the database
 } 
-
-    }
-
+}
 ?>

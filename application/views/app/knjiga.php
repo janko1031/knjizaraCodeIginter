@@ -264,7 +264,7 @@
     data: form_data,
     success: function() {
       $('#success').show();
-
+       $('#brojKorpa').html("<?php echo $broj+1 ?> ");
     }
   });
    $('#closeMessage').click(function() {
