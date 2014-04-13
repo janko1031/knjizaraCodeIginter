@@ -18,7 +18,7 @@
         </div>
 
 
-       <!--  <div class="well" >
+     <div class="well" >
       <?php echo form_open_multipart("user/prikaziCenu",'class="bs-example form-horizontal"');?>
       <h4>Filter cene</h4>
 
@@ -49,5 +49,5 @@
  </form>
 
 
-</div> -->
+</div> 
       </div>

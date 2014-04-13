@@ -209,9 +209,26 @@ class Knjiga_model extends CI_Model
         
 
         $query = $this->db->get();
-
+        
         return $query->result();
+        
       }
+
+  function pretrazi($keyword){
+
+        $this->db->like('naziv',$keyword);
+        $this->db->or_like('autor', $keyword);
+
+        $this->db->or_like('naziv', $keyword);
+
+
+        $this->db->or_like('izdavac', $keyword);
+        $this->db->from('knjige');
+        $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
+        $query  =  $this->db->get();
+        return $query->result();
+    
+  }
 
 }
 ?>

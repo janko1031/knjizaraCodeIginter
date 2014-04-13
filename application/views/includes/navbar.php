@@ -11,6 +11,18 @@
  <a class="navbar-brand" href="<?php echo site_url('auth/index'); ?>">Knjizara</a>
        </div>
       
+   <div class=" col-md-5 ">
+
+         <?php echo form_open_multipart("user/prikaziRezultatePretrage",'class="navbar-form"');?>
+       
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Unesite pojam za pretragu" name="poljePretrage" id="poljePretrage">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+         </form>
+        </div>
       <ul  class="nav navbar-nav navbar-right">
        <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> <?php echo $user->username?> <span class="caret"></span></a>

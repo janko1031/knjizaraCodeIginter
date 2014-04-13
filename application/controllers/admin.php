@@ -219,5 +219,19 @@ function prikazi_naruceneKnjige(){
 }
 
 
+  function odobri_kupovinu(){
+
+    $user_id = $this->input->post('user_id');
+    $knjiga_id = $this->input->post('id_knjige');
+
+    $this->load->model('narudzbina_model');
+    $this->narudzbina_model->odobri_knjigu($user_id, $knjiga_id);
+    $this->load->model('korpa_model');
+    $this->korpa_model->izbrisiIzKorpe($user_id, $knjiga_id);
+    
+         redirect('admin/prikazi_naruceneKnjige', 'refresh');        
+
+    
+  }
 }
 ?>

@@ -150,6 +150,25 @@ class Korpa_model extends CI_Model
         return $cena;
 
     }
+
+     function izbrisiIzKorpe($user_id,$knjiga_id)
+    {
+        $this->load->library('form_validation');
+        $data = array(
+          'user_id' => $user_id ,
+         'knjiga_id' => $knjiga_id ,
+         
+         );
+        $this->db->where($data);
+        $this->db->limit(1);
+        $this->db->delete('korpa'); 
+
+         
+           
+         
+
+
+    }
       
 }
 ?>

@@ -19,7 +19,6 @@ class Admin_model extends CI_Model
             $user_id = $this->input->post('user_id');
             $this->db->delete('users', array('id' => $user_id));       
         }
-        
       
 
             }
