@@ -97,8 +97,8 @@
             </a>
             <a  id="success" class="list-group-item" style="display:none">
               <div class="alert alert-dismissable alert-success">
-                <button type="button" class="close" id="closeMessage" data-dismiss="alert">×</button>
-                <strong>YEAH Bitch!</strong> Uspešno dodata knjiga u korpu 
+                <button type="button" class="close" id="closeMessage" >×</button>
+                <strong>YEAH Bitch!</strong> Uspešno ubačena knjiga u korpu 
               </div>
               
 
@@ -270,10 +270,11 @@
    $('#closeMessage').click(function() {
 
      $('#success').hide();
+
     });
 
   return false;
-});
+  });
 
   </script>
 </div>
