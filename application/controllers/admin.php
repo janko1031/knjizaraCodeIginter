@@ -139,8 +139,8 @@ function uploaduj_sliku()
     $config['upload_path'] = './assets/img/knjige/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = '1024';
-        $config['max_width']  = '1368';
-        $config['max_height']  = '768';
+        $config['max_width']  = '1440';
+        $config['max_height']  = '1000';
 
         $this->load->library('upload', $config);
 

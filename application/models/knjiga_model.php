@@ -1,6 +1,6 @@
 <?php
 class Knjiga_model extends CI_Model
-    {
+{
 
        /*var $naziv ;
        var $autor ;
@@ -14,65 +14,62 @@ class Knjiga_model extends CI_Model
 */
 
 
-        public function __construct()
-        {
-            parent::__construct();
-        }
-
-
-        
-          function vratiKnjige()
-        {
+       public function __construct()
+       {
+        parent::__construct();
+      }
+      function vratiKnjige()
+      {
         return $this->db->get('knjige')->result();// vraca sve knjige
 
-        }
-       
+      }
 
 
-          function vratiKolicinu($id)
-        {
-        	$this->db->select('kolicina'); 
-   				$this->db->from('knjige');   
-   				$this->db->where('id_knjige', $id);
-    			$row= $this->db->get()->result();
-    			foreach ($row as $kol) {
-              $kolicina= $kol->kolicina;
-            }    
+
+      function vratiKolicinu($id)
+      {
+       $this->db->select('kolicina'); 
+       $this->db->from('knjige');   
+       $this->db->where('id_knjige', $id);
+       $row= $this->db->get()->result();
+       foreach ($row as $kol) {
+        $kolicina= $kol->kolicina;
+      }    
             return $kolicina;//vraca broj dostupnih knjiga na skladistu
 
-        }
-        
-         function povecajKolicinu($id_knjige)
-        {
+          }
+
+          function povecajKolicinu($id_knjige)
+          {
         //$id_knjige = $this->input->post('id_knjige');
-       
+
         $kolicina=$this->knjiga_model->vratiKolicinu($id_knjige);    //vraca broj dostupnih knjiga na skladistu
         
         $kolicina+=1;
         $data = array(
-               'kolicina' => $kolicina,               
-            );
+         'kolicina' => $kolicina,               
+         );
 
         $this->db->where('id_knjige', $id_knjige);//azurira polje kolicina u tabeli knjige
         $this->db->update('knjige', $data); 
-       }
+      }
 
-        function smanjiKolicinu($id_knjige)
-        {
+      function smanjiKolicinu($id_knjige)
+      {
          // $id_knjige = $this->input->post('id_knjige');
-          $kolicina=$this->knjiga_model->vratiKolicinu($id_knjige);    
+        $kolicina=$this->knjiga_model->vratiKolicinu($id_knjige);    
         
         $kolicina-=1;
         $data = array(
-               'kolicina' => $kolicina,               
-            );
+         'kolicina' => $kolicina,               
+         );
 
         $this->db->where('id_knjige', $id_knjige);
         $this->db->update('knjige', $data ); 
-       }
+      }
 
-       function dodajknjigu()
-        {
+      function dodajknjigu()
+      {
 
         $knjiga = new Knjiga_model;
         $knjiga->naziv = $this->input->post('naziv');
@@ -87,148 +84,179 @@ class Knjiga_model extends CI_Model
         
 
         $this->db->insert('knjige', $knjiga); 
-        }
+      }
 
 
-          function dodajSliku()
-        {
+      function dodajSliku()
+      {
 
         $naziv = $this->input->post('naziv');
         $query = $this->db->get_where('knjige', array('naziv' => $naziv), 1)->result();
         foreach ($query as $row) {
-           $id_knjige =$row->id_knjige;
-        }
- 
-        $config['upload_path'] = './assets/img/knjige/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size'] = '1024';
-        $config['max_width']  = '1368';
-        $config['max_height']  = '768';
+         $id_knjige =$row->id_knjige;
+       }
 
-        $this->load->library('upload', $config);
+       $config['upload_path'] = './assets/img/knjige/';
+       $config['allowed_types'] = 'gif|jpg|png';
+       $config['max_size'] = '1024';
+       $config['max_width']  = '1440';
+       $config['max_height']  = '990';
 
-        if ( ! $this->upload->do_upload())
-        {
-            $data = array('data' => $this->upload->display_errors()); 
+       $this->load->library('upload', $config);
 
-            $this->load->view('admin/uspesan_upload_slike', $data);
-        }
-        else
-        {         
-              
+       if ( ! $this->upload->do_upload())
+       {
+        $data = array('data' => $this->upload->display_errors()); 
+
+        $this->load->view('admin/uspesan_upload_slike', $data);
+      }
+      else
+      {         
+
                                                               //$this->upload->display_errors() je niz pravimo jos jedan niz $data
                                                              //koji ima jedan clan, a taj clan je niz.
-                                                            
-      
+
+
          $data = array('data' => $this->upload->data());// prva opcija dva foreacha
-            foreach ($data as $array){             
-               
-                 $img_name = $array['file_name'];                
-             
-            }
+         foreach ($data as $array){             
+
+           $img_name = $array['file_name'];                
+
+         }
               /*$data1= $this->upload->data();  // opcija DVA
               
-                 $img = $data1['file_name'];    */            
-             
-                    $this->db->set('img_name', $img_name);
-                    $this->db->set('knjiga_id', $id_knjige);
-                    $this->db->insert('slike');
-           
-           $this->load->view('admin/uspesan_upload_slike',$data);
+              $img = $data1['file_name'];    */            
+
+              $this->db->set('img_name', $img_name);
+              $this->db->set('knjiga_id', $id_knjige);
+              $this->db->insert('slike');
+
+              $this->load->view('admin/uspesan_upload_slike',$data);
+            }
+          }
+
+          function vrati_podatke_za_katalog($limit, $start){
+            $this->db->select('*');
+            $this->db->from('slike');
+            $this->db->limit($limit, $start);
+            $this->db->join('knjige', 'slike.knjiga_id = knjige.id_knjige', 'left');
+            $this->db->order_by("br_strana", "desc");  
+            $query = $this->db->get();
+
+            return $query->result();
+          }
+
+          public function broj_rezultata() {
+
+            return $this->db->count_all("knjige");
+
+          }
+
+          function vrati_knjigu($id){
+
+            $this->db->select('*');
+            $this->db->from('knjige');
+            $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
+            $this->db->where('id_knjige', $id);
+            $query = $this->db->get();
+
+            return $query->result();
+          }
+
+          function vrati_slicneKnjige($id,$zanr,$autor){
+
+
+            $this->db->select('*');
+            $this->db->from('knjige');
+            $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
+            $this->db->where('id_knjige', $id);
+
+            $this->db->like('zanr', $zanr);
+            $this->db->or_like('autor', $autor);
+            $this->db->or_like('zanr', $zanr);
+
+
+            $this->db->limit(6);
+            $this->db->order_by("zanr", "desc");  
+            $query = $this->db->get();
+
+            return $query->result();
+          }
+
+
+          function vrati_recenzije($id){
+
+            $this->db->select('recenzije.*,users.*');
+            $this->db->from('recenzije');
+            $this->db->join('knjige', 'recenzije.knjiga_id = knjige.id_knjige', 'left');
+            $this->db->join('users', 'recenzije.user_id = users.id', 'left');
+            $this->db->where('id_knjige', $id);
+            $query = $this->db->get();
+
+            return $query->result();
+          }
+          function pretraziPoCeni(){
+
+            $od = $this->input->post('cenaOD');
+            $do = $this->input->post('cenaDO');
+            $this->db->select('*');
+            $this->db->from('knjige');
+            $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
+            $this->db->where("cena BETWEEN $od AND $do");
+
+
+            $query = $this->db->get();
+
+            return $query->result();
+
+          }
+           function brojRezultataPretrage($keyword){
+
+            $this->db->like('naziv',$keyword);
+            $this->db->or_like('autor', $keyword);
+            $this->db->or_like('naziv', $keyword);
+            $this->db->or_like('izdavac', $keyword);
+            $this->db->from('knjige');    
+            $query =  $this->db->get();
+            return $query->num_rows();
+
+          }
+          function pretrazi($keyword){
+
+            $this->db->like('naziv',$keyword);
+            $this->db->or_like('autor', $keyword);
+
+            $this->db->or_like('naziv', $keyword);
+            $this->db->or_like('izdavac', $keyword);
+            $this->db->from('knjige');
+            $page= ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; 
+            $this->db->limit(8, $page);
+            $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
+            $query  =  $this->db->get();
+            return $query->result();
+
+          }
+           function brojPoZanru($zanr){
+
+            $this->db->like('zanr',$zanr);
+            $this->db->or_like('zanr',', '.$zanr);
+            $this->db->from('knjige');
+            $query  =  $this->db->get();
+          return $query->num_rows();
+
+
+          }
+           function filtrirajPoZanru($zanr){
+
+            $this->db->like('zanr',$zanr);
+            $this->db->or_like('zanr',', '.$zanr);
+            $this->db->from('knjige');
+            $page= ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; 
+            $this->db->limit(8, $page);
+            $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
+            $query  =  $this->db->get();
+            return $query->result();
+
+          }
         }
-      }
-
-      function vrati_podatke_za_katalog($limit, $start){
-        $this->db->select('*');
-        $this->db->from('slike');
-        $this->db->limit($limit, $start);
-        $this->db->join('knjige', 'slike.knjiga_id = knjige.id_knjige', 'left');
-
-        $query = $this->db->get();
-
-        return $query->result();
-      }
-
-       public function broj_rezultata() {
-
-        return $this->db->count_all("knjige");
-
-        }
-
-       function vrati_knjigu($id){
-
-        $this->db->select('*');
-        $this->db->from('knjige');
-        $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
-        $this->db->where('id_knjige', $id);
-        $query = $this->db->get();
-
-        return $query->result();
-      }
-
-       function vrati_slicneKnjige($id,$zanr,$autor){
-       
-      
-        $this->db->select('*');
-        $this->db->from('knjige');
-        $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
-        $this->db->where('id_knjige', $id);
-
-        $this->db->like('zanr', $zanr);
-         $this->db->or_like('autor', $autor);
-
-        $this->db->or_like('zanr', $zanr);
-        
-
-        $this->db->limit(6); 
-        $query = $this->db->get();
-
-        return $query->result();
-      }
-
-   
-    function vrati_recenzije($id){
-
-        $this->db->select('recenzije.*,users.*');
-        $this->db->from('recenzije');
-        $this->db->join('knjige', 'recenzije.knjiga_id = knjige.id_knjige', 'left');
-        $this->db->join('users', 'recenzije.user_id = users.id', 'left');
-        $this->db->where('id_knjige', $id);
-        $query = $this->db->get();
-
-        return $query->result();
-      }
-   function pretraziPoCeni(){
-       
-      $od = $this->input->post('cenaOD');
-      $do = $this->input->post('cenaDO');
-        $this->db->select('*');
-        $this->db->from('knjige');
-        $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
-        $this->db->where("cena BETWEEN $od AND $do");
-        
-
-        $query = $this->db->get();
-        
-        return $query->result();
-        
-      }
-
-  function pretrazi($keyword){
-
-        $this->db->like('naziv',$keyword);
-        $this->db->or_like('autor', $keyword);
-
-        $this->db->or_like('naziv', $keyword);
-
-
-        $this->db->or_like('izdavac', $keyword);
-        $this->db->from('knjige');
-        $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
-        $query  =  $this->db->get();
-        return $query->result();
-    
-  }
-
-}
-?>
+        ?>

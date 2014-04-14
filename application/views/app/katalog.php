@@ -4,7 +4,9 @@
 
   <div  class="row">
     <?php $broj=0;?>
-
+    <?php if (!empty($keyword)) {?>
+    <h4>Rezultati pretrage za pojam <strong>'<?php echo $keyword ?>'</strong></h4>
+    <?php }?>
     <?php if (empty($knjige)) {?>
     <div class="panel panel-info">
       <div class="panel-heading">
@@ -14,6 +16,10 @@
         Nije nađena ni jedna jedina knjiga po zadatim vrednostima.
       </div>
     </div>
+    <?php }?>
+    <?php if (!empty($zanr)) {?>
+    <h2>Knjige žanra  <strong>'<?php echo $zanr ?>'</strong></h2>
+    
     <?php }?>
     <?php foreach ($knjige as $knjiga) { 
       $broj+=1;

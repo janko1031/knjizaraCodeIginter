@@ -161,9 +161,7 @@ class Korpa_model extends CI_Model
          );
         $this->db->where($data);
         $this->db->limit(1);
-        $this->db->delete('korpa'); 
-
-         
+        $this->db->delete('korpa');        
            
          
 

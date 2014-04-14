@@ -10,7 +10,8 @@
         </button>
  <a class="navbar-brand" href="<?php echo site_url('auth/index'); ?>">Knjizara</a>
        </div>
-      
+      <div class=" col-md-2 ">
+</div>
    <div class=" col-md-5 ">
 
          <?php echo form_open_multipart("user/prikaziRezultatePretrage",'class="navbar-form"');?>

@@ -11,7 +11,7 @@
             parent::__construct();
            
             $this->load->library('ion_auth');
-                $this->load->helper('form');
+            $this->load->helper('form');
         }
 
     }

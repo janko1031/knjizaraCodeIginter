@@ -187,8 +187,9 @@
 
         ?>
         <hr>   <?php } ?>
-
+       
       </div>
+
     </div>
     
     <?php if (!$ocenjena) {?>
@@ -197,7 +198,7 @@
     <?php echo form_open("user/napisi_recenziju",'class="bs-example form-horizontal"');?>
 
     <div class="form-group">
-      <label for="textArea" class="col-lg-2 control-label">Tekst recenzije</label>
+      <label for="textArea"  class="col-lg-2 control-label">Tekst recenzije</label>
       <input type="hidden" name="id_knjige" value="<?php echo $knjiga->id_knjige?>">
       <div class="col-lg-10">
         <textarea class="form-control" rows="3" name="opis" data-validation="length" data-validation-length="min6" ></textarea>
@@ -208,7 +209,7 @@
     <div class="form-group">
       <label for="select" class="col-lg-2 control-label">Ocena knjige</label>
       <div class="col-lg-10">
-        <select multiple="" class="form-control" name="ocena">
+        <select multiple="" class="form-control" id="ocena" name="ocena">
 
           <option value="1"> Ocena 1 </option>
           <option value="2"> Ocena 2 </option>
@@ -223,7 +224,7 @@
 
     <div class="text-right">
 
-      <button class="btn btn-success" type="submit">
+      <button class="btn btn-success" type="submit" id="napsiRecenziju">
        Napisi recenziju  <i class="glyphicon glyphicon-comment"></i>  </button>
 
      </div>
@@ -246,10 +247,13 @@
     </form> 
     <?php } ?>
 
-  </div>
+
+
   <script type="text/javascript">
-   
-    $('#submit').click(function() {
+
+
+
+   $('#submit').click(function() {
 
   //var title = $('#title').val();
 
@@ -277,4 +281,6 @@
   });
 
   </script>
+
+
 </div>

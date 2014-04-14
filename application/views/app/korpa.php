@@ -120,34 +120,4 @@
      </div>
 
    </div>
-   <script type="text/javascript">
-   
-    $('#submit').click(function() {
-
-  //var title = $('#title').val();
-
-  var form_data = {
-    id_knjige:$('#id_knjige').val(),
-    ajax: '1'  ,
-
-  }
-  $.ajax({
-    url: "<?php echo site_url('user/izbaciIzKorpe'); ?>",
-    type: 'POST',
-    data: form_data,
-    success: function() {
-     
-
-     $('#submit').hide();
-      $('#successMessage').show();
-    }
-  });
-   $('#closeMessage').click(function() {
-
-     $('#successMessage').hide();
-    });
-
-  return false;
-});
-
-  </script>
+ 
