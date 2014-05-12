@@ -145,6 +145,19 @@ class Knjiga_model extends CI_Model
 
             return $query->result();
           }
+           function vrati_podatkeZaNaslovniKatalog(){
+            $this->db->select('*');
+            $this->db->from('slike');
+            $this->db->limit(4);
+            $this->db->join('knjige', 'slike.knjiga_id = knjige.id_knjige', 'left');
+             $this->db->like('zanr', 'drama');          
+            $this->db->or_like('zanr', ', drama');
+            
+            $this->db->order_by("naziv", "desc");  
+            $query = $this->db->get();
+
+            return $query->result();
+          }
 
           public function broj_rezultata() {
 

@@ -32,9 +32,9 @@
           
            <li><a href="<?php echo site_url('user/prikaziKorpu'); ?>">Proizvoda u korpi: <i class="glyphicon glyphicon-shopping-cart "></i>  <span id="brojKorpa" class="badge"><?php echo $broj ?></span></a></li>
          
-          <li><a href="<?php echo site_url('user/profil'); ?>">Prikazi profil</a></li>
+          
           <li class="divider"></li>
-          <li><a href="#">Separated link</a></li>
+         <li><a href="<?php echo site_url('user/profil'); ?>">Prikazi profil</a></li>
         </ul>
       </li>
       

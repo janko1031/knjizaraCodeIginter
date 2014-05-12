@@ -29,10 +29,13 @@ class Auth extends CI_Controller {
 			redirect('auth/index_auth_user', 'refresh');
 		}
 		else {
+			 $this->load->model('knjiga_model');
+
 		 $this->load->view('template_guest', array(
 		 		"folder" => "auth",
                 "page" => "index",              
                 "title" => "Knjizara",
+                "knjige" => $this->knjiga_model->vrati_podatkeZaNaslovniKatalog(),
 				            
                 
             ));
@@ -41,6 +44,7 @@ class Auth extends CI_Controller {
 	function index_auth_user()
 	{
 		$this->load->model('user_model');
+		 $this->load->model('knjiga_model');
 		$user=$this->ion_auth->user()->row(); 
 		if (!$this->ion_auth->logged_in())
 		{
@@ -69,7 +73,8 @@ class Auth extends CI_Controller {
                 "page" => "index",
                 "user" => $this->ion_auth->user()->row(),
                 "title" => "Knjizara",
-				"broj"=>$this->user_model->vrati_brojKnjiga($user->id),               
+				"broj"=>$this->user_model->vrati_brojKnjiga($user->id), 
+				"knjige" => $this->knjiga_model->vrati_podatkeZaNaslovniKatalog(),              
                 
             ));
 		}
