@@ -6,7 +6,7 @@
 
   <div class="row carousel-holder">
 
-<div class="col-md-12">
+<div class="col-md-11">
 
 
 	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -20,10 +20,10 @@
 				 <img class="img-responsive" src="<?php echo base_url('assets/img/knjizara.jpg'); ?>" alt="">
 			</div>
 			<div class="item">
-				 <img class="img-responsive" src="<?php echo base_url('assets/img/knjizara.jpg'); ?>" alt="">
+				 <img class="img-responsive" src="<?php echo base_url('assets/img/books.jpg'); ?>" alt="">
 			</div>
 			<div class="item active">
-				 <img class="img-responsive" src="<?php echo base_url('assets/img/knjizara.jpg'); ?>" alt="">
+				 <img class="img-responsive" src="<?php echo base_url('assets/img/strand.jpg'); ?>" alt="">
 			</div>
 		</div>
 		<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">

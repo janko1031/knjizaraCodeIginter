@@ -98,7 +98,7 @@
             <a  id="success" class="list-group-item" style="display:none">
               <div class="alert alert-dismissable alert-success">
                 <button type="button" class="close" id="closeMessage" >×</button>
-                <strong>YEAH Bitch!</strong> Uspešno ubačena knjiga u korpu 
+                <strong> Uspešno</strong> ubačena knjiga u korpu 
               </div>
               
 

@@ -221,7 +221,7 @@ class Knjiga_model extends CI_Model
             return $query->num_rows();
 
           }
-          function pretrazi($keyword){
+          function pretrazi($keyword,$page){
 
             $this->db->like('naziv',$keyword);
             $this->db->or_like('autor', $keyword);
@@ -229,7 +229,7 @@ class Knjiga_model extends CI_Model
             $this->db->or_like('naziv', $keyword);
             $this->db->or_like('izdavac', $keyword);
             $this->db->from('knjige');
-            $page= ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; 
+            
             $this->db->limit(8, $page);
             $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
             $query  =  $this->db->get();
@@ -251,8 +251,8 @@ class Knjiga_model extends CI_Model
             $this->db->like('zanr',$zanr);
             $this->db->or_like('zanr',', '.$zanr);
             $this->db->from('knjige');
-            $page= ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; 
-            $this->db->limit(8, $page);
+          
+            //$this->db->limit(8, $page);
             $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
             $query  =  $this->db->get();
             return $query->result();

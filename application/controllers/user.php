@@ -169,23 +169,24 @@ function prikaziCenu()
 }
 
 
-function prikaziRezultatePretrage()
+function prikaziRezultatePretrage( $offset=0)
 {
   $this->load->model('knjiga_model');
   $keyword=$this->input->post('poljePretrage') ;
   $this->load->library('pagination');
 
-  $config['base_url'] = base_url() ."user/prikaziKatalog/";
+  $config['base_url'] = base_url() ."user/prikaziRezultatePretrage/";
   $config['total_rows'] = $this->knjiga_model->brojRezultataPretrage($keyword); 
   $config['per_page'] = 8;
-
-
+     $config['uri_segment']    = 3;
+  $offset = (int) $offset;
+  $page= ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; 
   $this->pagination->initialize($config);
 
 
   $links= $this->pagination->create_links();
 
-  $knjige=$this->knjiga_model->pretrazi($keyword);
+  $knjige=$this->knjiga_model->pretrazi($keyword, $offset);
   if(empty($keyword)) {
     $knjige= array ();
     $links="";
@@ -208,7 +209,7 @@ function prikaziPoZanru()
   $zanr=$this->input->post('zanrSelect') ;
   $this->load->library('pagination');
 
-  $config['base_url'] = base_url() ."user/prikaziKatalog/";
+  $config['base_url'] = base_url() ."user/prikaziPoZanru/";
   $config['total_rows'] = $this->knjiga_model->brojPoZanru($zanr); 
   $config['per_page'] = 8;
 
