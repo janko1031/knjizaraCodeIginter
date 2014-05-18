@@ -15,7 +15,7 @@ class User_model extends CI_Model
         $data = array(
           'user_id' => $user_id ,
           'status_kupovine' => 0,
-        );     
+          );     
         $this->db->select('*');
         $this->db->from('korpa');
 
@@ -30,7 +30,7 @@ class User_model extends CI_Model
         $data = array(
           'user_id' => $user_id ,
           'status_kupovine' => 0,
-        ); 
+          ); 
         $this->db->select('*');
         $this->db->from('korpa');
 
@@ -40,66 +40,82 @@ class User_model extends CI_Model
     }
     function vrati_UkCenu($user_id)
     {
-         $data = array(
+       $data = array(
           'user_id' => $user_id ,
           'status_kupovine' => 0,
-        );    
-        $cena=0;
-        $this->db->select('cena');
-        $this->db->from('korpa');
+          );    
+       $cena=0;
+       $this->db->select('cena');
+       $this->db->from('korpa');
 
-        $this->db->join('knjige', 'korpa.knjiga_id = knjige.id_knjige', 'left');
-        $this->db->where($data); 
-        $query = $this->db->get();
-        foreach ($query->result() as $result) {
-            $cena+=$result->cena;
-        }
-        return $cena;
-
+       $this->db->join('knjige', 'korpa.knjiga_id = knjige.id_knjige', 'left');
+       $this->db->where($data); 
+       $query = $this->db->get();
+       foreach ($query->result() as $result) {
+        $cena+=$result->cena;
     }
-    function dodajUKorpu($user_id)
-    {
-        $this->load->library('form_validation');
-        $id_knjige = $this->input->post('id_knjige');
-        $data = array(
-          'user_id' => $user_id ,
-         'knjiga_id' => $id_knjige ,
-         
-         );
+    return $cena;
 
-        $this->db->insert('korpa', $data);
+}
+function dodajUKorpu($user_id)
+{
+    $this->load->library('form_validation');
+    $id_knjige = $this->input->post('id_knjige');
+    $data = array(
+      'user_id' => $user_id ,
+      'knjiga_id' => $id_knjige ,
 
-        $this->load->model('knjiga_model');
-        $this->knjiga_model->smanjiKolicinu($id_knjige);  
-            
-         
-         redirect('user/prikaziKatalog', 'refresh');        
+      );
+
+    $this->db->insert('korpa', $data);
+
+    $this->load->model('knjiga_model');
+    $this->knjiga_model->smanjiKolicinu($id_knjige);  
 
 
+    redirect('user/prikaziKatalog', 'refresh');        
+
+
+}
+
+function izbaciIzKorpe($user_id)
+{
+    $this->load->library('form_validation');
+    $knjiga = $this->input->post('id_knjige');
+    $data = array(
+      'user_id' => $user_id ,
+      'knjiga_id' => $knjiga ,
+
+      );
+    $this->db->where($data);
+    $this->db->limit(1);
+    $this->db->delete('korpa'); 
+
+    $this->load->model('knjiga_model');
+    $this->knjiga_model->povecajKolicinu($id_knjige);  
+
+
+    redirect('user/prikaziKorpu', 'refresh');        
+
+
+}
+
+public function proveriEmail(){
+    $this->load->library('form_validation');
+    $email = $this->input->post('email');
+
+
+    $this->db->where('email',$email);
+    $query = $this->db->get('users');
+    if ($query->num_rows() > 0){
+        return true;
+        
     }
-    
-    function izbaciIzKorpe($user_id)
-    {
-        $this->load->library('form_validation');
-        $knjiga = $this->input->post('id_knjige');
-        $data = array(
-          'user_id' => $user_id ,
-         'knjiga_id' => $knjiga ,
-         
-         );
-        $this->db->where($data);
-        $this->db->limit(1);
-        $this->db->delete('korpa'); 
-
-        $this->load->model('knjiga_model');
-        $this->knjiga_model->povecajKolicinu($id_knjige);  
-           
-         
-         redirect('user/prikaziKorpu', 'refresh');        
-
-
+    else{
+        return false;
     }
 
+}
 
 
 

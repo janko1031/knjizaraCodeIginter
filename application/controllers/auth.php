@@ -79,6 +79,7 @@ class Auth extends CI_Controller {
             ));
 		}
 	}
+	var $ispis;
 	 public function show_register(){
 
          $this->load->view('auth/register', array(
@@ -90,30 +91,39 @@ class Auth extends CI_Controller {
                
             ));
     }
-    function register_user()
+    public function proveriEmail(){
+$this->load->model('user_model');
+$postoji=$this->user_model->proveriEmail();
+if ($postoji) {
+  echo "1";}
+else {
+   echo "0";
+}
+}
+   
+  function register_user()
         {
            
             $this->load->library('form_validation');
             
-            $this->form_validation->set_rules('firstname', 'First name...', 'required|min_length[2]');
-            $this->form_validation->set_rules('lastname', 'Last name...', 'required');
-            $this->form_validation->set_rules('username', 'Username...', 'required|min_length[5]|max_length[100]');
+           // $this->form_validation->set_rules('firstname', 'First name...', 'required|min_length[2]');
+          //  $this->form_validation->set_rules('lastname', 'Last name...', 'required');
+          //  $this->form_validation->set_rules('username', 'Username...', 'required|min_length[5]|max_length[100]');
             //$this->form_validation->set_rules('password', 'Password...', 'required|min_length[6]|max_length[12]|matches[passconf]');
             //$this->form_validation->set_rules('passconf', 'Repeat password...', 'required');
-            $this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
-            $this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
-            $this->form_validation->set_rules('email', 'Email...', 'required|valid_email');
+            //$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+          //  $this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
+           // $this->form_validation->set_rules('email', 'Email...', 'required|valid_email');
 
-            if ($this->form_validation->run())
-            {
-               
+         
+  
                 $username = $this->input->post('username');
                 $password = $this->input->post('password');
                 $email = strtolower($this->input->post('email'));
                 $additional_data = array(
                     'first_name' => $this->input->post('firstname'),
                     'last_name' => $this->input->post('lastname'),
-                    $idGroup = $this->input->post('user-group'), 
+                    $idGroup = $this->input->post('user-group'),
                     'countries_id' => '1'
                 );
                     $groups= array( "groups_id" => $this->input->post('user-group'));
@@ -122,7 +132,7 @@ class Auth extends CI_Controller {
                
                 redirect('auth', 'refresh');
                 
-            }
+            
 
             $this->load->view('auth/register', array(
                  

@@ -235,6 +235,17 @@ function prikaziPoZanru()
     "links"=>"",
     ));
 } 
+public function prikaziStatistiku(){
+  $this->load->view('app/prikazProdajeZanrova');
+   /* ,array("folder" => "app",
+    "user" => $this->user,
+    "broj" => $this->broj,
+    "title" => "Knjige žanra: ",
+    "page" => "prikazProdajeZanrova",
+
+    ));*/
+
+}
 
 }
 ?>

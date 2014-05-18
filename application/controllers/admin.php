@@ -228,10 +228,44 @@ function prikazi_naruceneKnjige(){
     $this->narudzbina_model->odobri_knjigu($user_id, $knjiga_id);
     $this->load->model('korpa_model');
     $this->korpa_model->izbrisiIzKorpe($user_id, $knjiga_id);
+  
+   $config['protocol']    = 'smtp';
+        $config['smtp_host']    = 'ssl://smtp.gmail.com';
+        $config['smtp_port']    = '465';
+        $config['smtp_timeout'] = '7';
+        $config['smtp_user']    = 'knjizaraatlantis@gmail.com';
+        $config['smtp_pass']    = 'knjizaraatlantis91';
+        $config['charset']    = 'utf-8';
+        $config['newline']    = "\r\n";
+        $config['mailtype'] = 'text'; // or html
+        $config['validation'] = TRUE; // bool whether to validate email or not      
+
+        $this->email->initialize($config);
+        $message = 'Poštovani, Vaša kupovina je odobrena.';
+        $this->load->library('email');
+      $this->email->set_newline("\r\n");
+      $this->email->from('knjizaraatlantis91@gmail.com'); // change it to yours
+      $mejl= $this->user->email;
+      $this->email->to($mejl);// change it to yours
+      $this->email->subject('Odobrena kupovina');
+      $this->email->message($message);
+      if($this->email->send())
+     {
+      echo 'Email sent.';
+     }
+     else
+    {
+     show_error($this->email->print_debugger());
+    }
+
     
          redirect('admin/prikazi_naruceneKnjige', 'refresh');        
 
     
   }
+  function sendMail()
+{
+   
+}
 }
 ?>
