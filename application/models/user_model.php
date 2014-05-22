@@ -8,7 +8,14 @@ class User_model extends CI_Model
         parent::__construct();
     }
 
+function vratiKorisnika($id)
+      {
+       $this->db->select('*'); 
+       $this->db->from('users');   
+       $this->db->where('id', $id);
+       return $this->db->get()->result();
 
+      }
 
     function vrati_knjigeKorisnika($user_id)
     {

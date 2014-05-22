@@ -47,6 +47,7 @@
             <input class="form-control" type="text" class="form-control" name="email" id="email" placeholder="Email..." required>
         </div>
          <div class="col-lg-10">
+         <div id="ispisi2"></div> 
             <input class="form-control" type="hidden" class="form-control" name="user-group" value="2">
         </div>
 
