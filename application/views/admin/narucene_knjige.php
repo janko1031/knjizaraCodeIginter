@@ -53,8 +53,8 @@
                  <div class="col-md-3">
                  </div>
                  <?php echo form_open("admin/odobri_kupovinu",'class="bs-example form-horizontal"');?>
-                 <input type="text" name="id_knjige" value="<?php echo $knjiga->id_knjige?>">
-                 <input type="text" name="user_id" value="<?php echo $knjiga->user_id?>">
+                 <input type="hidden" name="id_knjige" value="<?php echo $knjiga->id_knjige?>">
+                 <input type="hidden" name="user_id" value="<?php echo $knjiga->user_id?>">
                  <a href="#" type="submit"><button class="btn btn-success btn-sm">
                   Odobri    <i class="glyphicon glyphicon-check"></i></button></a>
                   <?php echo form_close();?> </td>

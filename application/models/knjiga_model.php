@@ -253,6 +253,47 @@ class Knjiga_model extends CI_Model {
         return $query->result();
     }
 
+    function vratiSveZanrove() {
+
+        return $this->db->get('zanr')->result(); // vraca sve knjige
+    }
+
+    function vratiProdajuPoZanru($zanr) {
+
+        $this->db->select('*');
+        $this->db->from('kupljene_knjige');
+        $this->db->join('knjige', 'knjige.id_knjige = kupljene_knjige.knjiga_id', 'left');
+        $this->db->where('zanr_id', $zanr);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function vratiProdajuIzdavaca($izdavac) {
+
+        $this->db->select('*');
+        $this->db->from('kupljene_knjige');
+        $this->db->join('knjige', 'knjige.id_knjige = kupljene_knjige.knjiga_id', 'left');
+        $this->db->where('knjige.izdavac', $izdavac);
+        //$this->db->where('datum_kupovine BETWEEN "'. date('Y-m-d', strtotime($datumOD)). '" and "'. date('Y-m-d', strtotime($datumDO)).'"');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function vratiPrihodPoGodinama($datumOD, $datumDO, $izdavac) {
+
+        $this->db->select('*');
+        $this->db->from('kupljene_knjige');
+        $this->db->join('knjige', 'knjige.id_knjige = kupljene_knjige.knjiga_id', 'left');
+        $this->db->where('knjige.izdavac', $izdavac);
+        $this->db->where('datum_kupovine BETWEEN "' . date('Y-m-d', strtotime($datumOD)) . '" and "' . date('Y-m-d', strtotime($datumDO)) . '"');
+        $query = $this->db->get();
+        $prihod = 0;
+        foreach ($query->result() as $row) {
+            $prihod+=$row->cena;
+        }
+        return $prihod;
+    }
+
 }
 
 ?>
