@@ -256,7 +256,7 @@ class User extends User_Secure_Controller {
                 ->addColumn('string', 'Kolicina', 'kolicina')
                 ->addRow(array('Evro-Giunti', $this->knjiga_model->vratiProdajuIzdavaca('Evro-Giunti')))
                 ->addRow(array('Laguna', $this->knjiga_model->vratiProdajuIzdavaca('Laguna')))
-                ->addRow(array('Vulkan izdavaÅ¡tvo ', $this->knjiga_model->vratiProdajuIzdavaca('Vulkan izdavaÅ¡tvo')))
+                ->addRow(array('Vulkan izdavaštvo', $this->knjiga_model->vratiProdajuIzdavaca('Vulkan izdavaštvo')))
                 ->addRow(array('Mikro knjiga', $this->knjiga_model->vratiProdajuIzdavaca('Mikro knjiga')));
 
         $config = array(
