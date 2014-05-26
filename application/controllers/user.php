@@ -90,11 +90,11 @@ class User extends User_Secure_Controller {
         $this->load->model('knjiga_model');
         $this->load->model('recenzija_model');
         $knjige = $this->knjiga_model->vrati_knjigu($id);
-
+ $naziv="";
         foreach ($knjige as $knjiga) {
             $zanr = $knjiga->zanr;
             $autor = $knjiga->autor;
-            // $naziv=$knjiga->naziv;
+            $naziv=$knjiga->naziv;
         }
 
         $this->load->view('template', array(
@@ -106,7 +106,7 @@ class User extends User_Secure_Controller {
             "recenzije" => $this->knjiga_model->vrati_recenzije($id),
             "ocena" => $this->recenzija_model->proscena_ocena($id),
             "ocenjena" => $this->recenzija_model->ocenjena_knjiga($this->user->id, $id),
-            "title" => "Prikaz knjige",
+            "title" => $naziv,
             "broj" => $this->broj,
         ));
     }

@@ -3,97 +3,104 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
+ protected   $broj  ;
+ protected   $user  ;
+ function __construct() {
+    parent::__construct();
+    $this->load->library('ion_auth');
+    $this->load->library('form_validation');
+    $this->load->helper('url');
 
-    function __construct() {
-        parent::__construct();
-        $this->load->library('ion_auth');
-        $this->load->library('form_validation');
-        $this->load->helper('url');
-
-
+    $this->load->model('user_model');
+    if ($this->ion_auth->logged_in())
+    {
+       $this->user = $this->ion_auth->user()->row(); 
+       $this->broj=$this->user_model->vrati_brojKnjiga($this->user->id);
+   } 
+   
         // Load MongoDB library instead of native db driver if required
-        $this->config->item('use_mongodb', 'ion_auth') ?
-                        $this->load->library('mongo_db') :
-                        $this->load->database();
+   $this->config->item('use_mongodb', 'ion_auth') ?
+   $this->load->library('mongo_db') :
+   $this->load->database();
 
-        $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
+   $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
-        $this->lang->load('auth');
-        $this->load->helper('language');
-    }
+   $this->lang->load('auth');
+   $this->load->helper('language');
+}
 
-    function index() {
-        if ($this->ion_auth->logged_in()) {
+function index() {
+    if ($this->ion_auth->logged_in()) {
             //redirect them to the login page
-            redirect('auth/index_auth_user', 'refresh');
-        } else {
-            $this->load->model('knjiga_model');
-
-            $this->load->view('template_guest', array(
-                "folder" => "auth",
-                "page" => "index",
-                "title" => "Knjizara",
-                "knjige" => $this->knjiga_model->vrati_podatkeZaNaslovniKatalog(),
-            ));
-        }
-    }
-
-    function index_auth_user() {
-        $this->load->model('user_model');
+        redirect('auth/index_auth_user', 'refresh');
+    } else {
         $this->load->model('knjiga_model');
-        $user = $this->ion_auth->user()->row();
-        if (!$this->ion_auth->logged_in()) {
+
+        $this->load->view('template_guest', array(
+            "folder" => "auth",
+            "page" => "index",
+            "title" => "Knjizara",
+            "knjige" => $this->knjiga_model->vrati_podatkeZaNaslovniKatalog(),
+            ));
+    }
+}
+
+function index_auth_user() {
+    $this->load->model('user_model');
+    $this->load->model('knjiga_model');
+    $user = $this->ion_auth->user()->row();
+    if (!$this->ion_auth->logged_in()) {
             //redirect them to the login page
-            redirect('auth/login', 'refresh');
-        }
+        redirect('auth/login', 'refresh');
+    }
         /* elseif (!$this->ion_auth->is_admin()) //remove this elseif if you want to enable this for non-admins
           {
           //redirect them to the home page because they must be an administrator to view this
           return show_error('You must be an administrator to view this page.');
-          } */ else {
+      } */ else {
             //set the flash data error message if there is one
-            $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
             //list the users
-            $this->data['users'] = $this->ion_auth->users()->result();
-            foreach ($this->data['users'] as $k => $user) {
-                $this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
-            }
+        $this->data['users'] = $this->ion_auth->users()->result();
+        foreach ($this->data['users'] as $k => $user) {
+            $this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
+        }
 
-            $this->load->view('template', array(
-                "folder" => "auth",
-                "page" => "index",
-                "user" => $this->ion_auth->user()->row(),
-                "title" => "Knjizara",
-                "broj" => $this->user_model->vrati_brojKnjiga($user->id),
-                "knjige" => $this->knjiga_model->vrati_podatkeZaNaslovniKatalog(),
+        $this->load->view('template', array(
+            "folder" => "auth",
+            "page" => "index",
+            "user" => $this->ion_auth->user()->row(),
+            "title" => "Knjizara",
+            "broj" => $this->broj,
+            "knjige" => $this->knjiga_model->vrati_podatkeZaNaslovniKatalog(),
             ));
-        }
     }
+}
 
-    var $ispis;
+var $ispis;
 
-    public function show_register() {
+public function show_register() {
 
-        $this->load->view('auth/register', array(
-            "title" => "Kreiranje novog korisnika",
-            "groups" => $this->ion_auth->groups()->result(),
+    $this->load->view('auth/register', array(
+        "title" => "Kreiranje novog korisnika",
+        "groups" => $this->ion_auth->groups()->result(),
         ));
+}
+
+public function proveriEmail() {
+    $this->load->model('user_model');
+    $postoji = $this->user_model->proveriEmail();
+    if ($postoji) {
+        echo "1";
+    } else {
+        echo "0";
     }
+}
 
-    public function proveriEmail() {
-        $this->load->model('user_model');
-        $postoji = $this->user_model->proveriEmail();
-        if ($postoji) {
-            echo "1";
-        } else {
-            echo "0";
-        }
-    }
+function register_user() {
 
-    function register_user() {
-
-        $this->load->library('form_validation');
+    $this->load->library('form_validation');
 
         // $this->form_validation->set_rules('firstname', 'First name...', 'required|min_length[2]');
         //  $this->form_validation->set_rules('lastname', 'Last name...', 'required');
@@ -106,50 +113,50 @@ class Auth extends CI_Controller {
 
 
 
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
-        $email = strtolower($this->input->post('email'));
-        $additional_data = array(
-            'first_name' => $this->input->post('firstname'),
-            'last_name' => $this->input->post('lastname'),
-            $idGroup = $this->input->post('user-group'),
-            'countries_id' => '1'
+    $username = $this->input->post('username');
+    $password = $this->input->post('password');
+    $email = strtolower($this->input->post('email'));
+    $additional_data = array(
+        'first_name' => $this->input->post('firstname'),
+        'last_name' => $this->input->post('lastname'),
+        $idGroup = $this->input->post('user-group'),
+        'countries_id' => '1'
         );
-        $groups = array("groups_id" => $this->input->post('user-group'));
+    $groups = array("groups_id" => $this->input->post('user-group'));
 
-        $this->ion_auth->register($username, $password, $email, $additional_data, $groups);
+    $this->ion_auth->register($username, $password, $email, $additional_data, $groups);
 
-        redirect('auth', 'refresh');
+    redirect('auth', 'refresh');
 
 
 
-        $this->load->view('auth/register', array(
-            "title" => "Kreiranje novog korisnika",
+    $this->load->view('auth/register', array(
+        "title" => "Kreiranje novog korisnika",
         ));
-    }
+}
 
     //log the user in
-    function login() {
-        $this->data['title'] = "Login";
+function login() {
+    $this->data['title'] = "Login";
 
         //validate form input
-        $this->form_validation->set_rules('identity', 'Identity', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
+    $this->form_validation->set_rules('identity', 'Identity', 'required');
+    $this->form_validation->set_rules('password', 'Password', 'required');
 
-        if ($this->form_validation->run() == true) {
+    if ($this->form_validation->run() == true) {
             //check to see if the user is logging in
             //check for "remember me"
-            $remember = (bool) $this->input->post('remember');
+        $remember = (bool) $this->input->post('remember');
 
-            if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)) {
+        if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)) {
                 //if the login is successful
                 //redirect them back to the home page
-                $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect('auth/index_auth_user', 'refresh');
-            } else {
+            $this->session->set_flashdata('message', $this->ion_auth->messages());
+            redirect('auth/index_auth_user', 'refresh');
+        } else {
                 //if the login was un-successful
                 //redirect them back to the login page
-                $this->session->set_flashdata('message', $this->ion_auth->errors());
+            $this->session->set_flashdata('message', $this->ion_auth->errors());
                 redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
             }
         } else {
@@ -161,11 +168,11 @@ class Auth extends CI_Controller {
                 'id' => 'identity',
                 'type' => 'text',
                 'value' => $this->form_validation->set_value('identity'),
-            );
+                );
             $this->data['password'] = array('name' => 'password',
                 'id' => 'password',
                 'type' => 'password',
-            );
+                );
 
             $this->_render_page('auth/loginpage', $this->data);
         }
@@ -205,25 +212,25 @@ class Auth extends CI_Controller {
                 'name' => 'old',
                 'id' => 'old',
                 'type' => 'password',
-            );
+                );
             $this->data['new_password'] = array(
                 'name' => 'new',
                 'id' => 'new',
                 'type' => 'password',
                 'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
-            );
+                );
             $this->data['new_password_confirm'] = array(
                 'name' => 'new_confirm',
                 'id' => 'new_confirm',
                 'type' => 'password',
                 'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
-            );
+                );
             $this->data['user_id'] = array(
                 'name' => 'user_id',
                 'id' => 'user_id',
                 'type' => 'hidden',
                 'value' => $user->id,
-            );
+                );
 
             //render
             $this->_render_page('auth/change_password', $this->data);
@@ -322,7 +329,7 @@ class Auth extends CI_Controller {
                 'last_name' => $this->input->post('last_name'),
                 'company' => $this->input->post('company'),
                 'phone' => $this->input->post('phone'),
-            );
+                );
         }
         if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data)) {
             //check to see if we are creating the user
@@ -339,43 +346,43 @@ class Auth extends CI_Controller {
                 'id' => 'first_name',
                 'type' => 'text',
                 'value' => $this->form_validation->set_value('first_name'),
-            );
+                );
             $this->data['last_name'] = array(
                 'name' => 'last_name',
                 'id' => 'last_name',
                 'type' => 'text',
                 'value' => $this->form_validation->set_value('last_name'),
-            );
+                );
             $this->data['email'] = array(
                 'name' => 'email',
                 'id' => 'email',
                 'type' => 'text',
                 'value' => $this->form_validation->set_value('email'),
-            );
+                );
             $this->data['company'] = array(
                 'name' => 'company',
                 'id' => 'company',
                 'type' => 'text',
                 'value' => $this->form_validation->set_value('company'),
-            );
+                );
             $this->data['phone'] = array(
                 'name' => 'phone',
                 'id' => 'phone',
                 'type' => 'text',
                 'value' => $this->form_validation->set_value('phone'),
-            );
+                );
             $this->data['password'] = array(
                 'name' => 'password',
                 'id' => 'password',
                 'type' => 'password',
                 'value' => $this->form_validation->set_value('password'),
-            );
+                );
             $this->data['password_confirm'] = array(
                 'name' => 'password_confirm',
                 'id' => 'password_confirm',
                 'type' => 'password',
                 'value' => $this->form_validation->set_value('password_confirm'),
-            );
+                );
 
             $this->_render_page('auth/create_user', $this->data);
         }
@@ -411,7 +418,7 @@ class Auth extends CI_Controller {
                 'last_name' => $this->input->post('last_name'),
                 'company' => $this->input->post('company'),
                 'phone' => $this->input->post('phone'),
-            );
+                );
 
             //Update the groups user belongs to
             $groupData = $this->input->post('groups');
@@ -463,35 +470,35 @@ class Auth extends CI_Controller {
             'id' => 'first_name',
             'type' => 'text',
             'value' => $this->form_validation->set_value('first_name', $user->first_name),
-        );
+            );
         $this->data['last_name'] = array(
             'name' => 'last_name',
             'id' => 'last_name',
             'type' => 'text',
             'value' => $this->form_validation->set_value('last_name', $user->last_name),
-        );
+            );
         $this->data['company'] = array(
             'name' => 'company',
             'id' => 'company',
             'type' => 'text',
             'value' => $this->form_validation->set_value('company', $user->company),
-        );
+            );
         $this->data['phone'] = array(
             'name' => 'phone',
             'id' => 'phone',
             'type' => 'text',
             'value' => $this->form_validation->set_value('phone', $user->phone),
-        );
+            );
         $this->data['password'] = array(
             'name' => 'password',
             'id' => 'password',
             'type' => 'password'
-        );
+            );
         $this->data['password_confirm'] = array(
             'name' => 'password_confirm',
             'id' => 'password_confirm',
             'type' => 'password'
-        );
+            );
 
         $this->_render_page('auth/edit_user', $this->data);
     }
@@ -508,21 +515,21 @@ class Auth extends CI_Controller {
 
     function _valid_csrf_nonce() {
         if ($this->input->post($this->session->flashdata('csrfkey')) !== FALSE &&
-                $this->input->post($this->session->flashdata('csrfkey')) == $this->session->flashdata('csrfvalue')) {
+            $this->input->post($this->session->flashdata('csrfkey')) == $this->session->flashdata('csrfvalue')) {
             return TRUE;
-        } else {
-            return FALSE;
-        }
+    } else {
+        return FALSE;
     }
+}
 
-    function _render_page($view, $data = null, $render = false) {
+function _render_page($view, $data = null, $render = false) {
 
-        $this->viewdata = (empty($data)) ? $this->data : $data;
+    $this->viewdata = (empty($data)) ? $this->data : $data;
 
-        $view_html = $this->load->view($view, $this->viewdata, $render);
+    $view_html = $this->load->view($view, $this->viewdata, $render);
 
-        if (!$render)
-            return $view_html;
-    }
+    if (!$render)
+        return $view_html;
+}
 
 }
