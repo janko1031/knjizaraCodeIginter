@@ -75,14 +75,28 @@
         }
 
         ?>
-        <b> <?php echo  $ocena ?> </b>
+        <div ><b> <?php echo  $ocena ?> </b></div>
         <hr> 
         <div class="list-group">
           <a href="#" class="list-group-item">
-            <h3 class="list-group-item-heading"><i class=" glyphicon glyphicon-tags"></i>     Cena knjige: <?php echo $knjiga->cena ?> din.          
-            </h3>
+           <h3 id="cena" class="list-group-item-heading"><i class=" glyphicon glyphicon-tags"></i>     Cena knjige: <?php echo $knjiga->cena ?> din.   
+  </h3>
+            <h3 id="cena1" class="list-group-item-heading"><i class=" glyphicon glyphicon-tags"></i>     </h3>
             <p class="list-group-item-text"> </p>
           </a>
+
+<a  class="list-group-item">
+           
+            <?php echo form_open("user/konverzija",'class="bs-example form-horizontal"');?>
+              <div class="col-md-4">
+
+            </div>
+
+            <button class="btn btn-info btn-sm " type="submit" id="konvertuj">
+              Konvertuj cenu u <i class=" glyphicon glyphicon-euro">       </i> </button>
+              <?php echo form_close();?> 
+            </a>
+
           <a  class="list-group-item">
             <div class="col-md-4">
 
@@ -256,7 +270,7 @@
    $('#submit').click(function() {
 
   //var title = $('#title').val();
-
+    $('#success').hide();
   var form_data = {
     id_knjige:$('#id_knjige').val(),
     ajax: '1'  ,
@@ -266,9 +280,39 @@
     url: "<?php echo site_url('user/ubaciUKorpu'); ?>",
     type: 'POST',
     data: form_data,
-    success: function() {
+    success: function(responseText) {
       $('#success').show();
-      $('#brojKorpa').html("<?php echo $broj+1 ?> ");
+      
+      $('#brojKorpa').html(responseText);
+
+    }
+  });
+   $('#closeMessage').click(function() {
+
+     $('#success').hide();
+
+    });
+
+  return false;
+  });
+
+
+$('#konvertuj').click(function() {
+
+  //var title = $('#title').val();
+
+  var form_data = {
+    id_knjige:$('#id_knjige').val(),
+    ajax: '1'  ,
+
+  }
+  $.ajax({
+    url: "<?php echo site_url('user/konverzija'); ?>",
+    type: 'POST',
+    data: form_data,
+    success: function(responseText) {
+   
+      $('#cena1').html(responseText);
     }
   });
    $('#closeMessage').click(function() {

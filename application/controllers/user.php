@@ -50,7 +50,7 @@ class User extends User_Secure_Controller {
 
         $this->pagination->initialize($config);
 
-
+        
         $links = $this->pagination->create_links();
 
 
@@ -61,6 +61,7 @@ class User extends User_Secure_Controller {
             "knjige" => $this->knjiga_model->vrati_podatke_za_katalog($config["per_page"], $page),
             "title" => "Katalog knjiga",
             "broj" => $this->broj,
+            "val"=>" din",
             "imaFilter" => true,
             "links" => $links,
         ));
@@ -71,7 +72,9 @@ class User extends User_Secure_Controller {
 
         $this->load->model('korpa_model');
         $this->korpa_model->dodajUKorpu($this->user->id);
-        // redirect('app/prikaziKorpu', 'refresh');
+        $broj = $this->user_model->vrati_brojKnjiga($this->user->id);
+        echo $this->broj + 1;
+// redirect('app/prikaziKorpu', 'refresh');
     }
 
     function izbaciIzKorpe() {
@@ -90,11 +93,12 @@ class User extends User_Secure_Controller {
         $this->load->model('knjiga_model');
         $this->load->model('recenzija_model');
         $knjige = $this->knjiga_model->vrati_knjigu($id);
- $naziv="";
+        $naziv = "";
         foreach ($knjige as $knjiga) {
             $zanr = $knjiga->zanr;
             $autor = $knjiga->autor;
-            $naziv=$knjiga->naziv;
+            $naziv = $knjiga->naziv;
+            $cena = $knjiga->cena;
         }
 
         $this->load->view('template', array(
@@ -245,7 +249,7 @@ class User extends User_Secure_Controller {
 
         $this->gcharts->PieChart('ProdajaZanr')->setConfig($config);
 
-        //UDEO U PRODAJI IZDAVACA
+//UDEO U PRODAJI IZDAVACA
 
         $this->gcharts->load('DonutChart');
 
@@ -322,6 +326,123 @@ class User extends User_Secure_Controller {
             "broj" => $this->broj,
             "title" => "Statistike prodaje",
             "page" => "prikazStatistike.php",
+        ));
+    }
+
+    public function konverzija() {
+        $this->load->model('knjiga_model');
+
+        $knjige = $this->knjiga_model->vrati_knjigu($this->input->post('id_knjige'));
+        foreach ($knjige as $knjiga) {
+            $cena = $knjiga->cena;
+        }
+        $api_id = 'd37b8c26b98c147ff683fc04550a143e'; // Vaš API ID
+        $url = 'http://api.kursna-lista.info/' . $api_id . '/konvertor/rsd/eur/' . $cena;
+        $content = file_get_contents($url);
+
+        if (empty($content)) {
+            die('Greška u preuzimanju podataka');
+        }
+
+        $data = json_decode($content, true);
+
+
+
+        if ($data['status'] == 'ok') {
+            $novaCena = " Cena knjige: " . round($data['result']['value'], 2) . " €";
+            echo $novaCena;
+        } else {
+            echo $novaCena = "Došlo je do greške: " . $data['code'] . " - " . $data['msg'];
+        }
+    }
+
+    public function vratiDnevniKurs() {
+        $today = getdate();
+
+        $d = $today['mday'];
+        $m = $today['mon'];
+        $y = $today['year'];
+        $datum = "$d.$m.$y";
+
+        $api_id = 'd37b8c26b98c147ff683fc04550a143e'; // Vaš API ID
+        $url = 'http://api.kursna-lista.info/' . $api_id . '/kl_na_dan/' . $datum;
+
+        $content = file_get_contents($url);
+
+        if (empty($content)) {
+            die('Greška u preuzimanju podataka');
+        }
+
+        $data = json_decode($content, true);
+
+
+
+        if ($data['status'] == 'ok') {
+            $kurs = $data['result']['eur']['sre'];
+            return $kurs;
+        } else {
+            return $novaCena = "Došlo je do greške: " . $data['code'] . " - " . $data['msg'];
+        }
+    }
+
+    public function vratiKnjigeSaPArametrom($valuta, $limit, $start) {
+        if ($valuta == 1) {
+
+            $this->db->select('*');
+            $this->db->from('slike');
+            $this->db->limit($limit, $start);
+            $this->db->join('knjige', 'slike.knjiga_id = knjige.id_knjige', 'left');
+            $this->db->order_by("br_strana", "desc");
+            $query = $this->db->get();
+
+            return $query->result();
+        }
+        if ($valuta == 2) {
+            $this->db->select('*');
+            $this->db->select('knjige.cena/' . $this->vratiDnevniKurs() . ' as cena', false);
+            $this->db->from('knjige');
+
+            $this->db->limit($limit, $start);
+            $this->db->join('slike', 'knjige.id_knjige = slike.knjiga_id', 'left');
+            $this->db->order_by("br_strana", "desc");
+            $query = $this->db->get();
+
+            return $query->result();
+        }
+    }
+
+    function prikaziKatalogValuta() {
+
+        $this->load->model('knjiga_model');
+        $this->load->library('pagination');
+        $valuta = $this->input->post('valuta');
+        if ($valuta == 2) {
+            $val = " €";
+        } else {
+            $val = " din";
+        }
+
+        $config['base_url'] = base_url() . "user/prikaziKatalogValuta/";
+        $config['total_rows'] = $this->knjiga_model->broj_rezultata();
+        $config['per_page'] = 8;
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        $this->pagination->initialize($config);
+
+
+        $links = $this->pagination->create_links();
+
+
+        $this->load->view('template_safilterom', array(
+        "folder" => "app",
+        "user" => $this->user,
+        "page" => "katalog",
+        "knjige" => $this->vratiKnjigeSaPArametrom($valuta, $config["per_page"], $page),
+        "title" => "Katalog knjiga",
+        "broj" => $this->broj,
+        "val" =>$val,
+        "imaFilter" => true,
+        "links" => $links,
         ));
     }
 

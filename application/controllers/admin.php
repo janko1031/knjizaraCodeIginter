@@ -198,7 +198,7 @@ class Admin extends User_Secure_Controller {
         $config['smtp_port'] = '465';
         $config['smtp_timeout'] = '7';
         $config['smtp_user'] = 'knjizaraatlantis@gmail.com';
-        $config['smtp_pass'] = '*';
+        $config['smtp_pass'] = 'knjizaraatlantis103';
         $config['charset'] = 'utf-8';
         $config['newline'] = "\r\n";
         $config['mailtype'] = 'text'; // or html
@@ -248,7 +248,7 @@ class Admin extends User_Secure_Controller {
         $config['smtp_port'] = '465';
         $config['smtp_timeout'] = '7';
         $config['smtp_user'] = 'knjizaraatlantis@gmail.com';
-        $config['smtp_pass'] = '*';
+        $config['smtp_pass'] = 'knjizaraatlantis103';
         $config['charset'] = 'utf-8';
         $config['newline'] = "\r\n";
         $config['mailtype'] = 'text'; // or html

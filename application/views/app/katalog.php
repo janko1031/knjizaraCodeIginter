@@ -42,7 +42,7 @@
           <br>
 
           <ul class="nav nav-pills">
-            <li ><a href="#">Cena: <span class="badge"><?php echo $knjiga->cena?></span> din.</a></li>
+              <li ><a href="#">Cena: <span class="badge"><?php echo round($knjiga->cena,2)?></span><?php echo  $val ?> </a></li>
 
           </ul>
           <b>Izdavac:</b> <?php echo $knjiga->izdavac?>
