@@ -16,7 +16,7 @@ class Admin extends User_Secure_Controller {
     public function show_user() {
 
         $this->load->view('template', array(
-            "folder" => "app",
+            "folder" => "admin",
             "page" => "create_user",
             "title" => "Kreiranje novog korisnika",
             "user" => $this->user,
@@ -76,12 +76,12 @@ class Admin extends User_Secure_Controller {
         }
 
         $this->load->view('template', array(
-            "folder" => "app",
-            "page" => "korisnici",
+            "folder" => "admin",
+            "page" => "spisakKorisnika",
             "broj" => $this->broj,
             'user' => $this->user,
             "users" => $this->admin_model->get_all_users(),
-            "title" => "Svi korisnici",
+            "title" => "Administracija korisnika",
         ));
     }
 
@@ -289,10 +289,75 @@ class Admin extends User_Secure_Controller {
         redirect('admin/prikazi_naruceneKnjige', 'refresh');
     }
 
-    function sendMail() {
-        
+     public function prikazi_editUsera($id) {
+          $this->load->model('user_model');
+
+
+        $this->load->view('template', array(
+            "folder" => "admin",
+            "page" => "izmenaKorisnika",
+            "title" => "Izmena korisnika",
+            "user" => $this->user,
+            "editUser"=>$this->user_model->vratiKorisnika($id),
+            "groups" => $this->ion_auth->groups()->result(),
+            "broj" => $this->broj,
+        ));
     }
 
+    function edit_user($id) {
+       
+
+        if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() )) {
+            redirect('auth', 'refresh');
+        }
+
+            $data = array(
+                'first_name' => $this->input->post('firstname'),
+                'last_name' => $this->input->post('lastname'),
+                'username' => $this->input->post('username'),
+               'email' => $this->input->post('email'),
+                );
+
+              
+          
+                $this->ion_auth->update($id, $data);
+
+         
+        
+           $this->load->model('admin_model');
+      
+            $this->load->view('template', array(
+                "folder" => "admin",
+                 "page" => "spisakKorisnika",
+                 "broj" => $this->broj,
+                 'user' => $this->user,
+                  "users" => $this->admin_model->get_all_users(),
+                  "title" => "Svi korisnici",
+        ));
+    }
+     function izmeniStatus($id) {   
+      
+             
+       
+        $add=1;
+        $remove=2;
+     if ( $this->ion_auth->is_admin($id)) {
+          $add=2;
+        $remove=1;
+      }    
+        $this->ion_auth->remove_from_group($remove, $id);
+        
+        $this->ion_auth->add_to_group($add, $id);
+        
+        redirect('admin/prikazi_sveKorisnike', 'refresh');
+          
+    }
+    function izbrisiKorisnika($id) {
+      
+        $this->ion_auth->delete_user($id);
+          redirect('admin/prikazi_sveKorisnike', 'refresh');
+      
+    }
 }
 
 ?>

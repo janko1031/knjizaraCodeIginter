@@ -150,6 +150,8 @@ class User extends User_Secure_Controller {
             "knjige" => $this->knjiga_model->pretraziPoCeni(),
             "title" => "Katalog knjiga",
             "broj" => $this->broj,
+            "val" =>"din",
+
             "links" => "",
         ));
     }
@@ -183,6 +185,8 @@ class User extends User_Secure_Controller {
             "keyword" => $this->input->post('poljePretrage'),
             "title" => "Pretraga knjiga",
             "broj" => $this->broj,
+             "val" =>"din",
+
             "links" => $links,
         ));
     }
@@ -215,6 +219,7 @@ class User extends User_Secure_Controller {
             "title" => "Knjige Å¾anra: " . $zanr,
             "zanr" => $zanr,
             "broj" => $this->broj,
+             "val" =>"din",
             "links" => "",
         ));
     }
@@ -321,7 +326,7 @@ class User extends User_Secure_Controller {
         $this->gcharts->ColumnChart('PrihodiLaguna')->setConfig($config);
 
         $this->load->view('template'
-                , array("folder" => "app",
+                , array("folder" => "admin",
             "user" => $this->user,
             "broj" => $this->broj,
             "title" => "Statistike prodaje",
