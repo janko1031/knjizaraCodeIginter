@@ -21,7 +21,7 @@
               <th>Naziv</th>
               <th>Autor</th>
               <th> </th>
-              <th>Izdavac</th>
+              <th>Izdavač</th>
               <th>Cena</th>
             </tr>
           </thead>
@@ -59,10 +59,7 @@
 
                <!--Forma za brisnje knjige iz korpe -->
                <td>
-               <div class="alert alert-dismissable alert-danger" id="successMessage" style="display:none">
-                <button type="button" class="close" id="closeMessage" data-dismiss="alert">×</button>
-                <strong>YEAH Bitch!</strong> Uspešno izbačena knjiga iz korpe 
-              </div>
+               
                      <div class="col-md-3" >
                      </div>
                  <?php echo form_open("user/izbaciIzKorpe",'class="bs-example form-horizontal"');?>

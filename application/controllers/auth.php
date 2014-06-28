@@ -51,7 +51,7 @@ function index_auth_user() {
     $user = $this->ion_auth->user()->row();
     if (!$this->ion_auth->logged_in()) {
             //redirect them to the login page
-        redirect('auth/login', 'refresh');
+        redirect('auth/show_login', 'refresh');
     }
         /* elseif (!$this->ion_auth->is_admin()) //remove this elseif if you want to enable this for non-admins
           {
@@ -85,6 +85,13 @@ public function show_register() {
     $this->load->view('auth/register', array(
         "title" => "Kreiranje novog korisnika",
         "groups" => $this->ion_auth->groups()->result(),
+        ));
+}
+public function show_login() {
+
+    $this->load->view('auth/loginpage', array(
+        "title" => "Login",
+      
         ));
 }
 

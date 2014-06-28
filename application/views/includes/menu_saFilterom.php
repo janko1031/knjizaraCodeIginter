@@ -11,7 +11,10 @@
                             <li name="katalog"><a href="<?php echo site_url('user/prikaziKatalog'); ?>">Katalog knjiga <i class="glyphicon glyphicon-book pull-right"></i></a></li>
                             <li name="korpa"><a href="<?php echo site_url('user/prikaziKorpu'); ?>">Moja korpa <i class="glyphicon glyphicon-shopping-cart pull-right"> </i>
                             </a></li>
-         
+                                </a></li>
+                              <li name="MojeKnjige"><a href="<?php echo site_url('user/prikaziKupovineKorisnika'); ?>">Moja naručivanja
+                               <i class="glyphicon glyphicon-list-alt pull-right"> </i>
+                            </a></li>
           
                             <?php if ($this->ion_auth->is_admin()): ?>
                                <li name="top" class="nav-header">Admin deo</li> 

@@ -30,11 +30,14 @@
        
               <ul class="dropdown-menu">
           
-           <li><a href="<?php echo site_url('user/prikaziKorpu'); ?>">Proizvoda u korpi: <i class="glyphicon glyphicon-shopping-cart "></i>  <span id="brojKorpa" class="badge"><?php echo $broj ?></span></a></li>
+           <li><a href="<?php echo site_url('user/prikaziKorpu'); ?>">Proizvoda u korpi: 
+           <i class="glyphicon glyphicon-shopping-cart "></i>  <span id="brojKorpa" class="badge"><?php echo $broj ?></span></a></li>
          
           
           <li class="divider"></li>
-         <li><a href="<?php echo site_url('user/profil'); ?>">Prikazi profil</a></li>
+           <li name="Moje knjige"><a href="<?php echo site_url('user/prikaziKupovineKorisnika'); ?>">Moja naručivanja
+                               <i class="glyphicon glyphicon-list-alt "> </i>
+                            </a></li>
         </ul>
       </li>
       

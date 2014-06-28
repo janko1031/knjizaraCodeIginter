@@ -85,21 +85,7 @@ class Korpa_model extends CI_Model {
        
 
     }
-    function vratiPorudzbine() {
-         $data = array(
-            'status' => 0,
-        );
-        $this->db->select('*');
-        $this->db->from('porudzbina');
-         $this->db->where($data);
-        $this->db->join('users', 'porudzbina.user_id = users.id', 'left');
-        //$this->db->join('stavka_porudzbine', 'stavka_porudzbine.porudzbina_id = porudzbina.id_porudzbine', 'left');
-       // $this->db->join('knjige', 'knjige.id_knjige = stavka_porudzbine.knjiga_id', 'left');
-
-        $query = $this->db->get();
-        return $query->result();
-    }
-
+  
     function vrati_UkCenu() {
         
         $cena = 0;

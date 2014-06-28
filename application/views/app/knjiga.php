@@ -81,7 +81,7 @@
           <a href="#" class="list-group-item">
            <h3 id="cena" class="list-group-item-heading"><i class=" glyphicon glyphicon-tags"></i>     Cena knjige: <?php echo $knjiga->cena ?> din.   
   </h3>
-            <h3 id="cena1" class="list-group-item-heading"><i class=" glyphicon glyphicon-tags"></i>     </h3>
+            <h3 id="cena1" class="list-group-item-heading">     </h3>
             <p class="list-group-item-text"> </p>
           </a>
 

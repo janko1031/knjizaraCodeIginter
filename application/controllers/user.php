@@ -28,16 +28,8 @@ class User extends User_Secure_Controller {
         ));
     }
 
-    function profil() {
+  
 
-        $this->load->view('template', array(
-            "folder" => "app",
-            "page" => "profil",
-            'user' => $this->user,
-            "title" => "Profil korisnika: " . $this->user->username,
-            "broj" => $this->broj,
-        ));
-    }
 
     function prikaziKatalog() {
         $this->load->model('knjiga_model');
@@ -467,9 +459,57 @@ class User extends User_Secure_Controller {
 
    
 
-        redirect('admin/prikazi_naruceneKnjige', 'refresh');
+        redirect('auth/index', 'refresh');
     }
+    function prikaziKupovineKorisnika() {
+        $this->load->model('porudzbina_model');
+       
+      $this->load->view('template', array(
+            "folder" => "app",
+            "page" => "profilKupovine",
+            'user' => $this->user,
+            "title" => "Pregled istorije naručivanja",
+            "porudzbine" => $this->porudzbina_model->vratiPorudzbineKorisnika($this->user->id),
+            "kupljene" => $this->porudzbina_model->vratiOdobrenePorduzbine($this->user->id),
+            
+            "broj" => $this->broj,
+           
+            ));
 
+
+       
+    }
+ function prikaziPorudzbinu($id_porudzbine) {
+        $this->load->model('porudzbina_model');
+        $p1= $this->porudzbina_model->vratiPorudzbinu($id_porudzbine);
+        $ispis;
+        $title;
+        foreach ($p1 as $p) {
+         if ( $p->status==0) {
+           $ispis="porudžbine";
+            $title="Detaljni prikaz poruzdbine" ;
+         }
+         if ( $p->status==1) {
+            $ispis="kupovine";
+         $title="Detaljni prikaz kupovine" ;
+     }
+
+        }
+        $this->load->view('template', array(
+            "folder" => "app",
+            "page" => "prikazPorudzbine",
+            'user' => $this->user,
+            "title" =>  $title,
+            "stavke" => $this->porudzbina_model->vratiStavkePorudzbine($id_porudzbine),
+            "porudzbina" => $this->porudzbina_model->vratiPorudzbinu($id_porudzbine),
+             "cenaPorudzbine" => $this->porudzbina_model->vrati_cenu_porudzbine($id_porudzbine),
+              "id_porudzbine" => $id_porudzbine,
+            "broj" => $this->broj,
+            "ispis"=>$ispis
+           
+            ));
+
+}
 }
 
 

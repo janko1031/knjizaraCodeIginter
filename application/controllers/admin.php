@@ -169,13 +169,14 @@ class Admin extends User_Secure_Controller {
     function prikazi_Porudzbine() {
 
 
-        $this->load->model('korpa_model');
+        $this->load->model('porudzbina_model');
         $this->load->view('template', array(
             "folder" => "admin",
             "page" => "narucene_knjige",
             'user' => $this->user,
             "title" => "Adminsitracija porudžbina",
-            "porudzbine" => $this->korpa_model->vratiPorudzbine(),
+            "porudzbine" => $this->porudzbina_model->vratiSvePorudzbine(),
+
             "broj" => $this->broj,
            
             ));
@@ -364,6 +365,25 @@ function odobriPorudzbinu($id_porudzbine) {
         redirect('admin/prikazi_Porudzbine', 'refresh');
 
 }
+
+function prikaziPorudzbinu($id_porudzbine) {
+        $this->load->model('porudzbina_model');
+        $porudzbina= 
+        $this->load->view('template', array(
+            "folder" => "admin",
+            "page" => "prikazPorudzbine",
+            'user' => $this->user,
+            "title" => "Detaljan prikaz porudžbine",
+            "stavke" => $this->porudzbina_model->vratiStavkePorudzbine($id_porudzbine),
+            "porudzbina" => $this->porudzbina_model->vratiPorudzbinu($id_porudzbine),
+             "cenaPorudzbine" => $this->porudzbina_model->vrati_cenu_porudzbine($id_porudzbine),
+              "id_porudzbine" => $id_porudzbine,
+            "broj" => $this->broj,
+           
+            ));
+
+}
+
 
 }
 
