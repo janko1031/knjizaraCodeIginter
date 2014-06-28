@@ -21,7 +21,7 @@ function vratiKorisnika($id)
     {
         $data = array(
           'user_id' => $user_id ,
-          'status_kupovine' => 0,
+         
           );     
         $this->db->select('*');
         $this->db->from('korpa');
@@ -36,7 +36,7 @@ function vratiKorisnika($id)
     {
         $data = array(
           'user_id' => $user_id ,
-          'status_kupovine' => 0,
+          
           ); 
         $this->db->select('*');
         $this->db->from('korpa');
@@ -49,7 +49,7 @@ function vratiKorisnika($id)
     {
        $data = array(
           'user_id' => $user_id ,
-          'status_kupovine' => 0,
+          
           );    
        $cena=0;
        $this->db->select('cena');

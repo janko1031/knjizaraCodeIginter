@@ -18,7 +18,7 @@
               
       </li>
       
-        <li><a href="<?php echo site_url('auth/index_auth_user'); ?>"><i class="glyphicon glyphicon-lock"></i> Registruj se</a></li>
+        <li><a href="<?php echo site_url('auth/index_auth_user'); ?>"><i class="glyphicon glyphicon-lock"></i> Uloguj se</a></li>
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         
         </ul>

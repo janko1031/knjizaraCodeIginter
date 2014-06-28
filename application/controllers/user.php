@@ -85,8 +85,14 @@ class User extends User_Secure_Controller {
 
     function isprazniKorpu() {
         $this->load->model('korpa_model');
-        $this->korpa_model->isprazniKorpu($this->user->id);
-        redirect('app/prikaziKorpu', 'refresh');
+
+         $this->load->model('user_model');
+   
+            $user_id = $this->user->id;
+
+        $knjige=$this->user_model->vrati_knjigeKorisnika($user_id);
+        $this->korpa_model->isprazniKorpu($this->user->id, $knjige);
+        redirect('user/prikaziKorpu', 'refresh');
     }
 
     function prikazi_knjigu($id) {
@@ -132,11 +138,7 @@ class User extends User_Secure_Controller {
         redirect($url, 'refresh');
     }
 
-    function naruciKnjigu() {
-        $this->load->model('korpa_model');
-        $this->korpa_model->promeniStatusKnjige($this->user->id);
-        redirect('user/prikaziKorpu', 'refresh');
-    }
+   
 
     function prikaziCenu() {
         $this->load->model('knjiga_model');
@@ -354,7 +356,7 @@ class User extends User_Secure_Controller {
 
 
         if ($data['status'] == 'ok') {
-            $novaCena = " Cena knjige: " . round($data['result']['value'], 2) . " €";
+            $novaCena = " Cena knjige u evrima: " . round($data['result']['value'], 2) . " €";
             echo $novaCena;
         } else {
             echo $novaCena = "Došlo je do greške: " . $data['code'] . " - " . $data['msg'];
@@ -450,7 +452,25 @@ class User extends User_Secure_Controller {
         "links" => $links,
         ));
     }
+    function kupi_knjige() {
+
+
+    $this->load->model('porudzbina_model');
+    $this->load->model('korpa_model');    
+    $this->load->model('user_model');
+   
+    $user_id = $this->user->id;
+
+    $knjige=$this->user_model->vrati_knjigeKorisnika($user_id);
+    $this->porudzbina_model->dodajPorudzbinu($user_id, $knjige);
+    $this->korpa_model->isprazniKorpu($user_id, $knjige);
+
+   
+
+        redirect('admin/prikazi_naruceneKnjige', 'refresh');
+    }
 
 }
+
 
 ?>

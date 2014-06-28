@@ -13,10 +13,9 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Kupac</th>
-              <th>Knjiga</th>
-              <th>Autor</th>
-              <th>Cena</th>
+              <th>Vreme naručivanja</th>
+              <th>Korisnik </th> 
+              <th></th>
             </tr>
           </thead>
 
@@ -26,38 +25,24 @@
             <?php
 
             $rbr=0;
-            foreach ($knjige as $knjiga) {
+            foreach ($porudzbine as $porudzbina) {
               $rbr+=1;     ?>
               <tr>
-               <td>  <?php echo $rbr ?></td>
-               <td> <?php echo $knjiga->first_name ." ".$knjiga->last_name?> </td>
-               <td> <?php echo $knjiga->naziv ?> </td>
-               <td> <?php echo $knjiga->autor ?> </td>
-               
-               <?php if ($knjiga->cena >1250 && $knjiga->cena <2000 ) {?>
-               <td><span class="label label-warning"> <?php echo $knjiga->cena; echo " din." ?></span>  </td>
-               <?php  } ?>
-               <?php if ($knjiga->cena >=2000) {?>
-               <td><span class="label label-danger"> <?php echo $knjiga->cena; echo " din." ?></span>  </td>
-               <?php  } ?>
-               <?php if ( $knjiga->cena >500 && $knjiga->cena <=1250 ) {?>
-               <td><span class="label label-info"> <?php echo $knjiga->cena; echo " din." ?></span>  </td>
-               <?php  } ?>
-               <?php if ( $knjiga->cena <=500 ) {?>
-               <td><span class="label label-success"> <?php echo $knjiga->cena; echo " din." ?></span>  </td>
-               <?php  } ?>
-
-
+               <td>  <?php echo $porudzbina->id_porudzbine ?></td>
+               <td> <?php echo  $porudzbina->vreme?> </td>
+             
+                <td> <?php echo  $porudzbina->first_name." ".$porudzbina->last_name ?> </td>
                <!--Forma za brisnje knjige iz korpe -->
                <td>
                  <div class="col-md-3">
                  </div>
-                 <?php echo form_open("admin/odobri_kupovinu",'class="bs-example form-horizontal"');?>
-                 <input type="hidden" name="id_knjige" value="<?php echo $knjiga->id_knjige?>">
-                 <input type="hidden" name="user_id" value="<?php echo $knjiga->user_id?>">
-                 <a href="#" type="submit"><button class="btn btn-success btn-sm">
+                
+                 
+                 <input type="hidden" name="user_id" value="<?php echo $porudzbina->user_id?>">
+                 <a href="<?php echo site_url('admin/odobriPorudzbinu/'. $porudzbina->id_porudzbine); ?>" >
+                 <button class="btn btn-success btn-sm">
                   Odobri    <i class="glyphicon glyphicon-check"></i></button></a>
-                  <?php echo form_close();?> </td>
+                 
                 </tr>
                 <?php
               }?>
@@ -67,9 +52,9 @@
                 <td>  </td>
                 <td>  </td>
                 
-                <td class="info"> UKUPNO </td>
+              
 
-                <td class="info"><span > <?php echo $cena; echo " din." ?></span>  </td>
+                <td class="info">  </td>
 
                 
                 <td>

@@ -99,7 +99,7 @@
                    </div>
                        <div class="col-md-6">
 
-                     <?php echo form_open("user/naruciKnjigu",'class="bs-example form-horizontal"');?>
+                     <?php echo form_open("user/kupi_knjige",'class="bs-example form-horizontal"');?>
 
                    <a href="#" type="submit"><button class="btn btn-success ">
                     Kupi <i class="glyphicon glyphicon-usd"></i></b></button></a>
