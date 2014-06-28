@@ -44,7 +44,38 @@ function index() {
             ));
     }
 }
+function prikaziKatalogGuest() {
+    if ($this->ion_auth->logged_in()) {
+            //redirect them to the login page
+        redirect('auth/index_auth_user', 'refresh');
+    } else {
+        $this->load->model('knjiga_model');
+    $this->load->model('knjiga_model');
+        $this->load->library('pagination');
 
+        $config['base_url'] = base_url() . "auth/prikaziKatalogGuest/";
+        $config['total_rows'] = $this->knjiga_model->broj_rezultata();
+        $config['per_page'] = 8;
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        $this->pagination->initialize($config);
+
+        
+        $links = $this->pagination->create_links();
+
+
+        $this->load->view('template_guest', array(
+            "folder" => "app",
+            "page" => "katalog",
+            "knjige" => $this->knjiga_model->vrati_podatke_za_katalog($config["per_page"], $page),
+            "title" => "Katalog knjiga",
+            "val"=>" din",
+            "imaFilter" => true,
+            "links" => $links,
+        ));
+        
+    }
+}
 function index_auth_user() {
     $this->load->model('user_model');
     $this->load->model('knjiga_model');

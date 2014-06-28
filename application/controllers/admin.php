@@ -123,7 +123,7 @@ class Admin extends User_Secure_Controller {
         if (!$this->upload->do_upload()) {
             $data = array('data' => $this->upload->display_errors());
 
-            $this->load->view('admin/uspesan_upload_slike', $data);
+            $this->load->view('user/prikaziKatalog', $data);
         } else {
 
 
@@ -182,60 +182,8 @@ class Admin extends User_Secure_Controller {
             ));
     }
 
-    function odobri_kupovinu() {
-
-        $user_id = $this->input->post('user_id');
-        $knjiga_id = $this->input->post('id_knjige');
-
-        $this->load->model('narudzbina_model');
-        $this->narudzbina_model->odobri_knjigu($user_id, $knjiga_id);
-        $this->load->model('korpa_model');
-        $this->korpa_model->izbrisiIzKorpe($user_id, $knjiga_id);
-        $this->load->model('knjiga_model');
-        $this->load->model('user_model');
-        $config['protocol'] = 'smtp';
-        $config['smtp_host'] = 'ssl://smtp.gmail.com';
-        $config['smtp_port'] = '465';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user'] = 'knjizaraatlantis@gmail.com';
-        $config['smtp_pass'] = 'knjizaraatlant213';
-        $config['charset'] = 'utf-8';
-        $config['newline'] = "\r\n";
-        $config['mailtype'] = 'text'; // or html
-        $config['validation'] = TRUE; // bool whether to validate email or not      
-
-        $this->email->initialize($config);
-        $title = "Odobrena kupovina";
-
-        $knjiga = $this->knjiga_model->vrati_knjigu($knjiga_id);
-        $korisnik = $this->user_model->vratiKorisnika($user_id);
-        foreach ($knjiga as $k) {
-            $naziv = $k->naziv;
-        }
-        foreach ($korisnik as $k) {
-            $user = $k->first_name;
-            $email = $k->email;
-        }
-        $title = "Odobrena kupovina: " . $naziv;
-        $message = $user . ', vaša kupovina je odobrena.';
-        $this->load->library('email');
-        $this->email->set_newline("\r\n");
-        $this->email->from('knjizaraatlantis91@gmail.com'); // change it to yours
-        $mejl = $email;
-        $this->email->to($mejl); // change it to yours
-        $this->email->subject($title);
-        $this->email->message($message);
-        if ($this->email->send()) {
-            echo 'Email sent.';
-        } else {
-            show_error($this->email->print_debugger());
-        }
-
-
-        redirect('admin/prikazi_naruceneKnjige', 'refresh');
-    }
-
-    function odobri_SveKnjige() {
+  
+   /* function odobri_SveKnjige() {
 
         $this->load->model('narudzbina_model');
         $this->load->model('korpa_model');
@@ -281,13 +229,8 @@ class Admin extends User_Secure_Controller {
             }
         }
 
-
-
-
-
-
         redirect('admin/prikazi_naruceneKnjige', 'refresh');
-    }
+    }*/
 
     public function prikazi_editUsera($id) {
       $this->load->model('user_model');
@@ -337,8 +280,6 @@ class Admin extends User_Secure_Controller {
 }
 function izmeniStatus($id) {   
 
-
-
     $add=1;
     $remove=2;
     if ( $this->ion_auth->is_admin($id)) {
@@ -362,7 +303,61 @@ function izbrisiKorisnika($id) {
 function odobriPorudzbinu($id_porudzbine) {
         $this->load->model('porudzbina_model');
         $this->porudzbina_model->odobriPorudzbinu($id_porudzbine);
+         $this->posaljiMejl($id_porudzbine);
         redirect('admin/prikazi_Porudzbine', 'refresh');
+
+}
+function posaljiMejl($id_porudzbine){
+
+        $this->load->model('porudzbina_model');
+       $stavke= $this->porudzbina_model->vratiStavkePorudzbine($id_porudzbine);
+
+      $config['protocol'] = 'smtp';
+        $config['smtp_host'] = 'ssl://smtp.gmail.com';
+        $config['smtp_port'] = '465';
+        $config['smtp_timeout'] = '7';
+        $config['smtp_user'] = 'knjizaraatlantis@gmail.com';
+        $config['smtp_pass'] = 'knjizaraatlant333';
+        $config['charset'] = 'utf-8';
+        $config['newline'] = "\r\n";
+        $config['mailtype'] = 'text'; // or html
+        $config['validation'] = TRUE; // bool whether to validate email or not      
+
+        $this->email->initialize($config);
+        $title = "Odobrena kupovina";
+
+        $korisnik = $this->porudzbina_model->vratiUsera($id_porudzbine);
+        $cena= $this->porudzbina_model->vrati_cenu_porudzbine($id_porudzbine);
+        
+        $broj=1;
+        $ispis='';
+         $user;
+        foreach ($stavke as $s) {
+            $naziv = $s->naziv;
+            $autor = $s->autor;
+            $ispis=$ispis."\n".$broj.'. '.$naziv." - ".$autor;
+            $broj++;
+        }
+        foreach ($korisnik as $k) {
+            $user = $k->first_name;
+            $email = $k->email;
+        }
+        $title = "Odobrena kupovina: " . $naziv;
+        $message = $user . ", vaša kupovina je odobrena.";
+        $message= $message."\n".$ispis."\n Ukupno: ".$cena." dinara";
+        $this->load->library('email');
+        $this->email->set_newline("\r\n");
+        $this->email->from('knjizaraatlantis91@gmail.com'); // change it to yours
+        $mejl = 'mionicjanko@gmail.com';
+        $this->email->to($mejl); // change it to yours
+        $this->email->subject($title);
+        $this->email->message($message);
+        if ($this->email->send()) {
+            echo 'Email sent.';
+        } else {
+            show_error($this->email->print_debugger());
+        }
+
 
 }
 

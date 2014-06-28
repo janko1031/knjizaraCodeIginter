@@ -8,7 +8,6 @@ class Porudzbina_model extends CI_Model
     parent::__construct();
   }
 
-  /* ------------------------- USERS ------------------------- */
 
 
   function dodajPorudzbinu($user_id,$knjige){
@@ -121,16 +120,17 @@ class Porudzbina_model extends CI_Model
         return    $query->result();
     }
 
-    function vratiKnjigePorudzbine($porudzbina_id){
+    function vratiUsera($porudzbina_id){
       
       $data = array(
-            'porudzbina_id' => $porudzbina_id,          
+            'id_porudzbine' => $porudzbina_id,          
         );
         $this->db->select('*');
-        $this->db->from('stavka_porudzbine');
+        $this->db->from('porudzbina');
         $this->db->where($data); 
-        $this->db->join('knjige', 'knjige.id_knjige = stavka_porudzbine.knjiga_id', 'left');
-        $this->db->join('slike', 'slike.knjiga_id = knjige.id_knjige', 'left');
+        $this->db->join('users', 'porudzbina.user_id = users.id', 'left');
+        $query = $this->db->get();
+        return    $query->result();
     }
    
 }
