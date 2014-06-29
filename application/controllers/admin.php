@@ -317,7 +317,7 @@ function posaljiMejl($id_porudzbine){
         $config['smtp_port'] = '465';
         $config['smtp_timeout'] = '7';
         $config['smtp_user'] = 'knjizaraatlantis@gmail.com';
-        $config['smtp_pass'] = 'knjizaraatlant333';
+        $config['smtp_pass'] = 'knjizaraatlant33';
         $config['charset'] = 'utf-8';
         $config['newline'] = "\r\n";
         $config['mailtype'] = 'text'; // or html
