@@ -22,7 +22,7 @@
                                     <i class="glyphicon glyphicon-plus pull-right"></i></a></li>
                                     <li name="NovaKnjiga"><a href="<?php echo base_url('admin/prikazi_unosKnjige'); ?>">Dodavanje knjige <i class="glyphicon glyphicon-book pull-right"></i>
                                     <i class="glyphicon glyphicon-plus pull-right"></i></a></li> 
-                                    <li name="top" class="nav-header ">Prikazi</li>
+                                    <li name="top" class="nav-header ">Adminsitracija</li>
                                     <li name=""><a href="<?php echo base_url('admin/prikazi_sveKorisnike'); ?>">Administracija korisnika <i class="glyphicon glyphicon-user pull-right"></i></a></li>
                                     <li name="porudzbine"><a href="<?php echo base_url('admin/prikazi_Porudzbine'); ?>">Adminstracija proudžbina <i class="glyphicon glyphicon-list-alt pull-right"></i></a></li>
                                     <li name="statistike"><a href="<?php echo base_url('user/prikaziStatistiku'); ?>">Statistike prodaje <i class="glyphicon glyphicon-stats pull-right"></i></a></li>

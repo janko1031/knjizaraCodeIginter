@@ -144,7 +144,7 @@ class Admin extends User_Secure_Controller {
             $this->db->set('knjiga_id', $id_knjige);
             $this->db->insert('slike');
 
-            $this->load->view('admin/uspesan_upload_slike', $data);
+            $this->load->view('user/prikaziKatalog', $data);
         }
     }
 

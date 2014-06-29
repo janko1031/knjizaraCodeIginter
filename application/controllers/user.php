@@ -459,7 +459,7 @@ class User extends User_Secure_Controller {
 
    
 
-        redirect('auth/index', 'refresh');
+        redirect('user/prikaziKupovineKorisnika', 'refresh');
     }
     function prikaziKupovineKorisnika() {
         $this->load->model('porudzbina_model');
