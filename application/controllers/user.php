@@ -28,9 +28,6 @@ class User extends User_Secure_Controller {
         ));
     }
 
-  
-
-
     function prikaziKatalog() {
         $this->load->model('knjiga_model');
         $this->load->library('pagination');
@@ -42,7 +39,7 @@ class User extends User_Secure_Controller {
 
         $this->pagination->initialize($config);
 
-        
+
         $links = $this->pagination->create_links();
 
 
@@ -53,7 +50,7 @@ class User extends User_Secure_Controller {
             "knjige" => $this->knjiga_model->vrati_podatke_za_katalog($config["per_page"], $page),
             "title" => "Katalog knjiga",
             "broj" => $this->broj,
-            "val"=>" din",
+            "val" => " din",
             "imaFilter" => true,
             "links" => $links,
         ));
@@ -78,11 +75,11 @@ class User extends User_Secure_Controller {
     function isprazniKorpu() {
         $this->load->model('korpa_model');
 
-         $this->load->model('user_model');
-   
-            $user_id = $this->user->id;
+        $this->load->model('user_model');
 
-        $knjige=$this->user_model->vrati_knjigeKorisnika($user_id);
+        $user_id = $this->user->id;
+
+        $knjige = $this->user_model->vrati_knjigeKorisnika($user_id);
         $this->korpa_model->isprazniKorpu($this->user->id, $knjige);
         redirect('user/prikaziKorpu', 'refresh');
     }
@@ -130,8 +127,6 @@ class User extends User_Secure_Controller {
         redirect($url, 'refresh');
     }
 
-   
-
     function prikaziCenu() {
         $this->load->model('knjiga_model');
 
@@ -144,8 +139,7 @@ class User extends User_Secure_Controller {
             "knjige" => $this->knjiga_model->pretraziPoCeni(),
             "title" => "Katalog knjiga",
             "broj" => $this->broj,
-            "val" =>"din",
-
+            "val" => "din",
             "links" => "",
         ));
     }
@@ -179,8 +173,7 @@ class User extends User_Secure_Controller {
             "keyword" => $this->input->post('poljePretrage'),
             "title" => "Pretraga knjiga",
             "broj" => $this->broj,
-             "val" =>"din",
-
+            "val" => "din",
             "links" => $links,
         ));
     }
@@ -213,7 +206,7 @@ class User extends User_Secure_Controller {
             "title" => "Knjige Å¾anra: " . $zanr,
             "zanr" => $zanr,
             "broj" => $this->broj,
-             "val" =>"din",
+            "val" => "din",
             "links" => "",
         ));
     }
@@ -433,84 +426,79 @@ class User extends User_Secure_Controller {
 
 
         $this->load->view('template_safilterom', array(
-        "folder" => "app",
-        "user" => $this->user,
-        "page" => "katalog",
-        "knjige" => $this->vratiKnjigeSaPArametrom($valuta, $config["per_page"], $page),
-        "title" => "Katalog knjiga",
-        "broj" => $this->broj,
-        "val" =>$val,
-        "imaFilter" => true,
-        "links" => $links,
+            "folder" => "app",
+            "user" => $this->user,
+            "page" => "katalog",
+            "knjige" => $this->vratiKnjigeSaPArametrom($valuta, $config["per_page"], $page),
+            "title" => "Katalog knjiga",
+            "broj" => $this->broj,
+            "val" => $val,
+            "imaFilter" => true,
+            "links" => $links,
         ));
     }
+
     function kupi_knjige() {
 
 
-    $this->load->model('porudzbina_model');
-    $this->load->model('korpa_model');    
-    $this->load->model('user_model');
-   
-    $user_id = $this->user->id;
+        $this->load->model('porudzbina_model');
+        $this->load->model('korpa_model');
+        $this->load->model('user_model');
 
-    $knjige=$this->user_model->vrati_knjigeKorisnika($user_id);
-    $this->porudzbina_model->dodajPorudzbinu($user_id, $knjige);
-    $this->korpa_model->isprazniKorpu($user_id, $knjige);
+        $user_id = $this->user->id;
 
-   
+        $knjige = $this->user_model->vrati_knjigeKorisnika($user_id);
+        $this->porudzbina_model->dodajPorudzbinu($user_id, $knjige);
+        $this->korpa_model->isprazniKorpu($user_id, $knjige);
 
-        redirect('auth/index', 'refresh');
+
+
+        redirect('user/prikaziKupovineKorisnika', 'refresh');
     }
+
     function prikaziKupovineKorisnika() {
         $this->load->model('porudzbina_model');
-       
-      $this->load->view('template', array(
+
+        $this->load->view('template', array(
             "folder" => "app",
             "page" => "profilKupovine",
             'user' => $this->user,
             "title" => "Pregled istorije naručivanja",
             "porudzbine" => $this->porudzbina_model->vratiPorudzbineKorisnika($this->user->id),
             "kupljene" => $this->porudzbina_model->vratiOdobrenePorduzbine($this->user->id),
-            
             "broj" => $this->broj,
-           
-            ));
-
-
-       
+        ));
     }
- function prikaziPorudzbinu($id_porudzbine) {
+
+    function prikaziPorudzbinu($id_porudzbine) {
         $this->load->model('porudzbina_model');
-        $p1= $this->porudzbina_model->vratiPorudzbinu($id_porudzbine);
+        $p1 = $this->porudzbina_model->vratiPorudzbinu($id_porudzbine);
         $ispis;
         $title;
         foreach ($p1 as $p) {
-         if ( $p->status==0) {
-           $ispis="porudžbine";
-            $title="Detaljni prikaz poruzdbine" ;
-         }
-         if ( $p->status==1) {
-            $ispis="kupovine";
-         $title="Detaljni prikaz kupovine" ;
-     }
-
+            if ($p->status == 0) {
+                $ispis = "porudžbine";
+                $title = "Detaljni prikaz poruzdbine";
+            }
+            if ($p->status == 1) {
+                $ispis = "kupovine";
+                $title = "Detaljni prikaz kupovine";
+            }
         }
         $this->load->view('template', array(
             "folder" => "app",
             "page" => "prikazPorudzbine",
             'user' => $this->user,
-            "title" =>  $title,
+            "title" => $title,
             "stavke" => $this->porudzbina_model->vratiStavkePorudzbine($id_porudzbine),
             "porudzbina" => $this->porudzbina_model->vratiPorudzbinu($id_porudzbine),
-             "cenaPorudzbine" => $this->porudzbina_model->vrati_cenu_porudzbine($id_porudzbine),
-              "id_porudzbine" => $id_porudzbine,
+            "cenaPorudzbine" => $this->porudzbina_model->vrati_cenu_porudzbine($id_porudzbine),
+            "id_porudzbine" => $id_porudzbine,
             "broj" => $this->broj,
-            "ispis"=>$ispis
-           
-            ));
+            "ispis" => $ispis
+        ));
+    }
 
 }
-}
-
 
 ?>

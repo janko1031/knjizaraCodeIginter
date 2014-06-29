@@ -1,9 +1,9 @@
 <div class="col-md-9">
     <div class="well">
 
-        <h1 class="page-header"> Detalji <?php 
-      echo  $ispis
-         ?>:
+        <h1 class="page-header"> Detalji <?php
+            echo $ispis
+            ?>:
 
             <div class="row">
         </h1>
@@ -42,19 +42,23 @@
                             <td> <?php echo $stavka->izdavac ?> </td>
                             <?php if ($stavka->cena > 1250 && $stavka->cena < 2000) { ?>
                                 <td><span class="label label-warning"> <?php echo $stavka->cena;
-                        echo " din." ?></span>  </td>
+                        echo " din."
+                                ?></span>  </td>
                             <?php } ?>
-                            <?php if ($stavka->cena >= 2000) { ?>
+                                    <?php if ($stavka->cena >= 2000) { ?>
                                 <td><span class="label label-danger"> <?php echo $stavka->cena;
-                                echo " din." ?></span>  </td>
-                            <?php } ?>
-                            <?php if ($stavka->cena > 500 && $stavka->cena <= 1250) { ?>
+                                        echo " din."
+                                        ?></span>  </td>
+                                    <?php } ?>
+                                    <?php if ($stavka->cena > 500 && $stavka->cena <= 1250) { ?>
                                 <td><span class="label label-info"> <?php echo $stavka->cena;
-                        echo " din." ?></span>  </td>
-                            <?php } ?>
+                                echo " din."
+                                        ?></span>  </td>
+                                    <?php } ?>
                             <?php if ($stavka->cena <= 500) { ?>
                                 <td><span class="label label-success"> <?php echo $stavka->cena;
-                        echo " din." ?></span>  </td>
+                        echo " din."
+                        ?></span>  </td>
     <?php } ?>
 <?php } ?>
                     </tr>    
@@ -68,7 +72,7 @@
 
                             <td class="info">Vreme realizacije: <i class=" glyphicon glyphicon-calendar pull-right"></i> <br> <b>
                         <?php echo $p->vreme ?></b> </td>
-                            <td class="info">Ukupan iznos <?php echo $ispis?><br> <i class="glyphicon glyphicon-list-alt"></i> 
+                            <td class="info">Ukupan iznos <?php echo $ispis ?><br> <i class="glyphicon glyphicon-list-alt"></i> 
                             <td class="success"> <h4><span class="label label-info"><?php echo $cenaPorudzbine ?> din.</span></h4></td>
                             </td>
                         </tr>

@@ -40,19 +40,23 @@
                             <td> <?php echo $stavka->izdavac ?> </td>
                             <?php if ($stavka->cena > 1250 && $stavka->cena < 2000) { ?>
                                 <td><span class="label label-warning"> <?php echo $stavka->cena;
-                        echo " din." ?></span>  </td>
+                        echo " din."
+                                ?></span>  </td>
                             <?php } ?>
-                            <?php if ($stavka->cena >= 2000) { ?>
+                                    <?php if ($stavka->cena >= 2000) { ?>
                                 <td><span class="label label-danger"> <?php echo $stavka->cena;
-                                echo " din." ?></span>  </td>
-                            <?php } ?>
-                            <?php if ($stavka->cena > 500 && $stavka->cena <= 1250) { ?>
+                                        echo " din."
+                                        ?></span>  </td>
+                                    <?php } ?>
+                                    <?php if ($stavka->cena > 500 && $stavka->cena <= 1250) { ?>
                                 <td><span class="label label-info"> <?php echo $stavka->cena;
-                        echo " din." ?></span>  </td>
-                            <?php } ?>
+                                echo " din."
+                                        ?></span>  </td>
+                                    <?php } ?>
                             <?php if ($stavka->cena <= 500) { ?>
                                 <td><span class="label label-success"> <?php echo $stavka->cena;
-                        echo " din." ?></span>  </td>
+                        echo " din."
+                        ?></span>  </td>
     <?php } ?>
 <?php } ?>
                     </tr>    
@@ -71,20 +75,20 @@
                             </td>
                         </tr>
 <?php } ?>
-      <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><td>
-                                    <div class="col-md-3">
-                                    </div>
-                                    <a href="<?php echo site_url('admin/odobriPorudzbinu/' . $id_porudzbine); ?>" >
-                                        <button class="btn btn-success btn-md">
-                                            Odobri    <i class="glyphicon glyphicon-check"></i></button></a>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><td>
+                            <div class="col-md-3">
+                            </div>
+                            <a href="<?php echo site_url('admin/odobriPorudzbinu/' . $id_porudzbine); ?>" >
+                                <button class="btn btn-success btn-md">
+                                    Odobri    <i class="glyphicon glyphicon-check"></i></button></a>
 
-                                </td></td>
-                          
-                        </tr>
+                        </td></td>
+
+                    </tr>
                 </tbody>
             </table>
 
