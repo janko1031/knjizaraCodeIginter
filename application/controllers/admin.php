@@ -144,7 +144,7 @@ class Admin extends User_Secure_Controller {
             $this->db->set('knjiga_id', $id_knjige);
             $this->db->insert('slike');
 
-            $this->load->view('user/prikaziKatalog', $data);
+            $this->load->view('admin/uspesan_upload_slike', $data);
         }
     }
 
@@ -317,7 +317,7 @@ function posaljiMejl($id_porudzbine){
         $config['smtp_port'] = '465';
         $config['smtp_timeout'] = '7';
         $config['smtp_user'] = 'knjizaraatlantis@gmail.com';
-        $config['smtp_pass'] = 'knjizaraatlantis103';
+        $config['smtp_pass'] = 'knjizaraatlant333';
         $config['charset'] = 'utf-8';
         $config['newline'] = "\r\n";
         $config['mailtype'] = 'text'; // or html
@@ -348,7 +348,7 @@ function posaljiMejl($id_porudzbine){
         $this->load->library('email');
         $this->email->set_newline("\r\n");
         $this->email->from('knjizaraatlantis91@gmail.com'); // change it to yours
-        $mejl = $email;
+        $mejl = 'mionicjanko@gmail.com';
         $this->email->to($mejl); // change it to yours
         $this->email->subject($title);
         $this->email->message($message);
