@@ -23,7 +23,7 @@
                    <tr>
                      <td><?php echo $k->id_porudzbine; ?></td> 
                       <td><?php echo $k->vreme; ?></td> 
-         <td><a href="<?php echo site_url('user/prikaziPorudzbinu/' . $k->id_porudzbine); ?>" >
+         <td><a href="<?php echo site_url('kupovina/prikazi_porudzbinu/' . $k->id_porudzbine); ?>" >
                        <button class="btn btn-success btn-sm">
               Prikazi detalje kupovine    <i class="glyphicon glyphicon-saved"></i></button></a></td>  
 
@@ -59,7 +59,7 @@
                    <tr>
                      <td><?php echo $p->id_porudzbine; ?></td> 
                       <td><?php echo $p->vreme; ?></td> 
-         <td><a href="<?php echo site_url('user/prikaziPorudzbinu/' . $p->id_porudzbine); ?>" >
+         <td><a href="<?php echo site_url('kupovina/prikazi_porudzbinu/' . $p->id_porudzbine); ?>" >
                        <button class="btn btn-info btn-sm">
               Prikazi detalje porudzbine    <i class="glyphicon glyphicon-tasks"></i></button></a></td>  
 

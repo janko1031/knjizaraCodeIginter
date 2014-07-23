@@ -71,7 +71,7 @@
         <div class="row">
         	<div class="col-md-4"></div>
            <?php if ($this->ion_auth->logged_in() ){ ?>
-                             <a href="<?php echo site_url('user/prikaziKatalog'); ?>" class="btn btn-info btn-lg" role="button">Pogledajte ceo katalog <i class="glyphicon glyphicon-book"></i></a>
+                             <a href="<?php echo site_url('katalog/prikazi_katalog'); ?>" class="btn btn-info btn-lg" role="button">Pogledajte ceo katalog <i class="glyphicon glyphicon-book"></i></a>
                         <?php }?>
              <?php if (!$this->ion_auth->logged_in() ){ ?>
                              <a href="<?php echo site_url('auth/prikaziKatalogGuest'); ?>" class="btn btn-info btn-lg" role="button">Pogledajte ceo katalog <i class="glyphicon glyphicon-book"></i></a>

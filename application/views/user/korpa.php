@@ -62,7 +62,7 @@
                
                      <div class="col-md-3" >
                      </div>
-                 <?php echo form_open("user/izbaciIzKorpe",'class="bs-example form-horizontal"');?>
+                 <?php echo form_open("korpa/izbaci_izKorpe",'class="bs-example form-horizontal"');?>
                  <input type="hidden" name="id_knjige" id="id_knjige" value="<?php echo $knjiga->id_knjige?>">
                   <button class="btn btn-success " type="submit" id="submit">
                     Izbaci iz  korpe <i class="glyphicon glyphicon-ban-circle"></i></button>
@@ -87,7 +87,7 @@
                    <td>
                    <div class="col-md-6">
                      
-                    <?php echo form_open("user/isprazniKorpu",'class="bs-example form-horizontal"');?>
+                    <?php echo form_open("korpa/isprazni_korpu",'class="bs-example form-horizontal"');?>
 
                     <a href="#" type="submit"><button class="btn btn-danger ">
                     Isprazni <i class="glyphicon glyphicon-trash"></i></b></button></a>
@@ -96,7 +96,7 @@
                    </div>
                        <div class="col-md-6">
 
-                     <?php echo form_open("user/kupi_knjige",'class="bs-example form-horizontal"');?>
+                     <?php echo form_open("kupovina/kupi_knjige",'class="bs-example form-horizontal"');?>
 
                    <a href="#" type="submit"><button class="btn btn-success ">
                     Kupi <i class="glyphicon glyphicon-usd"></i></b></button></a>

@@ -13,11 +13,11 @@ class Admin extends User_Secure_Controller {
         $this->load->helper('url');
     }
 
-    public function show_user() {
+    public function prikazi_unosKorisnika() {
 
         $this->load->view('template', array(
             "folder" => "admin",
-            "page" => "create_user",
+            "page" => "unos_korisnika",
             "title" => "Kreiranje novog korisnika",
             "user" => $this->user,
             "groups" => $this->ion_auth->groups()->result(),
@@ -25,7 +25,7 @@ class Admin extends User_Secure_Controller {
             ));
     }
 
-    function new_user() {
+    function unesi_korisnika() {
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
             redirect('auth', 'refresh');
         }
@@ -36,8 +36,8 @@ class Admin extends User_Secure_Controller {
         $this->form_validation->set_rules('username', 'Username...', 'required|min_length[5]|max_length[100]');
         $this->form_validation->set_rules('password', 'Password...', 'required|min_length[6]|max_length[12]|matches[passconf]');
         $this->form_validation->set_rules('passconf', 'Repeat password...', 'required');
-        //  $this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
-        //  $this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
+        // $this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+      //  $this->form_validation->set_rules('passconf', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
         $this->form_validation->set_rules('email', 'Email...', 'required|valid_email');
 
         if ($this->form_validation->run()) {
@@ -77,7 +77,7 @@ class Admin extends User_Secure_Controller {
 
         $this->load->view('template', array(
             "folder" => "admin",
-            "page" => "spisakKorisnika",
+            "page" => "spisak_korisnika",
             "broj" => $this->broj,
             'user' => $this->user,
             "users" => $this->admin_model->get_all_users(),
@@ -163,10 +163,10 @@ class Admin extends User_Secure_Controller {
         $this->load->model('knjiga_model');
         $this->knjiga_model->dodajknjigu();
         $this->knjiga_model->dodajSliku();
-        redirect('user/prikaziKatalog', 'refresh');
+        redirect('user/prikazi_katalog', 'refresh');
     }
 
-    function prikazi_Porudzbine() {
+    function prikazi_porudzbine() {
 
 
         $this->load->model('porudzbina_model');
@@ -232,13 +232,13 @@ class Admin extends User_Secure_Controller {
         redirect('admin/prikazi_naruceneKnjige', 'refresh');
     }*/
 
-    public function prikazi_editUsera($id) {
+    public function prikazi_izmenuKorisnika($id) {
       $this->load->model('user_model');
 
 
       $this->load->view('template', array(
         "folder" => "admin",
-        "page" => "izmenaKorisnika",
+        "page" => "izmena_korisnika",
         "title" => "Izmena korisnika",
         "user" => $this->user,
         "editUser"=>$this->user_model->vratiKorisnika($id),
@@ -247,7 +247,7 @@ class Admin extends User_Secure_Controller {
         ));
   }
 
-  function edit_user($id) {
+  function izmeni_korisnika($id) {
 
 
     if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() )) {
@@ -278,7 +278,7 @@ class Admin extends User_Secure_Controller {
         "title" => "Svi korisnici",
         ));
 }
-function izmeniStatus($id) {   
+function izmeni_status($id) {   
 
     $add=1;
     $remove=2;
@@ -293,21 +293,21 @@ function izmeniStatus($id) {
   redirect('admin/prikazi_sveKorisnike', 'refresh');
 
 }
-function izbrisiKorisnika($id) {
+function izbrisi_korisnika($id) {
 
     $this->ion_auth->delete_user($id);
     redirect('admin/prikazi_sveKorisnike', 'refresh');
 
 }
 
-function odobriPorudzbinu($id_porudzbine) {
+function odobri_porudzbinu($id_porudzbine) {
         $this->load->model('porudzbina_model');
         $this->porudzbina_model->odobriPorudzbinu($id_porudzbine);
-         $this->posaljiMejl($id_porudzbine);
-        redirect('admin/prikazi_Porudzbine', 'refresh');
+         $this->posalji_mejl($id_porudzbine);
+        redirect('admin/prikazi_porudzbine', 'refresh');
 
 }
-function posaljiMejl($id_porudzbine){
+function posalji_mejl($id_porudzbine){
 
         $this->load->model('porudzbina_model');
        $stavke= $this->porudzbina_model->vratiStavkePorudzbine($id_porudzbine);
@@ -317,7 +317,7 @@ function posaljiMejl($id_porudzbine){
         $config['smtp_port'] = '465';
         $config['smtp_timeout'] = '7';
         $config['smtp_user'] = 'knjizaraatlantis@gmail.com';
-        $config['smtp_pass'] = 'knjizaraatlant33';
+        $config['smtp_pass'] = 'knjizaraatlantis103';
         $config['charset'] = 'utf-8';
         $config['newline'] = "\r\n";
         $config['mailtype'] = 'text'; // or html
@@ -348,7 +348,7 @@ function posaljiMejl($id_porudzbine){
         $this->load->library('email');
         $this->email->set_newline("\r\n");
         $this->email->from('knjizaraatlantis91@gmail.com'); // change it to yours
-        $mejl = 'mionicjanko@gmail.com';
+        $mejl = $email;
         $this->email->to($mejl); // change it to yours
         $this->email->subject($title);
         $this->email->message($message);
@@ -361,12 +361,12 @@ function posaljiMejl($id_porudzbine){
 
 }
 
-function prikaziPorudzbinu($id_porudzbine) {
+function prikazi_porudzbinu($id_porudzbine) {
         $this->load->model('porudzbina_model');
         $porudzbina= 
         $this->load->view('template', array(
             "folder" => "admin",
-            "page" => "prikazPorudzbine",
+            "page" => "prikaz_porudzbine",
             'user' => $this->user,
             "title" => "Detaljan prikaz porudžbine",
             "stavke" => $this->porudzbina_model->vratiStavkePorudzbine($id_porudzbine),

@@ -36,23 +36,23 @@
                          <td> <?php echo $user->last_name ?> </td>
                          <td> <?php echo $user->username ?> </td>
                          <td> <?php echo $user->email ?> </td>
-                         <td><a href="<?php echo base_url('admin/prikazi_editUsera/'.$user->id); ?>"><button  class="btn btn-info btn-sm">Izmeni podatke <i class="glyphicon glyphicon-edit"></i></button>
+                         <td><a href="<?php echo base_url('admin/prikazi_izmenuKorisnika/'.$user->id); ?>"><button  class="btn btn-info btn-sm">Izmeni podatke <i class="glyphicon glyphicon-edit"></i></button>
                          </a></td>
                           <?php if (!$this->ion_auth->is_admin($user->id)): ?>
-                          <?php echo form_open("admin/izmeniStatus/".$user->id,'class="bs-example form-horizontal"');?>
+                          <?php echo form_open("admin/izmeni_status/".$user->id,'class="bs-example form-horizontal"');?>
 
                          <td><a href=""><button  class="btn btn-success btn-sm">Izmeni status u Admina <i class="glyphicon glyphicon-user "></i></button>
                          </a></td>
                          </form>
                           <?php endif; ?>
                            <?php if ($this->ion_auth->is_admin($user->id)): ?>
-                          <?php echo form_open("admin/izmeniStatus/".$user->id,'class="bs-example form-horizontal"');?>
+                          <?php echo form_open("admin/izmeni_status/".$user->id,'class="bs-example form-horizontal"');?>
 
                          <td><a href=""><button  class="btn btn-warning btn-sm">Izmeni status u Obicnog <i class="glyphicon glyphicon-remove "></i></button>
                          </a></td>
                          </form>
                           <?php endif; ?>
-                            <?php echo form_open("admin/izbrisiKorisnika/".$user->id,'class="bs-example form-horizontal"');?>
+                            <?php echo form_open("admin/izbrisi_korisnika/".$user->id,'class="bs-example form-horizontal"');?>
 
                          <td><a href=""><button  class="btn btn-danger btn-sm">Izbrisi Korisnika <i class="glyphicon glyphicon-trash "></i></button>
                          </a></td>

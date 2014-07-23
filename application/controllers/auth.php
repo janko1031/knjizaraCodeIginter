@@ -65,7 +65,7 @@ function prikaziKatalogGuest() {
 
 
         $this->load->view('template_guest', array(
-            "folder" => "app",
+            "folder" => "user",
             "page" => "katalog",
             "knjige" => $this->knjiga_model->vrati_podatke_za_katalog($config["per_page"], $page),
             "title" => "Katalog knjiga",

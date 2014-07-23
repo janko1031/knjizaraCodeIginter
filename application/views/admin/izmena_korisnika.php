@@ -6,7 +6,7 @@
 
 
             <?php foreach ($editUser as $us ): ?>
-            <?php echo form_open("admin/edit_user/".$us->id,'class="bs-example form-horizontal"');?>
+            <?php echo form_open("admin/izmeni_korisnika/".$us->id,'class="bs-example form-horizontal"');?>
             <fieldset> 
             
                 <legend>Izmena korisnika: <?php echo $us->username  ?> </legend>

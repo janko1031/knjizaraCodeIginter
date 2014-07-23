@@ -85,29 +85,27 @@
             <p class="list-group-item-text"> </p>
           </a>
 
-<a  class="list-group-item">
+<a  class="list-group-item" href="<?php echo base_url('katalog/konverzija/'.$knjiga->id_knjige); ?>">
            
-            <?php echo form_open("user/konverzija",'class="bs-example form-horizontal"');?>
+     
               <div class="col-md-4">
 
             </div>
 
-            <button class="btn btn-info btn-sm " type="submit" id="konvertuj">
+            <button class="btn btn-info btn-sm " id="konvertuj">
               Konvertuj cenu u <i class=" glyphicon glyphicon-euro">       </i> </button>
-              <?php echo form_close();?> 
+             
             </a>
 
-          <a  class="list-group-item">
+          <a  class="list-group-item" id="dodajLink" href="<?php echo base_url('korpa/ubaci_uKorpu/'.$knjiga->id_knjige); ?>">
             <div class="col-md-4">
 
             </div>
 
 
-            <?php echo form_open("user/ubaciUKorpu",'class="bs-example form-horizontal"');?>
-            <input type="hidden" name="id_knjige" id="id_knjige" value="<?php echo $knjiga->id_knjige?>">
-            <button class="btn btn-success " type="submit" id="submit">
+       
+            <button class="btn btn-success "     id="submit">
               Ubaci u korpu <i class="glyphicon glyphicon-shopping-cart"></i></button>
-              <?php echo form_close();?> 
             </a>
             <a  id="success" class="list-group-item" style="display:none">
               <div class="alert alert-dismissable alert-success">
@@ -132,7 +130,7 @@
         </div>
         <?php foreach ($slicne as $slicna) { ?> 
         <div class="col-sm-2 col-xs-6">
-          <a href="<?php echo base_url('user/prikazi_knjigu/'.$slicna->id_knjige); ?>">
+          <a href="<?php echo base_url('knjiga/prikazi_knjigu/'.$slicna->id_knjige); ?>">
            <img class="img-responsive" src="<?php echo base_url('assets/img/knjige/'.$slicna->img_name); ?>">
          </a>
        </div>
@@ -209,7 +207,7 @@
     <?php if (!$ocenjena) {?>
     
 
-    <?php echo form_open("user/napisi_recenziju",'class="bs-example form-horizontal"');?>
+    <?php echo form_open("knjiga/napisi_recenziju",'class="bs-example form-horizontal"');?>
 
     <div class="form-group">
       <label for="textArea"  class="col-lg-2 control-label">Tekst recenzije</label>
@@ -246,7 +244,7 @@
    <?php } ?>
 
    <?php if ($ocenjena) {?>
-   <?php echo form_open("user/izbrisi_recenziju",'class="bs-example form-horizontal"');?>
+   <?php echo form_open("knjiga/izbrisi_recenziju",'class="bs-example form-horizontal"');?>
    <div class="alert alert-dismissable alert-danger">
     <button type="button" class="close" data-dismiss="alert">×</button>
     Mozete <strong>samo jednom</strong>  oceniti knjigu.
@@ -267,8 +265,7 @@
 
 
 
-   $('#submit').click(function() {
-
+  $('#submit').click(function() {
   //var title = $('#title').val();
     $('#success').hide();
   var form_data = {
@@ -277,7 +274,10 @@
 
   }
   $.ajax({
-    url: "<?php echo site_url('user/ubaciUKorpu'); ?>",
+   
+  
+    url: "<?php echo site_url('korpa/ubaci_uKorpu/'.$knjiga->id_knjige)?>",
+
     type: 'POST',
     data: form_data,
     success: function(responseText) {
@@ -296,7 +296,6 @@
   return false;
   });
 
-
 $('#konvertuj').click(function() {
 
   //var title = $('#title').val();
@@ -307,7 +306,7 @@ $('#konvertuj').click(function() {
 
   }
   $.ajax({
-    url: "<?php echo site_url('user/konverzija'); ?>",
+    url: "<?php echo site_url('katalog/konverzija/'.$knjiga->id_knjige); ?>",
     type: 'POST',
     data: form_data,
     success: function(responseText) {

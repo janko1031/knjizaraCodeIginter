@@ -78,7 +78,7 @@
                             <td><td>
                                     <div class="col-md-3">
                                     </div>
-                                    <a href="<?php echo site_url('admin/odobriPorudzbinu/' . $id_porudzbine); ?>" >
+                                    <a href="<?php echo site_url('admin/odobri_porudzbinu/' . $id_porudzbine); ?>" >
                                         <button class="btn btn-success btn-md">
                                             Odobri    <i class="glyphicon glyphicon-check"></i></button></a>
 

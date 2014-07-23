@@ -24,9 +24,9 @@ class Korpa_model extends CI_Model {
 
     
 
-    function dodajUKorpu($user_id) {
+    function dodajUKorpu($user_id,$id_knjige) {
         $this->load->library('form_validation');
-        $id_knjige = $this->input->post('id_knjige');
+        //$id_knjige = $this->input->post('id_knjige');
         $data = array(
             'user_id' => $user_id,
             'knjiga_id' => $id_knjige,
@@ -37,8 +37,6 @@ class Korpa_model extends CI_Model {
         $this->load->model('knjiga_model');
         $this->knjiga_model->smanjiKolicinu($id_knjige);
 
-
-        //redirect('user/prikaziKatalog', 'refresh');        
     }
 
     function izbaciIzKorpe($user_id) {
@@ -56,9 +54,7 @@ class Korpa_model extends CI_Model {
         $this->load->model('knjiga_model');
         $this->knjiga_model->povecajKolicinu($id_knjige);
 
-
-        redirect('user/prikaziKorpu', 'refresh');
-    }
+}
 
     function promeniStatusKnjige($user_id) {
         $data = array(

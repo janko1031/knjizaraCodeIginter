@@ -6,7 +6,7 @@
 
 
 
-            <?php echo form_open("admin/new_user",'class="bs-example form-horizontal"');?>
+            <?php echo form_open("admin/unesi_korisnika",'class="bs-example form-horizontal"');?>
             <fieldset>
                 <legend>Unos novog korisnika </legend>
                 <div class="form-group">

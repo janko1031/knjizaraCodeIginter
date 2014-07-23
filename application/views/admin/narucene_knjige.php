@@ -40,13 +40,13 @@
 
 
                                     <input type="hidden" name="user_id" value="<?php echo $porudzbina->user_id ?>">
-                                    <a href="<?php echo site_url('admin/odobriPorudzbinu/' . $porudzbina->id_porudzbine); ?>" >
+                                    <a href="<?php echo site_url('admin/odobri_porudzbinu/' . $porudzbina->id_porudzbine); ?>" >
                                         <button class="btn btn-success btn-sm">
                                             Odobri    <i class="glyphicon glyphicon-check"></i></button></a>
 
                                 </td>
 
-                                <td><a href="<?php echo site_url('admin/prikaziPorudzbinu/' . $porudzbina->id_porudzbine); ?>" >
+                                <td><a href="<?php echo site_url('admin/prikazi_porudzbinu/' . $porudzbina->id_porudzbine); ?>" >
                                         <button class="btn btn-info btn-sm">
                                             Prikazi detalje porudzbine    <i class="glyphicon glyphicon-tasks"></i></button></a></td>
                             </tr>

@@ -64,48 +64,6 @@ function vratiKorisnika($id)
     return $cena;
 
 }
-function dodajUKorpu($user_id)
-{
-    $this->load->library('form_validation');
-    $id_knjige = $this->input->post('id_knjige');
-    $data = array(
-      'user_id' => $user_id ,
-      'knjiga_id' => $id_knjige ,
-
-      );
-
-    $this->db->insert('korpa', $data);
-
-    $this->load->model('knjiga_model');
-    $this->knjiga_model->smanjiKolicinu($id_knjige);  
-
-
-    redirect('user/prikaziKatalog', 'refresh');        
-
-
-}
-
-function izbaciIzKorpe($user_id)
-{
-    $this->load->library('form_validation');
-    $knjiga = $this->input->post('id_knjige');
-    $data = array(
-      'user_id' => $user_id ,
-      'knjiga_id' => $knjiga ,
-
-      );
-    $this->db->where($data);
-    $this->db->limit(1);
-    $this->db->delete('korpa'); 
-
-    $this->load->model('knjiga_model');
-    $this->knjiga_model->povecajKolicinu($id_knjige);  
-
-
-    redirect('user/prikaziKorpu', 'refresh');        
-
-
-}
 
 public function proveriEmail(){
     $this->load->library('form_validation');

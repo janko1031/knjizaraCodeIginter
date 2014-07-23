@@ -8,11 +8,11 @@
 
                             <li name="top" class="nav-header">Glavni meni</li> 
                             <li name="pocetna"><a href="<?php echo site_url('auth/index'); ?>" > <i class="glyphicon glyphicon-home "></i> Početna </a></li>
-                            <li name="katalog"><a href="<?php echo site_url('user/prikaziKatalog'); ?>">Katalog knjiga <i class="glyphicon glyphicon-book pull-right"></i></a></li>
-                            <li name="korpa"><a href="<?php echo site_url('user/prikaziKorpu'); ?>">Moja korpa <i class="glyphicon glyphicon-shopping-cart pull-right"> </i>
+                            <li name="katalog"><a href="<?php echo site_url('user/prikazi_katalog'); ?>">Katalog knjiga <i class="glyphicon glyphicon-book pull-right"></i></a></li>
+                            <li name="korpa"><a href="<?php echo site_url('korpa/prikazi_korpu'); ?>">Moja korpa <i class="glyphicon glyphicon-shopping-cart pull-right"> </i>
                             </a></li>
                                 </a></li>
-                              <li name="MojeKnjige"><a href="<?php echo site_url('user/prikaziKupovineKorisnika'); ?>">Moja naručivanja
+                              <li name="MojeKnjige"><a href="<?php echo site_url('kupovina/prikazi_kupovineKorisnika'); ?>">Moja naručivanja
                                <i class="glyphicon glyphicon-list-alt pull-right"> </i>
                             </a></li>
           
@@ -24,8 +24,8 @@
                                     <i class="glyphicon glyphicon-plus pull-right"></i></a></li> 
                                     <li name="top" class="nav-header ">Adminsitracija</li>
                                     <li name=""><a href="<?php echo base_url('admin/prikazi_sveKorisnike'); ?>">Administracija korisnika <i class="glyphicon glyphicon-user pull-right"></i></a></li>
-                                    <li name="porudzbine"><a href="<?php echo base_url('admin/prikazi_Porudzbine'); ?>">Adminstracija proudžbina <i class="glyphicon glyphicon-list-alt pull-right"></i></a></li>
-                                    <li name="statistike"><a href="<?php echo base_url('user/prikaziStatistiku'); ?>">Statistike prodaje <i class="glyphicon glyphicon-stats pull-right"></i></a></li>
+                                    <li name="porudzbine"><a href="<?php echo base_url('admin/prikazi_porudzbine'); ?>">Adminstracija proudžbina <i class="glyphicon glyphicon-list-alt pull-right"></i></a></li>
+                                    <li name="statistike"><a href="<?php echo base_url('user/prikazi_statistiku'); ?>">Statistike prodaje <i class="glyphicon glyphicon-stats pull-right"></i></a></li>
                                 <?php endif; ?>
                     </ul>
                     </div>
@@ -33,7 +33,7 @@
             <div class="well" >
             <legend ><a href="">  <i class="glyphicon glyphicon-sort-by-attributes-alt"></i> Filtiranje kataloga </a></legend>
 
-                <?php echo form_open_multipart("user/prikaziCenu", 'class="bs-example form-horizontal"'); ?>
+                <?php echo form_open_multipart("katalog/filtriraj_poCeni", 'class="bs-example form-horizontal"'); ?>
                 <h4>Po ceni</h4>
 
                 <div class="row">
@@ -65,7 +65,7 @@
                 <?php echo form_close(); ?> </td>
 
                 <hr>
-                <?php echo form_open_multipart("user/prikaziPoZanru", 'class="bs-example form-horizontal"'); ?>
+                <?php echo form_open_multipart("katalog/prikazi_poZanru", 'class="bs-example form-horizontal"'); ?>
 
                 <h4>Po žanru</h4>
 
@@ -100,7 +100,7 @@
                 
                 <?php echo form_close(); ?> </td>
                 <hr>
-                <?php echo form_open_multipart("user/prikaziKatalogValuta", 'class="bs-example form-horizontal"'); ?>
+                <?php echo form_open_multipart("katalog/prikazi_katalogValute", 'class="bs-example form-horizontal"'); ?>
                 <h4>Po valuti</h4>
 
                 <div class="row">

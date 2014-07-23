@@ -14,7 +14,7 @@
 </div>
    <div class=" col-md-5 ">
 
-         <?php echo form_open_multipart("user/prikaziRezultatePretrage",'class="navbar-form"');?>
+         <?php echo form_open_multipart("katalog/prikazi_rezultatePretrage",'class="navbar-form"');?>
        
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Unesite pojam za pretragu" name="poljePretrage" id="poljePretrage">
@@ -30,12 +30,12 @@
        
               <ul class="dropdown-menu">
           
-           <li><a href="<?php echo site_url('user/prikaziKorpu'); ?>">Proizvoda u korpi: 
+           <li><a href="<?php echo site_url('korpa/prikazi_korpu'); ?>">Proizvoda u korpi: 
            <i class="glyphicon glyphicon-shopping-cart "></i>  <span id="brojKorpa" class="badge"><?php echo $broj ?></span></a></li>
          
           
           <li class="divider"></li>
-           <li name="Moje knjige"><a href="<?php echo site_url('user/prikaziKupovineKorisnika'); ?>">Moja naručivanja
+           <li name="Moje knjige"><a href="<?php echo site_url('kupovina/prikazi_kupovineKorisnika'); ?>">Moja naručivanja
                                <i class="glyphicon glyphicon-list-alt "> </i>
                             </a></li>
         </ul>
