@@ -13,7 +13,7 @@ class Katalog extends User_Secure_Controller {
         $this->load->model('knjiga_model');
         $this->load->library('pagination');
 
-        $config['base_url'] = base_url() . "user/prikaziKatalog/";
+        $config['base_url'] = base_url() . "katalog/prikazi_katalog/";
         $config['total_rows'] = $this->knjiga_model->broj_rezultata();
         $config['per_page'] = 8;
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;

@@ -41,12 +41,12 @@
       <div class="col-md-3 portfolio-item">
         <div class="well">
 
-          <a href="<?php echo base_url('user/prikazi_knjigu/'.$knjiga->id_knjige); ?>">
+          <a href="<?php echo base_url('knjiga/prikazi_knjigu/'.$knjiga->id_knjige); ?>">
             <img class="img-responsive" width="188" height="420" src=<?php echo base_url('assets/img/knjige/'.$knjiga->img_name); ?>>
           </a>
 
           <h5>
-            <a href="<?php echo base_url('user/prikazi_knjigu/'.$knjiga->id_knjige); ?>">
+            <a href="<?php echo base_url('knjiga/prikazi_knjigu/'.$knjiga->id_knjige); ?>">
               <?php echo $knjiga->naziv ?>
             </a>
           </h5>

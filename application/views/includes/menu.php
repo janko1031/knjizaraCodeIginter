@@ -2,12 +2,18 @@
  <div class="row">
 
   <div class="col-md-3">
-        <div class="well sidebar-nav">
-                        <ul class="nav nav-list" id="sidebar-nav">
+
+              <div class="well sidebar-nav">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-responsive-collapse">
+              <a>  <span class="glyphicon glyphicon-align-justify"></span></a>
+          
+            </button>
+               <a> <h4>Glavni meni</h4></a> 
+                        <ul class="nav nav-list nav-collapse  nav-responsive-collapse" id="sidebar-nav">
                            <?php if ($this->ion_auth->logged_in() ){ ?>
           
                             
-                            <li name="top" class="nav-header">Glavni meni</li> 
+                        
                             <li name="pocetna"><a href="<?php echo site_url('auth/index'); ?>" > <i class="glyphicon glyphicon-home "></i> Početna </a></li>
                             <li name="katalog"><a href="<?php echo site_url('katalog/prikazi_katalog'); ?>">Katalog knjiga <i class="glyphicon glyphicon-book pull-right"></i></a></li>
                             <li name="korpa"><a href="<?php echo site_url('korpa/prikazi_korpu'); ?>">Moja korpa <i class="glyphicon glyphicon-shopping-cart pull-right"> </i>
@@ -35,5 +41,5 @@
                                 <?php endif; ?>
                     </ul>
                     </div>
-     
+
       </div>

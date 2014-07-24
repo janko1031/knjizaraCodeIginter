@@ -20,7 +20,7 @@ class Korpa extends User_Secure_Controller {
             "page" => "korpa",
             'user' => $this->user,
             "prazna" => $this->korpa_model->isEmpty($this->user->id),
-            "title" => "Korpa",
+            "title" => "Korpa korsnika",
             "knjige" => $this->user_model->vrati_knjigeKorisnika($this->user->id),
             "broj" => $this->broj,
             "cena" => $this->user_model->vrati_UkCenu($this->user->id),

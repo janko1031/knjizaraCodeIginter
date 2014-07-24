@@ -111,42 +111,6 @@ class Admin extends User_Secure_Controller {
             ));
     }
 
-    function uploaduj_sliku() {
-        $config['upload_path'] = './assets/img/knjige/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size'] = '1024';
-        $config['max_width'] = '1440';
-        $config['max_height'] = '1000';
-
-        $this->load->library('upload', $config);
-
-        if (!$this->upload->do_upload()) {
-            $data = array('data' => $this->upload->display_errors());
-
-            $this->load->view('user/prikaziKatalog', $data);
-        } else {
-
-
-            //$this->upload->display_errors() je niz pravimo jos jedan niz $data
-            //koji ima jedan clan, a taj clan je niz.
-
-            $id_knjige = "1";
-            $data = array('data' => $this->upload->data()); // prva opcija dva foreacha
-            foreach ($data as $array) {
-
-                $img_name = $array['file_name'];
-            }
-            /* $data1= $this->upload->data();  // opcija DVA
-
-            $img = $data1['file_name']; */
-
-            $this->db->set('img_name', $img_name);
-            $this->db->set('knjiga_id', $id_knjige);
-            $this->db->insert('slike');
-
-            $this->load->view('user/prikaziKatalog', $data);
-        }
-    }
 
     function prikazi_unosKnjige() {
         $this->load->view('template', array(
@@ -163,7 +127,7 @@ class Admin extends User_Secure_Controller {
         $this->load->model('knjiga_model');
         $this->knjiga_model->dodajknjigu();
         $this->knjiga_model->dodajSliku();
-        redirect('user/prikazi_katalog', 'refresh');
+       
     }
 
     function prikazi_porudzbine() {

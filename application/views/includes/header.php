@@ -11,6 +11,7 @@
         <link href="<?php echo base_url('assets/css/bootstrap-responsive.css'); ?>" rel="stylesheet">
         <link href="<?php echo base_url('assets/css/login.css'); ?>" rel="stylesheet">
          <link href="<?php echo base_url('assets/css/shop-item.css'); ?>" rel="stylesheet">
+
             <script type="text/javascript"  src="<?php echo base_url('assets/js/jquery-1.10.2.js"'); ?>"></script>
   <title><?php echo $title?> </title>
   

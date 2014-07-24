@@ -77,8 +77,9 @@ class Knjiga_model extends CI_Model {
 
     function dodajSliku() {
 
-        $naziv = $this->input->post('naziv');
-        $query = $this->db->get_where('knjige', array('naziv' => $naziv), 1)->result();
+      $id= $this->db->insert_id();
+
+        $query = $this->db->get_where('knjige', array('id_knjige' => $id))->result();
         foreach ($query as $row) {
             $id_knjige = $row->id_knjige;
         }
@@ -92,9 +93,16 @@ class Knjiga_model extends CI_Model {
         $this->load->library('upload', $config);
 
         if (!$this->upload->do_upload()) {
-            $data = array('data' => $this->upload->display_errors());
+            $data = array('data' => $this->upload->display_errors());            
 
-            $this->load->view('admin/uspesan_upload_slike', $data);
+            $this->load->view('template', array(
+            "folder" => "admin",
+            "page" => "unos_knjige",
+            "broj" => 123,
+            "user" => $this->ion_auth->user()->row(),
+            "title" => "Unos nove knjige",
+             "data" =>$data,
+            ));
         } else {
 
             //$this->upload->display_errors() je niz pravimo jos jedan niz $data
@@ -113,8 +121,8 @@ class Knjiga_model extends CI_Model {
             $this->db->set('img_name', $img_name);
             $this->db->set('knjiga_id', $id_knjige);
             $this->db->insert('slike');
+            redirect('katalog/prikazi_katalog', 'refresh');
 
-            $this->load->view('admin/uspesan_upload_slike', $data);
         }
     }
 

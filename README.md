@@ -1,7 +1,3 @@
 knjizaraIteh
 ============
-
-knjizara
-1
-cao1
-cao2
+E-Knjizara u CodeIgniteru
