@@ -143,9 +143,6 @@
         fileSelect.addEventListener("click", function(e) {
             if (fileElem) {
                 fileElem.click();
-
-
-
             }
             e.preventDefault(); // prevent navigation to "#"
         }, false);
@@ -154,6 +151,7 @@
             if (!files.length) {
                 fileList.innerHTML = "<p>Niste selektovali sliku!</p>";
             } else {
+                for (var i = 0; i < files.length; i++) {
                 var list = document.createElement("ul");
                     var li = document.createElement("li");
                     list.appendChild(li);
@@ -176,11 +174,11 @@
                     document.getElementById("poruka").style.display = "block";
 
 
-
+}
                 fileList.appendChild(list);
                 //      fileSelect.removeEventListener("click", function(e));
 
-                ;
+                
             }
         }
         function dragenter(e) {
